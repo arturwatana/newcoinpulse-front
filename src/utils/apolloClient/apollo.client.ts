@@ -11,7 +11,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem("user_token");
+  const token = localStorage.getItem("coinpulse_user_token");
   return {
     headers: {
       ...headers,

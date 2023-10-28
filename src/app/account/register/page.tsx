@@ -33,7 +33,6 @@ export default function Register(){
             return
         }
         if(data){
-            console.log(data)
             toast.success("Usuario cadastrado com sucesso")
             router.push("/account/login")
         }

@@ -4,10 +4,14 @@ import {BiDownArrowAlt} from "react-icons/bi"
 
 interface NavBarProps{
     logged?: boolean
+    userProps?: {
+        username: string
+        email: string
+    }
 }
 
-export default function NavBar({logged}: NavBarProps){
-  
+export default function NavBar({logged, userProps}: NavBarProps){
+
     return (
         <Flex w="100%" h="10%" position={"fixed"} alignItems={"center"} justifyContent={"center"} bgColor={"rgba(48,48,48,0.6)"} backdropFilter='auto' backdropBlur='8px' zIndex={"20"}>
             <Flex w="80%" justifyContent={"space-between"} alignItems={"center"}>
@@ -24,8 +28,8 @@ export default function NavBar({logged}: NavBarProps){
                         <MenuButton display={"flex"} p={'15px'} border={"1px solid white"} rounded={"1.0em"} textColor={"white"} >
                             <Flex alignItems={"center"} justifyContent={"space-between"} gap="10px">
                                 <Flex flexDir="column" gap="5px" textAlign={"start"}>
-                                <Text>username</Text>
-                                <Text fontSize={"13px"}>emailasdasd@email.com.br</Text>
+                                <Text>{userProps?.username}</Text>
+                                <Text fontSize={"13px"}>{userProps?.email}</Text>
                                 </Flex>
                             <Icon as={BiDownArrowAlt} fontSize={"32px"} />
                             </Flex>
