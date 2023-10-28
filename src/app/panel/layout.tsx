@@ -9,6 +9,10 @@ import { GET_USER } from "@/graphql/query/getUser.query"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 
+export interface IUserData {
+  email: string
+  username: string
+}
 
 export default function RootLayout({
   children,
@@ -17,7 +21,7 @@ export default function RootLayout({
 }) {
 
   const [logged, setIsLogged] = useState(false)
-  const [userData, setUserData] = useState({
+  const [userData, setUserData] = useState<IUserData>({
     username: "",
     email: ""
   })
@@ -50,7 +54,7 @@ export default function RootLayout({
 ) : (
           <>
             <AuthProvider>
-            <NavBar logged={logged} userProps={userData}/>
+            <NavBar logged={logged} userProps={userData} setUserProps={setUserData}/>
                 <Flex flexDir={"column"} textColor={"gray.200"}  justifyContent={"start"}  h="60%" fontSize={"18px"} left="10%" top="43%" w="10%" position="fixed"  >
                 <chakra.hr border="2px solid white"  />
                 <Text _hover={{borderBottom: "1px solid white"}} minH="2em" as={"a"} href="/panel/" cursor={"pointer"}>Adicionar interesse</Text>

@@ -1,5 +1,8 @@
+"use client"
+import { IUserData } from "@/app/panel/layout"
 import { theme } from "@/app/providers/Providers"
 import {Flex, Button, Heading, Text, Menu, MenuButton, MenuList, MenuItem, Icon, chakra} from "@chakra-ui/react"
+import { useRouter } from "next/navigation"
 import {BiDownArrowAlt} from "react-icons/bi"
 
 interface NavBarProps{
@@ -8,9 +11,16 @@ interface NavBarProps{
         username: string
         email: string
     }
+    setUserProps?: React.Dispatch<React.SetStateAction<IUserData>>
 }
 
 export default function NavBar({logged, userProps}: NavBarProps){
+    const router = useRouter()
+
+    function logoutUser(){
+        localStorage.removeItem("coinpulse_user_token")
+        router.push('/')
+    }
 
     return (
         <Flex w="100%" h="10%" position={"fixed"} alignItems={"center"} justifyContent={"center"} bgColor={"rgba(48,48,48,0.6)"} backdropFilter='auto' backdropBlur='8px' zIndex={"20"}>
@@ -37,7 +47,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                         <MenuList ml="10px"  bg={'#303030'} textColor={"white"} >
                             <MenuItem bg={"#303030"} _hover={{backgroundColor: "#646464"}}>Home</MenuItem>
                             <MenuItem bg={"#303030"} _hover={{backgroundColor: "#646464"}}>Minhas pesquisas</MenuItem>
-                            <MenuItem bg={"#303030"} _hover={{backgroundColor: "#646464"}}>Logout</MenuItem>
+                            <MenuItem bg={"#303030"} _hover={{backgroundColor: "#646464"}} onClick={logoutUser}>Logout</MenuItem>
                         </MenuList>
                     </Menu>
                 )}
