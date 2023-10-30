@@ -70,7 +70,7 @@ export default function Panel(){
                                     <Flex w="100%" h="100%" alignItems={"center"} justifyContent={"center"}>
                                         <Spinner />
                                     </Flex>
-                                ) : interests ? (interests.map((interest: any) => <InterestTracking w="100%" h="100%" code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)) : null}
+                                ) : interests ? (interests.map((interest: any, index) => <InterestTracking w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)) : null}
                             </chakra.ul>
                    </Flex>
                    </Flex>
