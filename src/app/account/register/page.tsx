@@ -49,7 +49,7 @@ export default function Register({props}: any){
 
     return (
 
-            <FormControl  border="2px solid white"   position={"absolute"} textColor={"white"} h={{base:"70%", xl:"60%"}}  justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px" top={{base:"15%", xl:"20%"}} left={{base:"15%", md:"28%",lg:"40%", xl:"40%"}} w={{base:"70%", md:"50%",lg:"30%", xl:"20%"}} py="300px" px={"20px"}>
+            <FormControl  border="2px solid white"    position={"absolute"} textColor={"white"} h={{base:"40%", xl:"60%"}}  justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px" top={{base:"12%", xl:"20%"}} left={{base:"15%", md:"28%",lg:"40%", xl:"40%"}} w={{base:"70%", md:"50%",lg:"30%", xl:"20%"}} py="300px" px={"20px"}>
             <chakra.form onSubmit={handleSubmit} display={"flex"} flexDir={"column"} justifyContent={"center"} alignItems={"center"} h="65%" w="80%" border="black" gap="15px" >
                 <Heading fontSize={"29.12px"}>Registre-se</Heading>
                 <Flex flexDir={"column"} w="100%" textAlign={"center"} gap="5px">

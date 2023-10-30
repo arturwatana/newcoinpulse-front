@@ -8,7 +8,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-        <chakra.main w="100vw" h={{base:"100vh", lg:"100vh"}} minH="100vh" overflow={"hidden"} flexDir={{base:"column",lg:"row"}} position={"relative"} display={"flex"}>
+        <chakra.main w="100vw" minH="100vh" h={{base:"100%", lg:"100vh"}}overflow={"hidden"} flexDir={{base:"column",lg:"row"}} position={"relative"} display={"flex"}>
             <BackPageBtn/>
             <Flex  w={{base:"100%", lg:"60%"}} h={{base:"100vh"}} flexDir={"column"} justifyContent={"center"}  alignItems={"center"} textColor={"white"} py="80px">
             <Icon display={{base:"none", lg:"block"}} viewBox="0 0 974.75537 674.09487" w="100%" h={{base:"30%",lg:"50%" }}top="40%" right="28%" position={"absolute"}  >
