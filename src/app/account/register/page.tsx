@@ -4,14 +4,16 @@ import {theme} from "../../providers/Providers"
 import BackPageBtn from "../../components/BackPageBtn"
 import { useMutation } from "@apollo/client"
 import { CREATE_USER } from "@/graphql/mutations/createUser.mutation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
-export default function Register(){ 
+
+export default function Register({props}: any){ 
 
     const [addUser, {data, loading, error }] = useMutation(CREATE_USER)
     const router = useRouter()
+  const [userEmail, setUserEmail] = useState<string>("")
     
     const handleSubmit = (e:any) => {
         e.preventDefault()
@@ -38,6 +40,13 @@ export default function Register(){
         }
     }, [data, error])
 
+    useEffect(() => {
+        const email = localStorage.getItem("coinpulse_entry_user_email")
+        if(email){
+            setUserEmail(email)
+        }
+    }, [])
+
     return (
 
             <FormControl  border="2px solid white"   position={"absolute"} textColor={"white"} h="65%"  justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="60px" top="15%" left="40%" w="20%" py="10px" px="20px">
@@ -47,7 +56,7 @@ export default function Register(){
                    <FormLabel w="100%" textAlign={"center"} >Nome:</FormLabel>
                   <Input name="name"  id="name" type='text' placeholder="Your cool name" />
                    <FormLabel  w="100%" textAlign={"center"} >Email:</FormLabel>
-                  <Input name="email" id="email" type='email' placeholder="coinpulse@joinus.com" />
+                  <Input name="email" id="email" value={userEmail.length > 0 ? userEmail : ""} type='email' placeholder="coinpulse@joinus.com" />
                    <FormLabel  w="100%" textAlign={"center"} >Senha:</FormLabel>
                   <Input  name="password" id="password" type='password' placeholder="*********" />
                 </Flex>

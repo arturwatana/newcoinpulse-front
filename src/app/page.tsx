@@ -4,9 +4,17 @@ import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Inp
 import {HiOutlineSwitchHorizontal} from "react-icons/hi"
 import { theme } from "./providers/Providers"
 import SearchCurrency from "./components/SearchCurrency"
-
+import { useRouter } from "next/navigation"
+import {useState} from "react"
+import Link from "next/link"
 export default function Home() {
+  const [userEmail, setUserEmail] = useState<string>("")
+  const router = useRouter()
 
+  function sendEmail(){
+    localStorage.setItem("coinpulse_entry_user_email", userEmail)
+    router.push("/account/register")
+  }
 
   return (
     <chakra.main className="main" position={"relative"} display={"flex"} flexDir={"column"} alignItems={"center"} gap="20px" >
@@ -24,10 +32,10 @@ export default function Home() {
           <FormControl  w="100%" textColor={"white"} flexDir={"row"} display={"flex"} alignItems={"center"} gap="15px">
             <Flex flexDir={"column"} justifyContent={"center"} alignItems={"center"} h="100%" w="50%" fontSize={"18px"} >
                    <FormLabel w="" fontSize={"18px"}  >Digite seu email:</FormLabel>
-                  <Input type='email' fontSize={"18px"}  placeholder="coinpulse@joinus.com" />
+                  <Input type='email' fontSize={"18px"}  placeholder="coinpulse@joinus.com" onChange={((e) => setUserEmail(e.target.value))} />
             <FormHelperText textColor={"white"} fontSize={"18px"} >Nunca compartilharemos seu email.</FormHelperText>
             </Flex>
-            <Button w="15%"  bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} fontSize={"18px"} >Registrar</Button>
+            <Button w="15%"  bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} fontSize={"18px"} onClick={sendEmail}>Registrar</Button>
           </FormControl>
         </Flex>
         <Flex  w="50%" justifyContent={"center"} alignItems={"end"} flexDir={"column"} >
