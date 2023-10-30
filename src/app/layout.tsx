@@ -22,8 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={"main"}>
-
+      <body className={"main"} >
         <Providers>
         {children}
         </Providers>

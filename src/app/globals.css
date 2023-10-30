@@ -5,7 +5,12 @@
   font-size: 18px;
 }
 
-
+body {
+  background-color: #303030;
+  background: url("../assets/scattered-forcefields.svg");
+  background-size: cover;
+  overflow-x: hidden;
+}
 
 .main{
   background-color: #303030;

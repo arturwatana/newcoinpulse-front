@@ -16,7 +16,7 @@ export default function Login(){
         addUser({
             variables: {
                 data: {
-                    username: e.target.username.value,
+                    email: e.target.email.value,
                     password: e.target.password.value
                 }
             
@@ -41,8 +41,8 @@ export default function Login(){
                 <chakra.form onSubmit={handleSubmit} display={"flex"} flexDir={"column"} justifyContent={"space-evenly"} alignItems={"center"} w="80%" border="black" gap="20px" >
                 <Heading fontSize={"29.12px"}>Login</Heading>
                 <Flex flexDir={"column"} justifyContent={"center"} alignItems={"center"}  h="50%" w="80%"  gap="10px" >
-                   <FormLabel w="" >Username:</FormLabel>
-                  <Input type='text' name="username" id="username" placeholder="coinpulse@joinus.com" />
+                   <FormLabel w="" >Email:</FormLabel>
+                  <Input type='email' name="email" id="email" placeholder="coinpulse@joinus.com" />
                    <FormLabel w="" >Senha:</FormLabel>
                   <Input type='password' name="password" id="password" placeholder="*********" />
                   </Flex>

@@ -3,6 +3,7 @@ import NavBar from "@/app/components/Navbar"
 import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Select } from "@chakra-ui/react"
 import {HiOutlineSwitchHorizontal} from "react-icons/hi"
 import { theme } from "./providers/Providers"
+import SearchCurrency from "./components/SearchCurrency"
 
 export default function Home() {
 
@@ -31,28 +32,7 @@ export default function Home() {
         </Flex>
         <Flex  w="50%" justifyContent={"center"} alignItems={"end"} flexDir={"column"} >
           <Flex flexDir={"column"} justifyContent={"center"} w="70%" alignItems={"center"} textColor={"white"} gap="30px" border="1px solid white" p="30px" rounded="20px"  shadow={"2px 2px 3px #f0f0f0"}  >
-            <Heading fontSize={"29.12px"}>Playground</Heading>
-            <FormControl  w="60%" textColor={"white"} flexDir={"row"} display={"flex"} alignItems={"center"} gap="15px">
-                  <Select>
-                    <chakra.option value="" textColor="black">USD</chakra.option>
-                    <chakra.option value="" textColor="black">BRL</chakra.option>
-                    <chakra.option value="" textColor="black">GBP</chakra.option>
-                  </Select>
-                  <Icon as={HiOutlineSwitchHorizontal} cursor={"pointer"} fontSize={"20px"}/>
-                  <Select>
-                    <chakra.option value="" textColor="black" >USD</chakra.option>
-                    <chakra.option value="" textColor="black">BRL</chakra.option>
-                    <chakra.option value="" textColor="black">GBP</chakra.option>
-                  </Select>
-            <Button w="100%" bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} >Consultar</Button>
-          </FormControl>
-            <Flex border="1px solid white" flexDir={"column"} p="10px" rounded={"10px"} bg="gray.50" textColor={"black"} shadow={"2px 2px 3px #f0f0f0"} fontStyle={"bold"}>
-                <Text>Conversao: USD/BRL</Text>
-                <Text>Nome: Dólar Americano/Real Brasileiro</Text>
-                <Text>Alta: <chakra.span textColor={"green.400"}>R$5,00</chakra.span></Text>
-                <Text>Baixa: <chakra.span textColor={"red.400"}>R$4,50</chakra.span></Text>
-                <Text>Data da consulta: Fri Oct 27 2023</Text>
-            </Flex>
+          <SearchCurrency name="Playground" w="100%" resultH="100%"/>
 
         </Flex>
 

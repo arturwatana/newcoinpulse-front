@@ -2,9 +2,9 @@ import { gql } from "@apollo/client";
 
 
 export const GET_USER = gql`
-query getUserIdByToken {
-    getUserIdByToken {
-        username
+query getUserByToken {
+  getUserByToken {
+        fullName
         email
   }
 }

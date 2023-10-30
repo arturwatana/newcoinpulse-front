@@ -18,7 +18,7 @@ export default function Register(){
         addUser({
             variables: {
                 data: {
-                    username: e.target.username.value,
+                    fullName: e.target.name.value,
                     email: e.target.email.value,    
                     password: e.target.password.value
                 }
@@ -44,10 +44,10 @@ export default function Register(){
             <chakra.form onSubmit={handleSubmit} display={"flex"} flexDir={"column"} justifyContent={"center"} alignItems={"center"} h="65%" w="80%" border="black" gap="15px" >
                 <Heading fontSize={"29.12px"}>Registre-se</Heading>
                 <Flex flexDir={"column"} w="100%" textAlign={"center"} gap="5px">
-                   <FormLabel w="100%" textAlign={"center"} >Email:</FormLabel>
-                  <Input name="email"  id="email" type='email' placeholder="coinpulse@joinus.com" />
-                   <FormLabel  w="100%" textAlign={"center"} >Username:</FormLabel>
-                  <Input name="username" id="username" type='text' placeholder="yourcoolusername" />
+                   <FormLabel w="100%" textAlign={"center"} >Nome:</FormLabel>
+                  <Input name="name"  id="name" type='text' placeholder="Your cool name" />
+                   <FormLabel  w="100%" textAlign={"center"} >Email:</FormLabel>
+                  <Input name="email" id="email" type='email' placeholder="coinpulse@joinus.com" />
                    <FormLabel  w="100%" textAlign={"center"} >Senha:</FormLabel>
                   <Input  name="password" id="password" type='password' placeholder="*********" />
                 </Flex>

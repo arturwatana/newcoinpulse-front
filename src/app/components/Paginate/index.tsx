@@ -4,12 +4,15 @@ import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BiArrowToLeft, BiArrowToRight } from "react-icons/bi";
 import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Select, Box, HStack } from "@chakra-ui/react"
+import InterestTracking from "../InterestTracking";
+import { theme } from "@/app/providers/Providers";
 
 type PaginateProps = {
   elements: any[];
   filterByName: string;
   categories?: string[]
   qtdPerPage: number
+  typePaginate: "search" | "interest"
 };
 export type CurrencyType = {
     code: string;
@@ -39,7 +42,7 @@ export type CurrencyType = {
   
 
 
-export default function Paginate({ elements, filterByName, categories, qtdPerPage }: PaginateProps) {
+export default function Paginate({ elements, filterByName, categories, qtdPerPage, typePaginate }: PaginateProps) {
   const [paginateProps, setPaginateProps] = useState({
     page: 1,
     qtdPerPage: 12,
@@ -89,14 +92,14 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
   }
 
 
-  function renderFilteredCurrencies(elementsToShow: CurrencyTypeRes[]) {
+  function renderFilteredCurrencies(elementsToShow: any[]) {
     const lastElement = paginateProps.page * paginateProps.qtdPerPage;
     const firstElement =
       paginateProps.page * paginateProps.qtdPerPage - qtdPerPage;
 
       if(filterByName != "Todas"){
         const filteredElements = elementsToShow.filter(element => {
-          const filterElementName = `${element.from}/${element.to}`
+          const filterElementName = typePaginate === "interest" ?  `${element.code}/${element.codein}` : `${element.from}/${element.to}`
           if(filterElementName === filterByName){
             return element
           }
@@ -104,52 +107,60 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
           })
         return filteredElements.map((element, index) => {
           if (index >= firstElement && index + 1 <= lastElement) {
+            if(typePaginate === "search"){
+              return (
+                <Search    height="100%" width="23%" currency={element} key={ `element${index}`}/>
+                );
+
+            }
             return (
-            //   <Search
-            //   from={element.from}
-            //   to={element.to}
-            //     setDeleteSearchId={setDeleteSearchId}
-            //     id={element.id}
-            //     code={element.code}
-            //     create_date={element.create_date}
-            //     high={element.high}
-            //     low={element.low}
-            //     name={element.name}
-            //     index={index}
-            //     key={ `element${index}`}
-            //   />
-            <Search key={ `element${index}`}/>
-            );
+              <InterestTracking key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
+            )
+          
           }
         });
       }
 
     return elementsToShow.map((element, index) => {
       if (index >= firstElement && index + 1 <= lastElement) {
-        return (
-        //   <Search
-        //   from={element.from}
-        //   to={element.to}
-        //     setDeleteSearchId={setDeleteSearchId}
-        //     id={element.id}
-        //     code={element.code}
-        //     create_date={element.create_date}
-        //     high={element.high}
-        //     low={element.low}
-        //     name={element.name}
-        //     index={index}
-        //     key={ `element${index}`}
+        if(typePaginate === "search"){
+          return (
+            <Search  height="100%" width="23%"currency={element} key={ `element${index}`}/>
+            );
 
-        //   />
-        <Search key={ `element${index}`}/>
-        );
+        }
+        return (
+          <InterestTracking key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
+        )
       }
     });
   }
 
   return (
-        <Flex  flexDir="column" w="full" gap={5} justifyContent={"space-between"} pt="15px">
-             <Flex justifyContent={"start"} alignItems={"center"} gap={5} wrap={"wrap"} px="100px" pl="120px" >
+    <Flex  flexDir="column" h="100%" minH="38em" w="full" gap={5} justifyContent={"space-between"}  >
+          <Flex justifyContent={"start"} flexDir={typePaginate === "search" ? "row" : "column"} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={5} px={typePaginate === "interest" ? "0px" : "100px"} pt={typePaginate === "interest" ? "0px" : "20px"} pl={typePaginate === "interest" ? "0px" : "120px"} >
+              {typePaginate === "interest" ? ( 
+                <chakra.ul bg={theme.colors.brand.primary} w="100%" rounded="6px 6px 0 0" textColor={"gray.800"} fontWeight={"bold"} listStyleType={"none"} display={"flex"} justifyContent={"space-evenly"}  alignItems="center"borderBottom={"1px solid white"} h="2em"> 
+                    <chakra.li minW="16.66%" textAlign={"center"} >
+                        Sigla
+                    </chakra.li>
+                    <chakra.li minW="16.66%" textAlign={"center"} >
+                        Alta
+                    </chakra.li>
+                    <chakra.li minW="16.66%" textAlign={"center"} >
+                        Baixa
+                    </chakra.li>
+                    <chakra.li minW="16.66%" textAlign={"center"} >
+                        Target
+                    </chakra.li>
+                    <chakra.li minW="16.66%" textAlign={"center"} >
+                        Diária
+                    </chakra.li>
+                    <chakra.li minW="16.66%" textAlign={"center"} >
+                        Quinzenal
+                    </chakra.li>
+                </chakra.ul>
+              ) : null}
               {renderFilteredCurrencies(elementsToShow)}
              </Flex>
          <Flex justify="space-around" color="white" >
