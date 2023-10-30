@@ -37,17 +37,17 @@ export default function Login(){
 
     return (
         
-            <FormControl border="2px solid white"   position={"absolute"} textColor={"white"} h="50%"  justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px" top="25%" left="40%" w="20%" p="20px">
+            <FormControl border="2px solid white"   position={"absolute"} textColor={"white"} h={{base:"60%", lg:"50%" }} justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px" top={{base:"20%", lg:"25%"}} left={{base:"15%",md:"25%",lg:"40%"}} w={{base:"70%", md:"50%",lg:"30%", xl:"20%"}} p="20px">
                 <chakra.form onSubmit={handleSubmit} display={"flex"} flexDir={"column"} justifyContent={"space-evenly"} alignItems={"center"} w="80%" border="black" gap="20px" >
                 <Heading fontSize={"29.12px"}>Login</Heading>
-                <Flex flexDir={"column"} justifyContent={"center"} alignItems={"center"}  h="50%" w="80%"  gap="10px" >
+                <Flex flexDir={"column"} justifyContent={"center"} alignItems={"center"}  h="50%" w={{base:"100%",lg:"80%"}}  gap="10px" >
                    <FormLabel w="" >Email:</FormLabel>
                   <Input type='email' name="email" id="email" placeholder="coinpulse@joinus.com" />
                    <FormLabel w="" >Senha:</FormLabel>
                   <Input type='password' name="password" id="password" placeholder="*********" />
                   </Flex>
                   <Button isLoading={loading ? true : false} type="submit" w="55%" minH="2.5em" bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}>{loading ? "loading" : "Login"}</Button>
-                <FormHelperText textColor={"white"}>Ainda nao tem conta? <chakra.a fontStyle={"bold"} href="/account/register" _hover={{borderBottom: "1px solid white"}} >Registre-se</chakra.a></FormHelperText>
+                <FormHelperText textColor={"white"} textAlign={"center"}>Ainda nao tem conta? <chakra.a fontStyle={"bold"} href="/account/register" _hover={{borderBottom: "1px solid white"}} >Registre-se</chakra.a></FormHelperText>
                 </chakra.form>
         </FormControl>
     )

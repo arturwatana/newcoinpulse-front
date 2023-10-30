@@ -4,7 +4,9 @@ import { theme } from "@/app/providers/Providers"
 import {Flex, Button, Heading, Text, Menu, MenuButton, MenuList, MenuItem, Icon, chakra} from "@chakra-ui/react"
 import { useRouter } from "next/navigation"
 import {BiDownArrowAlt} from "react-icons/bi"
+import {RxHamburgerMenu} from "react-icons/rx"
 import {IoIosNotifications} from "react-icons/io"
+import Link from "next/link"
 
 interface NavBarProps{
     logged?: boolean
@@ -24,15 +26,28 @@ export default function NavBar({logged, userProps}: NavBarProps){
 
     return (
         <Flex w="100%" h="10%" position={"fixed"} alignItems={"center"} justifyContent={"center"} bgColor={"rgba(48,48,48,0.6)"} backdropFilter='auto' backdropBlur='8px' zIndex={"20"}>
-            <Flex w="80%" justifyContent={"space-between"} alignItems={"center"}>
+            <Flex w={{base:"95%", lg:"80%"}} justifyContent={"space-between"} alignItems={"center"}>
                 <Heading textColor={"white"} as="a" href={logged ? "/panel" : '/'}>CoinPulse</Heading>
                 {!logged ? (
-                <Flex gap={"20px"}>
-                    <Button bg={"gray.300"} _hover={{backgroundColor: "gray.100"}} as={"a"} href="/account/register" >
-                        Registrar
-                    </Button>
-                    <Button bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} as={"a"} href="/account/login">Login</Button>
-                </Flex>
+                    <Flex >
+                        <Flex display={{base:"flex", lg:"none"}}>
+                        <Menu>
+                            <MenuButton h="100%" >
+                                <Icon textColor={"white"} fontSize={"32px"} as={RxHamburgerMenu}></Icon>
+                            </MenuButton>
+                        <MenuList   bg={'#303030'} textColor={"white"}  >
+                            <MenuItem as="a" href={"/account/login"} bg={"#303030"} _hover={{backgroundColor: "#646464"}} >Login</MenuItem>
+                            <MenuItem as="a" href={"/account/register"} bg={"#303030"} _hover={{backgroundColor: "#646464"}}><chakra.a href={"/account/register"}>Registrar</chakra.a></MenuItem>
+                        </MenuList>
+                        </Menu>
+                        </Flex>
+                        <Flex display={{base:"none", lg:"flex"}} gap={"20px"}>
+                            <Button bg={"gray.300"} _hover={{backgroundColor: "gray.100"}} as={"a"} href="/account/register" >
+                                Registrar
+                            </Button>
+                            <Button bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} as={"a"} href="/account/login">Login</Button>
+                        </Flex>
+                    </Flex>
                 ) : (
                     <Flex alignItems="end" justifyContent={"center"} gap="15px">
                         <Menu>

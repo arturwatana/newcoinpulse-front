@@ -73,9 +73,9 @@ export default function SearchCurrency({name, w, resultH,logged}: FormProps){
     }, [])
     
     return (
-        <Flex w={w} flexDir={"column"}  justifyContent={"start"} alignItems={"center"} gap="50px" px="15px" >
-                    <FormControl  w="60%" textColor={"white"} flexDir={"column"} display={"flex"} justifyContent={"center"} gap="15px" alignItems={"center" }  >
-                    <Heading w='full' textAlign={"center"}>{name}</Heading>
+        <Flex w={w} flexDir={"column"}  justifyContent={"start"} alignItems={"center"} gap="50px" px={{base:"0px", lg:"0px"}}>
+                    <FormControl  w={{base:"100%", lg:"85%", xl:"60%"}} textColor={"white"} flexDir={"column"} display={"flex"} justifyContent={"center"} gap="15px" alignItems={"center" }  >
+                    <Heading w='100%' textAlign={"center"}>{name}</Heading>
                         <chakra.form  flexDir={"column"} display={"flex"} alignItems={"center"} gap="15px" onSubmit={handleSubmit} >
                             <Flex w="100%" gap="15px" justifyContent={"center"} alignItems={"center"}>
                                 <Select value={primaryValue} name="from" onChange={(e )=> setPrimaryValue(e.target.value)}>
@@ -92,7 +92,7 @@ export default function SearchCurrency({name, w, resultH,logged}: FormProps){
                         </chakra.form>
                    </FormControl>
                    {result ? (
-                 <Search height={resultH} width="70%" currency={result}/>
+                 <Search height={resultH} width={`{base:"90%", lg:"70%"}`} currency={result}/>
                    ) : null}
                    </Flex>
     )

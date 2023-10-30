@@ -11,8 +11,8 @@ const inter = Inter({ subsets: ['latin'] })
 
 
 export const metadata: Metadata = {
-  title: 'Create Next App',
-  description: 'CoinPulse',
+  title: 'Coinpulse',
+  description: 'CoinPulse, seu aplicativo de consultas',
 }
 
 export default function RootLayout({
