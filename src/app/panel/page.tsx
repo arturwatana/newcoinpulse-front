@@ -8,16 +8,13 @@ import { GET_USERLAST15DAYSINTERESTS } from "@/graphql/query/getUserLast15DaysFr
 import { useQuery } from "@apollo/client"
 import InterestTracking from "../components/InterestTracking"
 import { toast } from "react-toastify"
+import { useModalContext } from "../providers/ModalProvider"
 
 
 export default function Panel(){
-    const [primaryValue, setPrimaryValue] = useState<string>("USD")
-    const [secondaryValue, setSecondaryValue] = useState<string>("")
     const {data, loading, error } = useQuery(GET_USERLAST15DAYSINTERESTS)
     const [interests, setInterests] = useState([])
-    function switchValues(primary: string, second: string){
-        setPrimaryValue(second)
-    }
+    const { onOpen, setTypeModal } = useModalContext()
     
     useEffect(() => {
         if(error){
@@ -39,7 +36,7 @@ export default function Panel(){
                    <Flex justifyContent={"start"} gap="80px" flexDir={"column"} h="80%" w="70%"  py='10px' alignItems={"center" }  >
                    <Flex flexDir={"column"} minW="650px"  justifyContent={"start"} alignItems={"center" } border="1px solid white" rounded='lg'  py='10px' gap="10px" bgColor={"rgba(50,50,50,0.8)"} backdropFilter='auto' backdropBlur='8px'>
                     <Heading fontSize={"29.12px"}>Sorte do dia</Heading>
-                    <Text w="70%" textAlign={"center"} fontSize={"18px"}>{luckyOfDay[Math.floor(Math.random() * luckyOfDay.length)]}</Text>
+                    <Text w="70%" textAlign={"center"} fontSize={"18px"}>{luckyOfDay}</Text>
                    </Flex>
                    
                    <Flex flexDir={"column"} w="100%" gap="15px" bgColor={"rgba(50,50,50,0.6)"} backdropFilter='auto' backdropBlur='8px' >
@@ -70,7 +67,7 @@ export default function Panel(){
                                     <Flex w="100%" h="100%" alignItems={"center"} justifyContent={"center"}>
                                         <Spinner />
                                     </Flex>
-                                ) : interests ? (interests.map((interest: any, index) => <InterestTracking w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)) : null}
+                                ) : interests && interests.length > 0 ? (interests.map((interest: any, index) => <InterestTracking w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)) : <Text textAlign={"center"} p="20px">Ainda nao estamos trackeando nada, <chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={() => {setTypeModal("add"); onOpen() }}>clique aqui para rastrear uma conversao!</chakra.a></Text>}
                             </chakra.ul>
                    </Flex>
                    </Flex>
