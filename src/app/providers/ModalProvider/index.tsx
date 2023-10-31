@@ -6,6 +6,11 @@ import InterestModal from "@/app/components/InterestModal";
 import { useDisclosure } from "@chakra-ui/react";
 import { createContext, useContext, SetStateAction, useState, useEffect } from "react";
 
+export interface UpdateScreenProps {
+    interests: boolean
+    searches: boolean
+}
+
 
 interface ContextProps {
     isOpen: boolean
@@ -14,11 +19,18 @@ interface ContextProps {
     typeModal: string
     setTypeModal: React.Dispatch<SetStateAction<string>>
     setModalProps: React.Dispatch<SetStateAction<any>>
+    updateScreen: UpdateScreenProps
+    setUpdateScreen: React.Dispatch<SetStateAction<UpdateScreenProps>>
     
 }
 
 const ModalContext = createContext<ContextProps>({
     isOpen: false,
+    updateScreen: {
+        interests: false,
+        searches: false
+    },
+    setUpdateScreen: ()=>{},
     typeModal: "edit" || "add" || "delete",
     onOpen: () => {},
     onClose: () => {},
@@ -30,10 +42,13 @@ export const ModalProvider = ({ children }: {children: React.ReactNode}) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [typeModal, setTypeModal] = useState<string>("add")
     const [modalProps, setModalProps] = useState<any>()
-
+    const [updateScreen, setUpdateScreen] = useState<UpdateScreenProps>({
+        searches: false,
+        interests: false
+    })
 
      const contextValues = {
-        isOpen, onOpen, onClose, typeModal, setTypeModal, setModalProps
+        isOpen, onOpen, onClose, typeModal, setTypeModal, setModalProps, updateScreen, setUpdateScreen
      }
 
      function renderModal(type: string){

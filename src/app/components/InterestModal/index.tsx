@@ -10,6 +10,7 @@ import { toast } from "react-toastify"
 import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
 import { formatCoin } from "@/utils/formatCoin";
+import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
 
 interface InterestModal{
     isOpen: boolean
@@ -24,6 +25,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
     const [secondaryValue, setSecondaryValue] = useState<string>("")
     const [switchSearches, setSwitchSearches ] = useState<boolean>(false)
     const [createInterest, {data, loading, error }] = useMutation(CREATE_INTEREST)
+    const { setTypeModal, setUpdateScreen } = useModalContext()
 
     function switchValues(primary: string, second: string){
       const isPossible = nameIsPossibleSearch(second)
@@ -67,8 +69,15 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
           return
       }
       if(data){
+        setUpdateScreen((prev: UpdateScreenProps) => {
+          return {
+            ...prev,
+            interests: true
+          }
+        })
           toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} no target de ${formatCoin(data.createInterest.targetValue, data.createInterest.from)} salvo com sucesso!`)
-      }
+          onClose()
+        }
   }, [data, error])
 
     

@@ -5,12 +5,14 @@ import Paginate from "@/app/components/Paginate"
 import { useQuery } from "@apollo/client"
 import { GET_USERLAST15DAYSINTERESTS } from "@/graphql/query/getUserLast15DaysFromInterests"
 import { toast } from "react-toastify"
+import { useModalContext } from "@/app/providers/ModalProvider"
 
 export default function Tracking(){
     const [qtdPerPage, setQtdPerPage] = useState<number>(12)
     const [filter, setFilter] = useState<string>("Todas")
-    const {data, loading, error } = useQuery(GET_USERLAST15DAYSINTERESTS)
+    const {data, loading, error, refetch } = useQuery(GET_USERLAST15DAYSINTERESTS)
     const [interests, setInterests] = useState([])
+    const { updateScreen } = useModalContext()
 
     function renderCategories(){
         return interests.map((int:any, index)=> {
@@ -32,6 +34,11 @@ export default function Tracking(){
       useEffect(() => {
       }, [filter])
 
+      useEffect(() => {
+        if(updateScreen.interests){
+            refetch()
+        }
+      },[updateScreen])
 
     return (
         <chakra.section overflowX={"auto"} w="100vw" h="100%" minH="100vh" py="150px" display={"flex"} flexDir={"column"} justifyContent={"start"} alignItems={"center"} textColor={"white"}>

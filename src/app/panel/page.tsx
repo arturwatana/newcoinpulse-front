@@ -12,9 +12,9 @@ import { useModalContext } from "../providers/ModalProvider"
 
 
 export default function Panel(){
-    const {data, loading, error } = useQuery(GET_USERLAST15DAYSINTERESTS)
+    const {data, loading, error, refetch } = useQuery(GET_USERLAST15DAYSINTERESTS)
     const [interests, setInterests] = useState([])
-    const { onOpen, setTypeModal } = useModalContext()
+    const { onOpen, setTypeModal, updateScreen } = useModalContext()
     
     useEffect(() => {
         if(error){
@@ -26,6 +26,12 @@ export default function Panel(){
             setInterests(firstElements)
         }
       }, [data, error]);
+
+      useEffect(() => {
+        if(updateScreen.interests){
+            refetch()
+        }
+      },[updateScreen])
       
 
     return (

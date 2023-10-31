@@ -5,12 +5,14 @@ import Paginate from "@/app/components/Paginate"
 import { GET_USERSEARCHES } from "@/graphql/query/getUserSearches.query"
 import { toast } from "react-toastify"
 import { useQuery } from "@apollo/client"
+import { useModalContext } from "@/app/providers/ModalProvider"
 
 export default function Searches(){
     const [qtdPerPage, setQtdPerPage] = useState<number>(12)
-    const {data, loading, error } = useQuery(GET_USERSEARCHES)
+    const {data, loading, error, refetch } = useQuery(GET_USERSEARCHES)
     const [searches, setSearches] = useState([])
     const [filter, setFilter] = useState<string>("Todas")
+    const { updateScreen } = useModalContext()
 
     function renderCategories(){
         const uniqueOptions: string[] = []
@@ -37,6 +39,13 @@ export default function Searches(){
             setSearches(data.searches)
         }
       }, [data, error]);
+
+      
+      useEffect(() => {
+        if(updateScreen.searches){
+            refetch()
+        }
+      },[updateScreen])
 
     return (
         <chakra.section overflowX={"auto"} w="100vw" h="100%" minH="100vh" py="150px" display={"flex"} flexDir={"column"} justifyContent={"start"} alignItems={"center"} textColor={"white"}>

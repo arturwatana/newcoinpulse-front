@@ -11,7 +11,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
 import { formatCoin } from "@/utils/formatCoin";
 import {MdDeleteForever} from "react-icons/md"
-import { useModalContext } from "@/app/providers/ModalProvider";
+import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
 import { DELETE_INTEREST } from "@/graphql/mutations/deleteInterest";
 
 interface InterestModal{
@@ -25,7 +25,7 @@ export default function DeleteInterestModal({onClose,isOpen, modalProps}: Intere
     const initialRef = useRef(null)
     const finalRef = useRef(null)
     const [deleteInterest, {data, loading, error }] = useMutation(DELETE_INTEREST)
-    const { onOpen, setTypeModal } = useModalContext()
+    const { onOpen, setTypeModal, setUpdateScreen } = useModalContext()
 
   const handleSubmit = (e:any) => {
       e.preventDefault()
@@ -44,6 +44,13 @@ export default function DeleteInterestModal({onClose,isOpen, modalProps}: Intere
           return
       }
       if(data){
+        setUpdateScreen((prev: UpdateScreenProps) => {
+          return {
+            ...prev,
+            interests: true
+          }
+
+        })
         toast.success(`Interesse ${modalProps} excluido com sucesso!`)
         onClose()
       }
