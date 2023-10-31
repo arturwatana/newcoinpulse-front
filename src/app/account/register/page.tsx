@@ -14,6 +14,7 @@ export default function Register({props}: any){
     const [addUser, {data, loading, error }] = useMutation(CREATE_USER)
     const router = useRouter()
   const [userEmail, setUserEmail] = useState<string>("")
+  const [email, setEmail] = useState<string>("")
     
     const handleSubmit = (e:any) => {
         e.preventDefault()
@@ -56,7 +57,7 @@ export default function Register({props}: any){
                    <FormLabel w="100%" textAlign={"center"} >Nome:</FormLabel>
                   <Input name="name"  id="name" type='text' placeholder="Your cool name" />
                    <FormLabel  w="100%" textAlign={"center"} >Email:</FormLabel>
-                  <Input name="email" id="email" value={userEmail.length > 0 ? userEmail : ""} onChange={()=>{}} type='email' placeholder="coinpulse@joinus.com" />
+                  <Input name="email" id="email" value={userEmail || email} onChange={(e)=>{setUserEmail("");setEmail(e.target.value)}} type='email' placeholder="coinpulse@joinus.com" />
                    <FormLabel  w="100%" textAlign={"center"} >Senha:</FormLabel>
                   <Input  name="password" id="password" type='password' placeholder="*********" />
                 </Flex>
