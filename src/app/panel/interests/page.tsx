@@ -41,7 +41,7 @@ export default function Tracking(){
                 <Flex  flexDir={"column"} alignItems={"end"} gap="15px" minW="100%">
                     <Flex w={{base:"100%", "2xl":"54%"}} justifyContent={"space-between"}  alignItems={"center"} >
                     <Flex h="100%" flexDir={"column"} gap="5px">
-                        <Text w={{base:"50%", "2xl": "100%"}}>Filtrar por conversao</Text>
+                        <Text w={{base:"55%", "2xl": "100%"}}>Filtrar por conversao</Text>
                         <Select textAlign={"center"} w={{base:"70%","2xl":"100%"}} onChange={(e) => setFilter(e.target.value)}>
                         <chakra.option value="Todas" textColor="black" >Todas</chakra.option>
                         {renderCategories()}

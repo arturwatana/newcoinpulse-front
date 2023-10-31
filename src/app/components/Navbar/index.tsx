@@ -62,7 +62,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                         </MenuList>
                         </Menu>
                     <Menu >
-                        <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}} border={"1px solid black"} minW={{base: "0",md:"15em"}}    rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>
+                        <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}}  minW={{base: "0",md:"15em"}}  border="1px solid white"   rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>
                             <Flex alignItems={"center"} justifyContent={"space-between"} gap="10px">
                                 <Flex flexDir="column" gap="5px" textAlign={"start"}>
                                 <Text display={{base:"none", md:"flex"}}>Olá, {userProps?.fullName.split(" ")[0]}</Text>
