@@ -16,7 +16,7 @@ export default function SideMenu(){
                             </MenuButton>
                             <MenuList>
                               <MenuGroup title='Acesso rapido'>
-                            <MenuItem  onClick={() => {setTypeModal("add"); onOpen() }} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}>+ Adicionar interesse</MenuItem>
+                              <MenuItem   onClick={() => {setTypeModal("add"); onOpen() }} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}>+ Adicionar interesse</MenuItem>
                               </MenuGroup>
                               <MenuDivider />
                               <MenuGroup title='Minha conta'>
@@ -36,13 +36,13 @@ export default function SideMenu(){
                         </MenuList>
                         </Menu> */}
                         </Flex>
-          <Flex flexDir={"column"} display={{base:"none", "2xl": "flex"}}>
-                <Button  minH="2em"  cursor={"pointer"} onClick={() => {setTypeModal("add"); onOpen() }} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}>+ Adicionar interesse</Button>
-                <chakra.hr border="2px solid white" mt="5px"  />
-                <Text _hover={{borderBottom: "1px solid white"}} minH="2em" as={"a"} href="/panel" cursor={"pointer"}>Painel</Text>
-                <Text _hover={{borderBottom: "1px solid white"}} minH="2em" as={"a"} href="/panel/interests" cursor={"pointer"}>Acompanhar interesses</Text>
-                <Text _hover={{borderBottom: "1px solid white"}} minH="2em" as={"a"} href="/panel/searches" cursor={"pointer"}>Minhas pesquisas</Text>
-          </Flex>
+                    <Flex flexDir={"column"} display={{base:"none", "2xl": "flex"}}>
+                          <Button  minH="2em"  cursor={"pointer"} onClick={() => {setTypeModal("add"); onOpen() }} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}>+ Adicionar interesse</Button>
+                          <chakra.hr border="2px solid white" mt="5px"  />
+                          <Text _hover={{borderBottom: "1px solid white"}} minH="2em" as={"a"} href="/panel" cursor={"pointer"}>Painel</Text>
+                          <Text _hover={{borderBottom: "1px solid white"}} minH="2em" as={"a"} href="/panel/interests" cursor={"pointer"}>Acompanhar interesses</Text>
+                          <Text _hover={{borderBottom: "1px solid white"}} minH="2em" as={"a"} href="/panel/searches" cursor={"pointer"}>Minhas pesquisas</Text>
+                    </Flex>
             </Flex>
     )
 }

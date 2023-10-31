@@ -109,7 +109,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
           if (index >= firstElement && index + 1 <= lastElement) {
             if(typePaginate === "search"){
               return (
-                <Search    height="100%" width="23%" currency={element} key={ `element${index}`}/>
+                <Search height="100%" width={{base: "100%", xl: "30%","2xl": "23%"}} currency={element} key={ `element${index}`}/>
                 );
 
             }
@@ -125,7 +125,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
       if (index >= firstElement && index + 1 <= lastElement) {
         if(typePaginate === "search"){
           return (
-            <Search  height="100%" width="23%"currency={element} key={ `element${index}`}/>
+            <Search  height="100%" width={{base: "100%", lg:"30%", xl: "30%","2xl": "23%"}}currency={element} key={ `element${index}`}/>
             );
 
         }
@@ -137,8 +137,8 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
   }
 
   return (
-    <Flex  flexDir="column" h="100%" minH="38em" w="full" gap={5} justifyContent={"space-between"}  >
-          <Flex justifyContent={"start"} flexDir={typePaginate === "search" ? "row" : "column"} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={5} px={typePaginate === "interest" ? "0px" : "100px"} pt={typePaginate === "interest" ? "0px" : "20px"} pl={typePaginate === "interest" ? "0px" : "120px"} >
+    <Flex  flexDir="column" h="100%" minH="38em" w="full" gap={5} justifyContent={"space-between"} >
+          <Flex justifyContent={{base:typePaginate === "search" ? "center" : "start","2xl": "start"}}  flexDir={{base: "column", lg: typePaginate === "search" ? "row" : "column"}} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={5} px={{base:typePaginate === "interest" ? "0px" : "10px", "2xl": typePaginate === "interest" ? "0px" : "100px"}} pt={typePaginate === "interest" ? "0px" : "20px"} pl={{base:"0px", "2xl": typePaginate === "interest" ? "0px" : "120px"}} >
               {typePaginate === "interest" ? ( 
                 <chakra.ul bg={theme.colors.brand.primary} w="100%" rounded="6px 6px 0 0" textColor={"gray.800"} fontWeight={"bold"} listStyleType={"none"} display={"flex"} justifyContent={"space-evenly"}  alignItems="center"borderBottom={"1px solid white"} h="2em"> 
                     <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
