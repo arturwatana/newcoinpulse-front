@@ -5,8 +5,15 @@ import {Flex, Button, Heading, Text, Menu, MenuButton, MenuList, MenuItem, Icon,
 import { useRouter } from "next/navigation"
 import {BiDownArrowAlt} from "react-icons/bi"
 import {RxHamburgerMenu} from "react-icons/rx"
-import {IoIosNotifications} from "react-icons/io"
 import { useModalContext } from "@/app/providers/ModalProvider"
+import { useEffect, useState } from 'react';
+import { toast } from "react-toastify";
+import { IoMdNotifications } from "react-icons/io";
+import { GET_USER } from '@/graphql/query/getUser.query';
+import { useQuery } from '@apollo/client';
+import {IoIosNotifications} from "react-icons/io"
+import Pusher from "pusher-js";
+import { NotificationProps } from "../Notification"
 
 interface NavBarProps{
     logged?: boolean
@@ -17,8 +24,64 @@ interface NavBarProps{
     setUserProps?: React.Dispatch<React.SetStateAction<IUserData>>
 }
 
+
+
 export default function NavBar({logged, userProps}: NavBarProps){
     const { onOpen, setTypeModal } = useModalContext()
+    const {data, loading, error } = useQuery(GET_USER)
+    const [notifications, setNotifications] = useState<NotificationProps[]>([]);
+    const [prevNotifications, setPrevNotifications] = useState<NotificationProps[]>([]);
+    const [notificationIsOpen, setNotificationIsOpen] = useState<boolean>(false);
+    
+
+    async function pusher() {
+      const pusher = new Pusher("7f0e3a323f03b1a35797", { cluster: 'us2' });
+      pusher.connection.bind("connected", () => {
+        const channel = pusher.subscribe("notifications");
+        channel.bind("new_notifications", async (notifications: NotificationProps[]) => {
+          const userNotifications: NotificationProps[] = [];
+          if(error){
+              console.log(error)
+              return
+          }
+          if(data && !loading){
+              console.log(notifications)
+          }
+          notifications.forEach(notify => {
+            if (notify.userId === data.getUserByToken.id) {
+              const notifyAlreadyInArray = userNotifications.find(notification => {
+                return notification.name === notify.name;
+              });
+              if (!notifyAlreadyInArray) {
+                userNotifications.push(notify);
+              }
+            }
+          });
+          if(userNotifications.length != notifications.length){
+              setNotifications(userNotifications);
+          }
+        });
+      });
+    }
+  
+    useEffect(() => {
+      pusher();
+    }, []);
+    useEffect(() => {
+        if(error){
+            toast.error(error.message)
+            return
+        }
+    }, [error]);
+
+    useEffect(()=> {
+        if(prevNotifications.length != notifications.length){
+            toast("Oba, voce tem uma nova notificacao!")
+        }
+    }, [notifications]) 
+
+
+
     const router = useRouter()
     function logoutUser(){
         localStorage.removeItem("coinpulse_user_token")
@@ -52,14 +115,15 @@ export default function NavBar({logged, userProps}: NavBarProps){
                 ) : (
                     <Flex alignItems="end" justifyContent={"center"} gap="15px">
                         <Menu>
-                            <MenuButton h="100%" display={{base:"none", md:"flex"}} w={{base: "0", md:"13em"}}>
-                                <Icon textColor={"white"} fontSize={"32px"} as={IoIosNotifications}></Icon>
-                            </MenuButton>
+                        <MenuButton   mr="4em" >
+                            <Icon as={IoIosNotifications} h="100%" w={{base: "0", md:"200%"}}  textColor={notificationIsOpen ? "orange.500" : "white"} onClick={() => setNotificationIsOpen((prev) => !prev)}/>
+                        </MenuButton>
                         <MenuList left="55%"  textColor={"black"} >
-                            <MenuItem  _hover={{backgroundColor: "#646464"}}>New Notification</MenuItem>
-                            <MenuItem  _hover={{backgroundColor: "#646464"}}>New Notification</MenuItem>
-                            <MenuItem  _hover={{backgroundColor: "#646464"}} >New Notification</MenuItem>
-                        </MenuList>
+                        {notifications && notifications.length > 0 ? (
+                            notifications.map(notify => <MenuItem  _hover={{backgroundColor: "#646464"}} >{notify.description}</MenuItem>)
+                        ): <MenuItem  _hover={{backgroundColor: "#646464"}} >Sem notificacoes para hoje</MenuItem>}
+                        
+                </MenuList>
                         </Menu>
                     <Menu >
                         <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}}  minW={{base: "0",md:"15em"}}  border="1px solid white"   rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>
