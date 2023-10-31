@@ -36,7 +36,7 @@ export default function Panel(){
 
     return (
         <chakra.section   maxW="100vw" w="100%"  display={"flex"}  minH="100vh" h="100%" className="main"   justifyContent={"center"} alignItems={"center"} py="150px" >
-            <Flex  w={{base:"100%", "2xl":"80%" }}  minH="60%" justifyContent={"center"}    h={{base:"100%","2xl":"60vh"}} >
+            <Flex  w={{base:"100%", "2xl":"80%" }}  minH="60%" justifyContent={{base:"center", "2xl":"end"}}    h={{base:"100%","2xl":"60vh"}} >
                 <Flex  w={{base:"100%","2xl":"80%"}} alignItems={{base:"center","2xl":"start"}}  pl={{base: "0","2xl":"0" }}gap={{base:"40px", "2xl": "0"}}  textColor={"white"} flexDir={{base: "column","2xl":"row"}} justifyContent={"space-between"}    > 
                 <Button   display={{base:"flex", "2xl":"none"}} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
                 <Flex   w={{base:"70%", "2xl": "100%"}} alignItems={"center"} justifyContent={"center"}>

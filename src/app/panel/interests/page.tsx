@@ -6,13 +6,14 @@ import { useQuery } from "@apollo/client"
 import { GET_USERLAST15DAYSINTERESTS } from "@/graphql/query/getUserLast15DaysFromInterests"
 import { toast } from "react-toastify"
 import { useModalContext } from "@/app/providers/ModalProvider"
+import { theme } from "@/app/providers/Providers"
 
 export default function Tracking(){
     const [qtdPerPage, setQtdPerPage] = useState<number>(12)
     const [filter, setFilter] = useState<string>("Todas")
     const {data, loading, error, refetch } = useQuery(GET_USERLAST15DAYSINTERESTS)
     const [interests, setInterests] = useState([])
-    const { updateScreen } = useModalContext()
+    const { updateScreen,onOpen,setTypeModal} = useModalContext()
 
     function renderCategories(){
         return interests.map((int:any, index)=> {
@@ -42,7 +43,8 @@ export default function Tracking(){
 
     return (
         <chakra.section overflowX={"auto"} w="100vw" h="100%" minH="100vh" py="150px" display={"flex"} flexDir={"column"} justifyContent={"start"} alignItems={"center"} textColor={"white"}>
-                <Flex  w={{base:"90%", "2xl": "80%"}} minH="60%"  justifyContent={"end"} mr={{base:"0", "2xl":"2em"}} alignItems={"center"} >
+                <Flex  w={{base:"90%", "2xl": "80%"}} minH="60%"  justifyContent={"end"} flexDir={{base:"column", "2xl":"row"}} mr={{base:"0", "2xl":"2em"}} alignItems={"center"} >
+                <Button   display={{base:"flex", "2xl":"none"}} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
                 <Flex w={{base:"100%", "2xl": "80%"}}  textColor={"white"} flexDir={"column"} justifyContent={{base:"center","2xl":"start"}} alignItems={"center"} py="20px" gap="20px"> 
                     <Heading w='full' textAlign={"center"}>Interesses trackeados</Heading>
                 <Flex  flexDir={"column"} alignItems={"end"} gap="15px" minW="100%">

@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <chakra.main className="main" position={"relative"} display={"flex"} flexDir={"column"} alignItems={"center"} gap="20px" pb={{base:"50px", lg:"0"}} >
       <NavBar />
-      <chakra.section h={{base: "100%", lg: "100vh"}} pt={{base: "8em", lg: "0"}} gap={{base: "80px", lg: "0"}} px={{base: "10px", lg: "0"}} w={{base: "95%", "2xl":"80%"}} alignItems={"center"} display={"flex"} flexDir={{base:"column", lg:"row"}}justifyContent={{base:"center", lg:"space-between"}}>
+      <chakra.section h={{base: "100%", lg: "100vh"}} pt={{base: "8em", lg: "0"}} gap={{base: "80px", lg: "0"}} px={{base: "10px", lg: "0"}} w={{base: "95%", lg:"80%", "2xl":"80%"}} alignItems={"center"} display={"flex"} flexDir={{base:"column", lg:"row"}}justifyContent={{base:"center", lg:"space-between"}}>
         <Flex w={{base: "100%",  lg:"80%", "2xl": "50%"}}  flexDir={"column"} justifyContent={"center"} alignItems={{base:"center", lg:"start"}} h="100%"  gap={["35px", "35px", "35px", "15px"]}>
           <Flex flexDir={"column"} textColor={"white"} w={{base:"100%", lg:"90%","2xl":"80%"}} gap="15px">
             <Flex flexDir={"column"} gap="5px">
