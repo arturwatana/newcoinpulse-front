@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import {BiDownArrowAlt} from "react-icons/bi"
 import {RxHamburgerMenu} from "react-icons/rx"
 import {IoIosNotifications} from "react-icons/io"
-import Link from "next/link"
 import { useModalContext } from "@/app/providers/ModalProvider"
 
 interface NavBarProps{
@@ -39,7 +38,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                             </MenuButton>
                         <MenuList   bg={'#303030'} textColor={"white"}  >
                             <MenuItem as="a" href={"/account/login"} bg={"#303030"} _hover={{backgroundColor: "#646464"}} >Login</MenuItem>
-                            <MenuItem as="a" href={"/account/register"} bg={"#303030"} _hover={{backgroundColor: "#646464"}}><chakra.a href={"/account/register"}>Registrar</chakra.a></MenuItem>
+                            <MenuItem as="a" href={"/account/register"} bg={"#303030"} _hover={{backgroundColor: "#646464"}}>Registrar</MenuItem>
                         </MenuList>
                         </Menu>
                         </Flex>
@@ -82,7 +81,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                               <MenuGroup title='Minha conta'>
                             <MenuItem as="a" href={"/panel"} >Painel</MenuItem>
                             <MenuItem as="a" href={"/panel/searches"} >Minhas pesquisas</MenuItem>
-                            <MenuItem as="a" href={""} >Logout</MenuItem>
+                            <MenuItem as="p" onClick={logoutUser} >Logout</MenuItem>
                               </MenuGroup>
                         </MenuList>
                     </Menu>

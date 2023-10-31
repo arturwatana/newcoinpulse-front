@@ -1,12 +1,10 @@
 "use client"
 import NavBar from "@/app/components/Navbar"
 import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Select } from "@chakra-ui/react"
-import {HiOutlineSwitchHorizontal} from "react-icons/hi"
 import { theme } from "./providers/Providers"
 import SearchCurrency from "./components/SearchCurrency"
 import { useRouter } from "next/navigation"
-import {useState} from "react"
-import Link from "next/link"
+import {useState, useEffect} from "react"
 export default function Home() {
   const [userEmail, setUserEmail] = useState<string>("")
   const router = useRouter()
@@ -15,6 +13,10 @@ export default function Home() {
     localStorage.setItem("coinpulse_entry_user_email", userEmail)
     router.push("/account/register")
   }
+
+  useEffect(()=>{
+    localStorage.removeItem("coinpulse_entry_user_email")
+  }, [])
 
   return (
     <chakra.main className="main" position={"relative"} display={"flex"} flexDir={"column"} alignItems={"center"} gap="20px" pb={{base:"50px", lg:"0"}} >
@@ -44,7 +46,6 @@ export default function Home() {
           <Flex flexDir={"column"}  justifyContent={"center"} w={{base:"100%", lg:"100%"}} alignItems={"center"} textColor={"white"} gap="30px" border="1px solid white" p="30px" rounded="20px"  shadow={"2px 2px 3px #f0f0f0"}  >
           <SearchCurrency name="Playground" w="100%" resultH="100%"/>
         </Flex>
-
           </Flex>
       </chakra.section>
       <chakra.section minH="100vh" h="100%" w={{lg:"95%","2xl": "80%"}} pb="50px" pt="30px" display={"flex"} flexDir={"row"} alignItems={"center"} justifyContent={"center"} textColor={"white"}>

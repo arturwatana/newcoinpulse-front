@@ -1,13 +1,10 @@
-
-
-
 'use client';
 
 import DeleteInterestModal from "@/app/components/DeleteInterestModal";
 import EditInterestModal from "@/app/components/EditInterestModal";
 import InterestModal from "@/app/components/InterestModal";
 import { useDisclosure } from "@chakra-ui/react";
-import { createContext, useContext, Dispatch, SetStateAction, useState, useEffect } from "react";
+import { createContext, useContext, SetStateAction, useState, useEffect } from "react";
 
 
 interface ContextProps {
