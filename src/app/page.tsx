@@ -59,7 +59,6 @@ export default function Home() {
               </Flex>
             </Flex>
       </chakra.section>
-
     </chakra.main >
   )
 }

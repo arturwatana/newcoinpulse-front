@@ -52,13 +52,13 @@ export default function InterestTracking({code,high,lastDays,low,name,varBid, co
         targetValue
     }
     return (
-                            <chakra.li bgColor={"rgba(48,48,48,0.6)"}   backdropFilter='auto' backdropBlur='8px' display={"flex"} w={w} py="5px" onClick={() => {setTypeModal("edit"); setModalProps(modalProps); onOpen()}} justifyContent={"space-evenly"} alignItems={"center"}  _hover={{backgroundColor: "#646464"}} cursor={"pointer"} h={h}>
-                                <Text minW="16.66%"  textAlign={"center"}>{`${code}/${codein}`}</Text>
-                                <Text minW="16.66%"  textAlign={"center"}>{formatCoin(+high, code)}</Text>
-                                <Text minW="16.66%"  textAlign={"center"}>{formatCoin(+low, code)}</Text>
-                                <Text minW="16.66%"  textAlign={"center"}>{formatCoin(+targetValue, code)}</Text>
-                                <Text minW="16.66%"  textAlign={"center"}>{dailyVariation >= 0 ? "+" : ""}{dailyVariation.toFixed(2)}%</Text>
-                                <Text minW="16.66%"  textAlign={"center"}>{averageFornightPctChange >= 0 ? "+" : ""}{averageFornightPctChange.toFixed(2)}%</Text>
+                            <chakra.li bgColor={"rgba(48,48,48,0.6)"} borderBottom={"1px solid white"}   backdropFilter='auto' backdropBlur='8px' display={"flex"} w={w} py="5px" onClick={() => {setTypeModal("edit"); setModalProps(modalProps); onOpen()}} justifyContent={"space-evenly"} alignItems={"center"}  _hover={{backgroundColor: "#646464"}} cursor={"pointer"} h={h}>
+                                <Text minW={{base:"32%", lg:"16.66%"}} maxW={{base:"32%", lg:"16.66%"}} wordBreak={"break-word"}  textAlign={"center"}>{`${code} / ${codein}`}</Text>
+                                <Text minW={{base:"32%", lg:"16.66%"}} maxW={{base:"32%", lg:"16.66%"}} wordBreak={"break-word"}  textAlign={"center"}>{formatCoin(+high, code)}</Text>
+                                <Text minW={{base:"32%", lg:"16.66%"}} maxW={{base:"32%", lg:"16.66%"}} textAlign={"center"} display={{base: "none","2xl": "block"}}>{formatCoin(+low, code)} </Text>
+                                <Text minW={{base:"32%", lg:"16.66%"}} maxW={{base:"32%", lg:"16.66%"}} textAlign={"center"}>{formatCoin(+targetValue, code)}</Text>
+                                <Text minW={{base:"32%", lg:"16.66%"}} maxW={{base:"32%", lg:"16.66%"}} display={{base: "none","2xl": "block"}} textAlign={"center"}>{dailyVariation >= 0 ? "+" : ""}{dailyVariation.toFixed(2)}%</Text>
+                                <Text minW={{base:"32%", lg:"16.66%"}}maxW={{base:"32%", lg:"16.66%"}} display={{base: "none","2xl": "block"}}  textAlign={"center"}>{averageFornightPctChange >= 0 ? "+" : ""}{averageFornightPctChange.toFixed(2)}%</Text>
                             </chakra.li>
     )
 }

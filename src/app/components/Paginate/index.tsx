@@ -141,22 +141,22 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
           <Flex justifyContent={"start"} flexDir={typePaginate === "search" ? "row" : "column"} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={5} px={typePaginate === "interest" ? "0px" : "100px"} pt={typePaginate === "interest" ? "0px" : "20px"} pl={typePaginate === "interest" ? "0px" : "120px"} >
               {typePaginate === "interest" ? ( 
                 <chakra.ul bg={theme.colors.brand.primary} w="100%" rounded="6px 6px 0 0" textColor={"gray.800"} fontWeight={"bold"} listStyleType={"none"} display={"flex"} justifyContent={"space-evenly"}  alignItems="center"borderBottom={"1px solid white"} h="2em"> 
-                    <chakra.li minW="16.66%" textAlign={"center"} >
+                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
                         Sigla
                     </chakra.li>
-                    <chakra.li minW="16.66%" textAlign={"center"} >
+                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
                         Alta
                     </chakra.li>
-                    <chakra.li minW="16.66%" textAlign={"center"} >
+                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
                         Baixa
                     </chakra.li>
-                    <chakra.li minW="16.66%" textAlign={"center"} >
+                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
                         Target
                     </chakra.li>
-                    <chakra.li minW="16.66%" textAlign={"center"} >
+                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
                         Diária
                     </chakra.li>
-                    <chakra.li minW="16.66%" textAlign={"center"} >
+                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center" } display={{base: "none","2xl": "block"}} >
                         Quinzenal
                     </chakra.li>
                 </chakra.ul>
