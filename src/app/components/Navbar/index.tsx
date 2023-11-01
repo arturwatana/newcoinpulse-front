@@ -114,7 +114,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                     </Flex>
                 ) : (
                     <Flex alignItems="end" justifyContent={"center"} gap="15px">
-                        <Menu>
+                        {/* <Menu>
                         <MenuButton   mr="4em" >
                             <Icon as={IoIosNotifications} h="100%" w={{base: "0", md:"200%"}}  textColor={notificationIsOpen ? "orange.500" : "white"} onClick={() => setNotificationIsOpen((prev) => !prev)}/>
                         </MenuButton>
@@ -124,7 +124,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                         ): <MenuItem  _hover={{backgroundColor: "#646464"}} >Sem notificacoes para hoje</MenuItem>}
                         
                 </MenuList>
-                        </Menu>
+                        </Menu> */}
                     <Menu >
                         <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}}  minW={{base: "0",md:"15em"}}  border="1px solid white"   rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>
                             <Flex alignItems={"center"} justifyContent={"space-between"} gap="10px">
