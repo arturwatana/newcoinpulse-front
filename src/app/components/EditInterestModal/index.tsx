@@ -52,6 +52,7 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
       if(data){
           toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} no target de ${formatCoin(data.createInterest.targetValue, data.createInterest.from)} salvo com sucesso!`)
       }
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error])
 
     return (

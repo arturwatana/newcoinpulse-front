@@ -31,6 +31,7 @@ export default function Searches(){
     }
    
 
+
     useEffect(() => {
         if(error){
             toast.error(error.message)
@@ -39,13 +40,16 @@ export default function Searches(){
         if(data){
             setSearches(data.searches)
         }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [data, error]);
 
-      
+
+
       useEffect(() => {
         if(updateScreen.searches){
             refetch()
         }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
       },[updateScreen])
 
     return (

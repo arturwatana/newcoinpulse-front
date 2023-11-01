@@ -33,6 +33,7 @@ export default function Login(){
             localStorage.setItem("coinpulse_user_token", data.login.token)
             router.push("/panel")
         }
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error])
 
     return (

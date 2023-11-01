@@ -73,10 +73,9 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
             toast.success("Conversao consultada com sucesso")
             setResult(logged ? data.createCurrency : data.createFreeCurrency)
         }
+                  // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error])
 
-    useEffect(() => {
-    }, [])
     
     return (
         <Flex w={w} flexDir={"column"}  justifyContent={"start"} alignItems={"center"} gap="50px" px={{base:"0px", lg:"0px"}}>

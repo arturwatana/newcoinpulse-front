@@ -78,6 +78,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
           toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} no target de ${formatCoin(data.createInterest.targetValue, data.createInterest.from)} salvo com sucesso!`)
           onClose()
         }
+         // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error])
 
     

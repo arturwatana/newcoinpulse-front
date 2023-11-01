@@ -51,11 +51,8 @@ export default function Notification() {
 
   useEffect(() => {
     pusher();
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    console.log(data.getUserByToken.id)
-    console.log(notifications)
-  }, [notifications]);
 
   
 
@@ -67,7 +64,7 @@ export default function Notification() {
                 </MenuButton>
                 <MenuList left="55%"  textColor={"black"} >
                 {notifications && notifications.length > 0 ? (
-                    notifications.map(notify => <MenuItem  _hover={{backgroundColor: "#646464"}} >{}</MenuItem>)
+                    notifications.map((notify,index) => <MenuItem  key={index} _hover={{backgroundColor: "#646464"}} >{}</MenuItem>)
                 ): <MenuItem  _hover={{backgroundColor: "#646464"}} >Sem notificacoes para hoje</MenuItem>}
                 
                 </MenuList>

@@ -37,6 +37,7 @@ export default function RootLayout({
       toast.error("Ops, voce precisa fazer o login novamente!")
         return
     }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [data, error])
 
   useEffect(() => {

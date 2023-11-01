@@ -58,7 +58,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
       page: 1,
       totalPages: Math.ceil(elements.length / qtdPerPage) == 0 ? 1 : Math.ceil(elements.length / qtdPerPage),
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+              // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elements]);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
         qtdPerPage: qtdPerPage,
         totalPages: Math.ceil(elements.length / qtdPerPage) == 0 ? 1 : Math.ceil(elements.length / qtdPerPage)
       });
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+          // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qtdPerPage])
 
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
         })
         setElementsToShow(newElements)
       }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deletedSearchId])
 
   function renderPages() {

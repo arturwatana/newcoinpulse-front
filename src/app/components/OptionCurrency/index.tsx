@@ -20,6 +20,7 @@ export default function SecondaryOptions({name, setSecondaryValue, switchSearche
                 setSecondaryValue(curr.possibleSearches[0])
             }
         })
+                  // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [name, switchSearches])
     
         return (

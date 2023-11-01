@@ -39,8 +39,8 @@ export default function Register({props}: any){
             toast.success("Usuario cadastrado com sucesso")
             router.push("/account/login")
         }
+         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, error])
-
     useEffect(() => {
         const email = localStorage.getItem("coinpulse_entry_user_email")
         if(email){

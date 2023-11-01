@@ -21,7 +21,7 @@ export default function Tracking(){
         })
     }
    
-    
+
     useEffect(() => {
         if(error){
             toast.error(error.message)
@@ -30,15 +30,14 @@ export default function Tracking(){
         if(data){
             setInterests(data.getUserLast15DaysFromInterests)
         }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [data, error]);
-
-      useEffect(() => {
-      }, [filter])
 
       useEffect(() => {
         if(updateScreen.interests){
             refetch()
         }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
       },[updateScreen])
 
     return (

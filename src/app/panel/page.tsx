@@ -25,13 +25,14 @@ export default function Panel(){
             const firstElements = data.getUserLast15DaysFromInterests.slice(0,5)
             setInterests(firstElements)
         }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [data, error]);
-
       useEffect(() => {
         if(updateScreen.interests){
             refetch()
         }
-      },[updateScreen])
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+      },[updateScreen, refetch])
       
 
     return (

@@ -54,6 +54,7 @@ export default function DeleteInterestModal({onClose,isOpen, modalProps}: Intere
         toast.success(`Interesse ${modalProps} excluido com sucesso!`)
         onClose()
       }
+       // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error])
 
     
