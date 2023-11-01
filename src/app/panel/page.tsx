@@ -38,9 +38,8 @@ export default function Panel(){
         <chakra.section   maxW="100vw" w="100%"  display={"flex"}  minH="100vh" h="100%" className="main"   justifyContent={"center"} alignItems={"center"} py="150px" >
             <Flex  w={{base:"100%", "2xl":"80%" }}  minH="60%" justifyContent={{base:"center", "2xl":"end"}}    h={{base:"100%","2xl":"60vh"}} >
                 <Flex  w={{base:"100%","2xl":"80%"}} alignItems={{base:"center","2xl":"start"}}  pl={{base: "0","2xl":"0" }}gap={{base:"40px", "2xl": "0"}}  textColor={"white"} flexDir={{base: "column","2xl":"row"}} justifyContent={"space-between"}    > 
-                <Button   display={{base:"flex", "2xl":"none"}} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
                 <Flex   w={{base:"70%", "2xl": "100%"}} alignItems={"center"} justifyContent={"center"}>
-                   <SearchCurrency logged w="100%"  name="Consultar conversao" resultH="30%"/>
+                   <SearchCurrency searchW={{base:"100%", md:"80%", lg:"60%", "2xl":"70%"}} logged w="100%"  name="Consultar conversao" resultH="30%"/>
                 </Flex>
                    <Flex justifyContent={"start"} gap="80px" flexDir={"column"} h="80%" w={{base: "90%","2xl":"70%"}}  py='10px' alignItems={"center" }   >
                    <Flex flexDir={"column"} minW={{base:"50%","2xl":"650px"}}  justifyContent={"start"} alignItems={"center" } border="1px solid white" rounded='lg'  py='10px' gap="10px" bgColor={"rgba(50,50,50,0.8)"} backdropFilter='auto' backdropBlur='8px'>
@@ -49,6 +48,9 @@ export default function Panel(){
                    </Flex>
                    
                    <Flex flexDir={"column"} w="100%" gap="15px" bgColor={"rgba(50,50,50,0.6)"} backdropFilter='auto' backdropBlur='8px' >
+                <Flex justifyContent={"center"} alignItems={"center"}>
+                <Button   display={{base:"flex", "2xl":"none"}} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
+                </Flex>
                         <Heading w="100%" textAlign={"center"}>Interesses favoritados</Heading>
                    <Flex border="1px solid white" rounded="lg" w="100%" flexDir={"column"} justifyContent={"start"} alignItems={"center" }  gap="20px">
                         <chakra.ul w="100%" listStyleType={"none"} display={"flex"} flexDir={"column"} >

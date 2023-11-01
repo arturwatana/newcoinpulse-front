@@ -28,57 +28,57 @@ interface NavBarProps{
 
 export default function NavBar({logged, userProps}: NavBarProps){
     const { onOpen, setTypeModal } = useModalContext()
-    const {data, loading, error } = useQuery(GET_USER)
+    // const {data, loading, error } = useQuery(GET_USER)
     const [notifications, setNotifications] = useState<NotificationProps[]>([]);
     const [prevNotifications, setPrevNotifications] = useState<NotificationProps[]>([]);
     const [notificationIsOpen, setNotificationIsOpen] = useState<boolean>(false);
     
 
-    async function pusher() {
-      const pusher = new Pusher("7f0e3a323f03b1a35797", { cluster: 'us2' });
-      pusher.connection.bind("connected", () => {
-        const channel = pusher.subscribe("notifications");
-        channel.bind("new_notifications", async (notifications: NotificationProps[]) => {
-          const userNotifications: NotificationProps[] = [];
-          if(error){
-              console.log(error)
-              return
-          }
-          if(data && !loading){
-              console.log(notifications)
-          }
-          notifications.forEach(notify => {
-            if (notify.userId === data.getUserByToken.id) {
-              const notifyAlreadyInArray = userNotifications.find(notification => {
-                return notification.name === notify.name;
-              });
-              if (!notifyAlreadyInArray) {
-                userNotifications.push(notify);
-              }
-            }
-          });
-          if(userNotifications.length != notifications.length){
-              setNotifications(userNotifications);
-          }
-        });
-      });
-    }
+    // async function pusher() {
+    //   const pusher = new Pusher("7f0e3a323f03b1a35797", { cluster: 'us2' });
+    //   pusher.connection.bind("connected", () => {
+    //     const channel = pusher.subscribe("notifications");
+    //     channel.bind("new_notifications", async (notifications: NotificationProps[]) => {
+    //       const userNotifications: NotificationProps[] = [];
+    //       if(error){
+    //           console.log(error)
+    //           return
+    //       }
+    //       if(data && !loading){
+    //           console.log(notifications)
+    //       }
+    //       notifications.forEach(notify => {
+    //         if (notify.userId === data.getUserByToken.id) {
+    //           const notifyAlreadyInArray = userNotifications.find(notification => {
+    //             return notification.name === notify.name;
+    //           });
+    //           if (!notifyAlreadyInArray) {
+    //             userNotifications.push(notify);
+    //           }
+    //         }
+    //       });
+    //       if(userNotifications.length != notifications.length){
+    //           setNotifications(userNotifications);
+    //       }
+    //     });
+    //   });
+    // }
   
-    useEffect(() => {
-      pusher();
-    }, []);
-    useEffect(() => {
-        if(error){
-            toast.error(error.message)
-            return
-        }
-    }, [error]);
+    // useEffect(() => {
+    //   pusher();
+    // }, []);
+    // useEffect(() => {
+    //     if(error){
+    //         toast.error(error.message)
+    //         return
+    //     }
+    // }, [error]);
 
-    useEffect(()=> {
-        if(prevNotifications.length != notifications.length){
-            toast("Oba, voce tem uma nova notificacao!")
-        }
-    }, [notifications]) 
+    // useEffect(()=> {
+    //     if(prevNotifications.length != notifications.length){
+    //         toast("Oba, voce tem uma nova notificacao!")
+    //     }
+    // }, [notifications]) 
 
 
 

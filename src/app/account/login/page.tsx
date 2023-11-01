@@ -36,8 +36,8 @@ export default function Login(){
     }, [data, error])
 
     return (
-        
-            <FormControl border="2px solid white"   position={"absolute"} textColor={"white"}h={{base:"30%", lg:"50%", xl:"60%"}}  justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px" top={{base:"12%", xl:"20%"}}  left={{base:"15%",md:"25%",lg:"35%"}} w={{base:"70%", md:"50%",lg:"30%", xl:"20%"}} p="20px">
+        <Flex h="100vh" w="100vw" position={"absolute"}>
+        <FormControl  border="2px solid white" textColor={"white"} h={{base:"40%", xl:"60%"}} top={{base:"20%",lg: "10%",xl:"10%" }}left={{base:"8%",md:"30%",lg: "30%",xl:"35%"}} justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px"  w={{base:"85%", md:"50%",lg:"40%", xl:"25%"}} py="300px" px={"20px"}>
                 <chakra.form onSubmit={handleSubmit} display={"flex"} flexDir={"column"} justifyContent={"space-evenly"} alignItems={"center"} w="80%" border="black" gap="20px" >
                 <Heading fontSize={"29.12px"}>Login</Heading>
                 <Flex flexDir={"column"} justifyContent={"center"} alignItems={"center"}  h="50%" w={{base:"100%",lg:"80%"}}  gap="10px" >
@@ -50,5 +50,6 @@ export default function Login(){
                 <FormHelperText textColor={"white"} textAlign={"center"}>Ainda nao tem conta? <chakra.a fontStyle={"bold"} href="/account/register" _hover={{borderBottom: "1px solid white"}} >Registre-se</chakra.a></FormHelperText>
                 </chakra.form>
         </FormControl>
+        </Flex>
     )
 }

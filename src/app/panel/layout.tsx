@@ -51,7 +51,7 @@ export default function RootLayout({
   
   return (
     <>  
-        {loading ? (
+        {loading && !data ? (
             <Flex className="main" w="100vw" h="100vh" justifyContent={"center"} alignItems={"center"} textColor={"white"} >
               <Spinner/>
             </Flex>

@@ -8,6 +8,8 @@ mutation createFreeCurrency($data: CurrencyReq!) {
     name
     from,
     to
+    buy
+    sell
     high
     low
     create_date
@@ -21,6 +23,8 @@ mutation createCurrency($data: CurrencyReq!) {
     name
     from,
     to
+    buy
+    sell
     high
     low
     create_date

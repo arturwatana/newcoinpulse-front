@@ -7,6 +7,8 @@ query searches {
         from
         to
         name
+        buy
+        sell
         high
         low
         create_date

@@ -6,6 +6,7 @@ import { GET_USERSEARCHES } from "@/graphql/query/getUserSearches.query"
 import { toast } from "react-toastify"
 import { useQuery } from "@apollo/client"
 import { useModalContext } from "@/app/providers/ModalProvider"
+import SearchCurrency from "@/app/components/SearchCurrency"
 
 export default function Searches(){
     const [qtdPerPage, setQtdPerPage] = useState<number>(12)
@@ -49,7 +50,10 @@ export default function Searches(){
 
     return (
         <chakra.section overflowX={"auto"} w="100vw" h="100%" minH="100vh" py="150px" display={"flex"} flexDir={"column"} justifyContent={"start"} alignItems={"center"} textColor={"white"}>
-                <Flex  w={{base:"90%", "2xl": "80%"}} minH="60%"  justifyContent={"end"} mr={{base:"0", "2xl":"2em"}} alignItems={"center"} >
+                <Flex  w={{base:"90%", "2xl": "80%"}} minH="60%"  flexDir={"column"}  justifyContent={"end"} mr={{base:"0", "2xl":"2em"}} alignItems={"end"} >
+                    <Flex justifyContent={"center"}  w={{base:"100%","2xl":"78%"}}>
+                <SearchCurrency name="Consultar conversao" searchW={{base:"100%", md:"80%", lg:"50%", "2xl":"30%"}} w={"100%"} resultH="100%"/>
+                    </Flex>
                 <Flex w={{base:"100%", "2xl": "80%"}}  textColor={"white"} flexDir={"column"} justifyContent={{base:"center","2xl":"start"}} alignItems={"center"} py="20px" gap="20px"> 
                     <Heading w='full' textAlign={"center"}>Ultimas pesquisas</Heading>
                 <Flex  flexDir={"column"} alignItems={"end"} gap="15px" minW="100%">

@@ -12,15 +12,21 @@ import { useMutation } from "@apollo/client"
 import { ICurrency } from "@/app/modules/Currency/model/ICurrency.interface"
 
 
-
 interface FormProps {
     name: string
     w: string
+    searchW: {
+        base?: string
+        md?: string
+        lg?:string
+        xl?: string
+        "2xl"?: string
+    }
     resultH: string
     logged?:boolean
 }
 
-export default function SearchCurrency({name, w, resultH,logged}: FormProps){
+export default function SearchCurrency({name, w, resultH,logged, searchW}: FormProps){
     const [primaryValue, setPrimaryValue] = useState<string>("BRL")
     const [secondaryValue, setSecondaryValue] = useState<string>("")
     const [switchSearches, setSwitchSearches ] = useState<boolean>(false)
@@ -92,7 +98,7 @@ export default function SearchCurrency({name, w, resultH,logged}: FormProps){
                         </chakra.form>
                    </FormControl>
                    {result ? (
-                 <Search height={resultH} width={{base:"90%", lg:"70%"}} currency={result}/>
+                 <Search height={resultH} width={searchW} currency={result}/>
                    ) : null}
                    </Flex>
     )

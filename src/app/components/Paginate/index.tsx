@@ -109,7 +109,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
           if (index >= firstElement && index + 1 <= lastElement) {
             if(typePaginate === "search"){
               return (
-                <Search height="100%" width={{base: "100%", xl: "30%","2xl": "23%"}} currency={element} key={ `element${index}`}/>
+                <Search height="100%" width={{base: "80%", xl: "30%","2xl": "25%"}} currency={element} key={ `element${index}`}/>
                 );
 
             }
@@ -125,7 +125,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
       if (index >= firstElement && index + 1 <= lastElement) {
         if(typePaginate === "search"){
           return (
-            <Search  height="100%" width={{base: "100%", lg:"30%", xl: "30%","2xl": "23%"}}currency={element} key={ `element${index}`}/>
+            <Search  height="100%" width={{base: "80%", lg:"30%", xl: "30%","2xl": "25%"}}currency={element} key={ `element${index}`}/>
             );
 
         }

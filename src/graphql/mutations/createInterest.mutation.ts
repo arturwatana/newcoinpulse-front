@@ -11,7 +11,10 @@ mutation createInterest($data: InterestDTO!) {
     createInterest(data: $data) {
     from,
     to,
-    targetValue
+    targetValue{
+      buy,
+      sell
+    }
   }
 }
 `

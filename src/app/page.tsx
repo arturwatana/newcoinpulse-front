@@ -5,11 +5,20 @@ import { theme } from "./providers/Providers"
 import SearchCurrency from "./components/SearchCurrency"
 import { useRouter } from "next/navigation"
 import {useState, useEffect} from "react"
+import { toast } from "react-toastify"
 export default function Home() {
   const [userEmail, setUserEmail] = useState<string>("")
   const router = useRouter()
 
   function sendEmail(){
+    if(userEmail.length <= 3){
+      toast.error("Ops, precisamos de um email valido")
+      return
+    }
+    if(!userEmail.includes("@")){
+      toast.error("Ops, precisamos de um email valido")
+      return
+    }
     localStorage.setItem("coinpulse_entry_user_email", userEmail)
     router.push("/account/register")
   }
@@ -44,7 +53,7 @@ export default function Home() {
         </Flex>
         <Flex  w={{base:"100%", lg:"40%"}}    justifyContent={"center"} alignItems={{base:"center", lg:"end"}} flexDir={"column"} >
           <Flex flexDir={"column"}  justifyContent={"center"} w={{base:"100%", lg:"100%"}} alignItems={"center"} textColor={"white"} gap="30px" border="1px solid white" p="30px" rounded="20px"  shadow={"2px 2px 3px #f0f0f0"}  >
-          <SearchCurrency name="Playground" w="100%" resultH="100%"/>
+          <SearchCurrency name="Playground" searchW={{base:"100%", md:"80%", lg:"100%", "2xl":"80%"}} w={"100%"} resultH="100%"/>
         </Flex>
           </Flex>
       </chakra.section>

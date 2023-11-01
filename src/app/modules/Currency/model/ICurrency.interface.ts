@@ -8,6 +8,8 @@ export interface ICurrency {
     to: string
     name: string;
     high: string;
+    buy: string
+    sell: string
     low: string;
     create_date: string;
     userId: string;
