@@ -56,7 +56,7 @@ export default function Searches(){
         <chakra.section overflowX={"auto"} w="100vw" h="100%" minH="100vh" py="150px" display={"flex"} flexDir={"column"} justifyContent={"start"} alignItems={"center"} textColor={"white"}>
                 <Flex  w={{base:"90%", "2xl": "80%"}} minH="60%"  flexDir={"column"}  justifyContent={"end"} mr={{base:"0", "2xl":"2em"}} alignItems={"end"} >
                     <Flex justifyContent={"center"}  w={{base:"100%","2xl":"78%"}}>
-                <SearchCurrency name="Consultar conversao" searchW={{base:"100%", md:"80%", lg:"50%", "2xl":"30%"}} w={"100%"} resultH="100%"/>
+                <SearchCurrency logged name="Consultar conversao" searchW={{base:"100%", md:"80%", lg:"50%", "2xl":"30%"}} w={"100%"} resultH="100%"/>
                     </Flex>
                 <Flex w={{base:"100%", "2xl": "80%"}}  textColor={"white"} flexDir={"column"} justifyContent={{base:"center","2xl":"start"}} alignItems={"center"} py="20px" gap="20px"> 
                     <Heading w='full' textAlign={"center"}>Ultimas pesquisas</Heading>

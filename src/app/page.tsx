@@ -52,7 +52,7 @@ export default function Home() {
           </FormControl>
         </Flex>
         <Flex  w={{base:"100%", lg:"40%"}}    justifyContent={"center"} alignItems={{base:"center", lg:"end"}} flexDir={"column"} >
-          <Flex flexDir={"column"}  justifyContent={"center"} w={{base:"100%", lg:"100%"}} alignItems={"center"} textColor={"white"} gap="30px" border="1px solid white" p="30px" rounded="20px"  shadow={"2px 2px 3px #f0f0f0"}  >
+          <Flex flexDir={"column"}  justifyContent={"center"} w={{base:"100%", lg:"100%"}} alignItems={"center"} textColor={"white"} gap="30px" border="1px solid white" p={{base:"15px",lg:"30px"}} rounded="20px"  shadow={"2px 2px 3px #f0f0f0"}  >
           <SearchCurrency name="Playground" searchW={{base:"100%", md:"80%", lg:"100%", "2xl":"80%"}} w={"100%"} resultH="100%"/>
         </Flex>
           </Flex>

@@ -11,6 +11,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
 import { formatCoin } from "@/utils/formatCoin";
 import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
+import { onError } from "@apollo/client/link/error";
 
 interface InterestModal{
     isOpen: boolean
@@ -21,7 +22,8 @@ interface InterestModal{
 export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
     const initialRef = useRef(null)
     const finalRef = useRef(null)
-    const [primaryValue, setPrimaryValue] = useState<string>("BRL")
+    const [primaryValue, setPrimaryValue] = useState<string>("USD")
+    const [interestIn, setInterestIn] = useState<string>("Compra")
     const [secondaryValue, setSecondaryValue] = useState<string>("")
     const [switchSearches, setSwitchSearches ] = useState<boolean>(false)
     const [createInterest, {data, loading, error }] = useMutation(CREATE_INTEREST)
@@ -57,7 +59,8 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
               data: {
                   from: e.target.from.value,
                   to: e.target.to.value,    
-                  targetValue: +e.target.targetValue.value
+                  buy: e.target.interestIn.value === "Compra" ? +e.target.targetValue.value : 0,
+                  sell: e.target.interestIn.value === "Venda" ? +e.target.targetValue.value : 0,
               }
       }})
   }
@@ -75,7 +78,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
             interests: true
           }
         })
-          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} no target de ${formatCoin(data.createInterest.targetValue, data.createInterest.from)} salvo com sucesso!`)
+          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} salvo com sucesso!`)
           onClose()
         }
          // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,7 +100,6 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl>
-
                 <FormLabel>Selecionar conversão:</FormLabel>
                 <Flex alignItems={"center"} justifyContent={"center"} gap="5px">
                 <Select name="from" onChange={(e) => setPrimaryValue(e.target.value)}>
@@ -109,10 +111,19 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
                   </Select>
                 </Flex>
               </FormControl>
-              <FormControl mt={4}>
+              <Flex justifyContent={"center"} alignItems={{base:"start",lg:"center"}} flexDir={{base:"column",lg:"row"}} mt={4} gap="20px">
+              <FormControl  >
                 <FormLabel>Valor trackeado: </FormLabel>
-                <Input placeholder='5.36' type="number" name="targetValue"/>
+                <Input w={{base:"60%",lg:"100%"}} placeholder='5.36' step="0.001" type="number" name="targetValue"/>
               </FormControl>
+              <FormControl  h="100%">
+                <FormLabel>Para: </FormLabel>
+                <Select defaultValue={"Compra"} name="interestIn" onChange={(e) => setInterestIn(e.target.value)} w={{base:"60%",lg:"100%"}}>
+                  <chakra.option value="Compra">Compra</chakra.option>
+                  <chakra.option value="Venda">Venda</chakra.option>
+                </Select>
+              </FormControl>
+              </Flex>
             </ModalBody>
             <ModalFooter>
               <Button isLoading={loading ? true : false} bg={theme.colors.brand.primary} type="submit" _hover={{backgroundColor: "#fdcd5e"}} mr={3}>

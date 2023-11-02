@@ -50,6 +50,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
   });
   const [deletedSearchId, setDeleteSearchId] = useState<string>("")
   const [elementsToShow, setElementsToShow] = useState(elements)
+  const [interestBuy, setInterestBuy] = useState<boolean>(false)
 
   useEffect(() => {
     setElementsToShow(elements)
@@ -114,7 +115,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
 
             }
             return (
-              <InterestTracking key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
+              <InterestTracking ask={element.ask} bid={element.bid}  status={interestBuy === true ? "buy" : "sell"} key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
             )
           
           }
@@ -130,7 +131,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
 
         }
         return (
-          <InterestTracking key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
+          <InterestTracking ask={element.ask} bid={element.bid}  status={interestBuy === true ? "buy" : "sell"}  key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
         )
       }
     });
@@ -150,8 +151,8 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
                     <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
                         Baixa
                     </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
-                        Target
+                    <chakra.li minW={{base:"32%", lg:"16.66%"}} onClick={() => setInterestBuy(prev => !prev)} textAlign={"center"} >
+                    {interestBuy === true ? "Compra" : "Venda"}
                     </chakra.li>
                     <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
                         Diária

@@ -8,7 +8,12 @@ getUserLast15DaysFromInterests {
     codein
     name,
     high,
-    targetValue
+    targetValue{
+      buy
+      sell
+    }
+    bid
+    ask 
     low,
     varBid,
     timestamp

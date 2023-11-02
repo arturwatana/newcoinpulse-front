@@ -11,7 +11,7 @@ import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
 import { formatCoin } from "@/utils/formatCoin";
 import {MdDeleteForever} from "react-icons/md"
-import { useModalContext } from "@/app/providers/ModalProvider";
+import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
 
 interface InterestModal{
     isOpen: boolean
@@ -24,12 +24,12 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
     const initialRef = useRef(null)
     const finalRef = useRef(null)
     const [updateInterest, {data, loading, error }] = useMutation(CREATE_INTEREST)
-    const { onOpen, setTypeModal, setModalProps } = useModalContext()
+    const { onOpen, setTypeModal, setModalProps, setUpdateScreen } = useModalContext()
     
 
   const handleSubmit = (e:any) => {
       e.preventDefault()
-      if(!e.target.targetValue.value){
+      if(!e.target.targetValueBuy.value && !e.target.targetValueSell.value){
         toast.error("Ops, faltaram algumas informacoes")
         return
       }
@@ -38,7 +38,8 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
               data: {
                   from: modalProps.code,
                   to: modalProps.codein,    
-                  targetValue: +e.target.targetValue.value
+                  buy: +e.target.targetValueBuy.value,
+                  sell: +e.target.targetValueSell.value
               }
       }})
   }
@@ -50,8 +51,15 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
           return
       }
       if(data){
-          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} no target de ${formatCoin(data.createInterest.targetValue, data.createInterest.from)} salvo com sucesso!`)
-      }
+        setUpdateScreen((prev: UpdateScreenProps) => {
+          return {
+            ...prev,
+            interests: true
+          }
+        })
+          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} atualizado com sucesso!`)
+          onClose()
+        }
        // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, error])
 
@@ -65,7 +73,7 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
         >
           <ModalOverlay />
           <ModalContent>
-                <chakra.form onSubmit={handleSubmit}>
+              <chakra.form onSubmit={handleSubmit}>
             <ModalHeader>Editar Interesse</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
@@ -76,8 +84,12 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
                 </Flex>
               </FormControl>
               <FormControl mt={4}>
-                <FormLabel>Valor trackeado: </FormLabel>
-                <Input placeholder={modalProps.targetValue} type="number" name="targetValue"/>
+                <FormLabel>Valor trackeado para Compra: </FormLabel>
+                <Input placeholder={modalProps.targetValue.buy} w="60%" step="0.001" type="number" name="targetValueBuy"/>
+              </FormControl>
+              <FormControl mt={4}>
+                <FormLabel>Valor trackeado para Venda: </FormLabel>
+                <Input placeholder={modalProps.targetValue.sell}  w="60%" step="0.001" type="number" name="targetValueSell"/>
               </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} justifyContent={"space-between"}>

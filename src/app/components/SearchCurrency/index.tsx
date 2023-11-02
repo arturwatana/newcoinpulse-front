@@ -10,6 +10,7 @@ import { toast } from "react-toastify"
 import { GET_CURRENCY, GET_FREE_CURRENCY } from "@/graphql/mutations/getCurrency.mutation"
 import { useMutation } from "@apollo/client"
 import { ICurrency } from "@/app/modules/Currency/model/ICurrency.interface"
+import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider"
 
 
 interface FormProps {
@@ -32,6 +33,7 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
     const [switchSearches, setSwitchSearches ] = useState<boolean>(false)
     const [getCurrency, {data, loading, error }] = useMutation(logged ? GET_CURRENCY : GET_FREE_CURRENCY)
     const [result, setResult] = useState<ICurrency>()
+    const { setUpdateScreen } = useModalContext()
 
     function switchValues(primary: string, second: string){
         const isPossible = nameIsPossibleSearch(second)
@@ -70,6 +72,12 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
             return
         }
         if(data){
+            setUpdateScreen((prev: UpdateScreenProps) => {
+                return {
+                  ...prev,
+                  searches: true
+                }
+              })
             toast.success("Conversao consultada com sucesso")
             setResult(logged ? data.createCurrency : data.createFreeCurrency)
         }
@@ -79,8 +87,8 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
     
     return (
         <Flex w={w} flexDir={"column"}  justifyContent={"start"} alignItems={"center"} gap="50px" px={{base:"0px", lg:"0px"}}>
-                    <FormControl  w={{base:"100%", lg:"85%", xl:"60%"}} textColor={"white"} flexDir={"column"} display={"flex"} justifyContent={"center"} gap="15px" alignItems={"center" }  >
-                    <Heading w='100%' textAlign={"center"}>{name}</Heading>
+                    <FormControl  w={{base:"100%", lg:"100%", xl:"70%"}} textColor={"white"} flexDir={"column"} display={"flex"} justifyContent={"center"} gap="15px" alignItems={"center" }  >
+                    <Heading w='100%' textAlign={"center"} wordBreak={"break-word"}>{name}</Heading>
                         <chakra.form  flexDir={"column"} display={"flex"} alignItems={"center"} gap="15px" onSubmit={handleSubmit} >
                             <Flex w="100%" gap="15px" justifyContent={"center"} alignItems={"center"}>
                                 <Select value={primaryValue} name="from" onChange={(e )=> setPrimaryValue(e.target.value)}>
