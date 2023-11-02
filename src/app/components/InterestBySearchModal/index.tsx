@@ -20,7 +20,7 @@ interface InterestModal{
     modalProps: any
 }
 
-export default function EditInterestModal({onClose,isOpen, modalProps}: InterestModal){
+export default function InterestBySearchModal({onClose,isOpen, modalProps}: InterestModal){
     const initialRef = useRef(null)
     const finalRef = useRef(null)
     const [updateInterest, {data, loading, error }] = useMutation(CREATE_INTEREST)
@@ -36,8 +36,8 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
       updateInterest({
           variables: {
               data: {
-                  from: modalProps.code,
-                  to: modalProps.codein,    
+                  from: modalProps.from,
+                  to: modalProps.to,    
                   buy: +e.target.targetValueBuy.value,
                   sell: +e.target.targetValueSell.value
               }
@@ -57,7 +57,7 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
             interests: true
           }
         })
-          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} atualizado com sucesso!`)
+          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} salvo com sucesso!`)
           onClose()
         }
        // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -74,34 +74,29 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
           <ModalOverlay />
           <ModalContent>
               <chakra.form onSubmit={handleSubmit}>
-            <ModalHeader>Editar Interesse</ModalHeader>
+            <ModalHeader>Adicionar Interesse</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
               <FormControl>
                 <FormLabel>Conversão:</FormLabel>
                 <Flex alignItems={"center"} justifyContent={"center"} gap="5px" w="40%">
-                <Input placeholder={`${modalProps.code}/${modalProps.codein}`} isDisabled type="number" name="" value="USD/BRL"/>
+                <Input placeholder={`${modalProps.from}/${modalProps.to}`} isDisabled type="number" name="" value="USD/BRL"/>
                 </Flex>
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Valor trackeado para Compra: </FormLabel>
-                <Input placeholder={formatCoin(+modalProps.targetValue.buy, modalProps.code)} w="60%" step="0.001" type="number" name="targetValueBuy"/>
+                <Input  w="60%" step="0.001" type="number" name="targetValueBuy"/>
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Valor trackeado para Venda: </FormLabel>
-                <Input placeholder={formatCoin(+modalProps.targetValue.sell, modalProps.code)}  w="60%" step="0.001" type="number" name="targetValueSell"/>
+                <Input  w="60%" step="0.001" type="number" name="targetValueSell"/>
               </FormControl>
             </ModalBody>
-            <ModalFooter display={"flex"} justifyContent={"space-between"}>
-            <Button bg={"red.400"} type="submit" _hover={{backgroundColor: "red.500"}} onClick={() => {setModalProps(`${modalProps.code}-${modalProps.codein}`);setTypeModal("delete"); onOpen()}} mr={3}>
-                Excluir
-            </Button>
-                <Flex>
+            <ModalFooter display={"flex"} >
               <Button isLoading={loading ? true : false} bg={theme.colors.brand.primary} type="submit" _hover={{backgroundColor: "#fdcd5e"}} mr={3}>
-                Editar
+                Adicionar
               </Button>
               <Button onClick={onClose}>Cancelar</Button>
-                </Flex>
             </ModalFooter>
                 </chakra.form>
           </ModalContent>

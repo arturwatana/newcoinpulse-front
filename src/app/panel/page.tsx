@@ -51,7 +51,7 @@ export default function Panel(){
                     <Text w="70%" textAlign={"center"} fontSize={"18px"}>{luckyOfDay}</Text>
                    </Flex>
                    
-                   <Flex flexDir={"column"} w="100%" gap="15px" bgColor={"rgba(50,50,50,0.6)"} backdropFilter='auto' backdropBlur='8px' >
+                   <Flex flexDir={"column"} w="100%" gap="15px" bgColor={"rgba(50,50,50,0.6)"} backdropFilter='auto' backdropBlur='2px' >
                 <Flex justifyContent={"center"} alignItems={"center"}>
                 <Button   display={{base:"flex", "2xl":"none"}} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
                 </Flex>
