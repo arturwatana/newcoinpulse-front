@@ -10,13 +10,12 @@ import InterestTracking from "../components/InterestTracking"
 import { toast } from "react-toastify"
 import { useModalContext } from "../providers/ModalProvider"
 import { onError } from "@apollo/client/link/error"
-
+import {BsArrowDownRight} from "react-icons/bs"
 
 export default function Panel(){
     const {data, loading, error, refetch } = useQuery(GET_USERLAST15DAYSINTERESTS)
     const [interests, setInterests] = useState([])
     const { onOpen, setTypeModal, updateScreen } = useModalContext()
-    const [interestBuy, setInterestBuy] = useState<boolean>(false)
     
     useEffect(() => {
         if(error){
@@ -25,7 +24,12 @@ export default function Panel(){
             return
         }
         if(data){
-            const firstElements = data.getUserLast15DaysFromInterests.slice(0,5)
+            const firstElements = data.getUserLast15DaysFromInterests.filter((int: any) => {
+                if(int.favorite === true){
+                    return int
+                }
+                return 
+            }).slice(0,5)
             setInterests(firstElements)
         }
           // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -36,6 +40,7 @@ export default function Panel(){
         }
           // eslint-disable-next-line react-hooks/exhaustive-deps
       },[updateScreen, refetch])
+
       
 
     return (
@@ -51,11 +56,13 @@ export default function Panel(){
                     <Text w="70%" textAlign={"center"} fontSize={"18px"}>{luckyOfDay}</Text>
                    </Flex>
                    
-                   <Flex flexDir={"column"} w="100%" gap="15px" bgColor={"rgba(50,50,50,0.6)"} backdropFilter='auto' backdropBlur='2px' >
-                <Flex justifyContent={"center"} alignItems={"center"}>
-                <Button   display={{base:"flex", "2xl":"none"}} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
+                   <Flex flexDir={"column"}    h="100%" w="100%" gap="15px" bgColor={"rgba(50,50,50,0.6)"} backdropFilter='auto' backdropBlur='2px' >
+                <Flex justifyContent={"center"} alignItems={"center"} >
                 </Flex>
-                        <Heading w="100%" textAlign={"center"}>Interesses favoritados</Heading>
+                        <Heading w="100%"textAlign={"center"}>Interesses favoritados</Heading>
+                    <Flex w="100%" justifyContent={"center"} display={{base:"flex", "2xl":"none"}} >
+                <Button w="70%"   bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
+                    </Flex>
                    <Flex border="1px solid white" rounded="lg" w="100%" flexDir={"column"} justifyContent={"start"} alignItems={"center" }  gap="20px">
                         <chakra.ul w="100%" listStyleType={"none"} display={"flex"} flexDir={"column"} >
                             <chakra.ul bg={theme.colors.brand.primary} rounded="6px 6px 0 0"  fontWeight={"bold"} listStyleType={"none"} display={"flex"} justifyContent={"space-evenly"} textColor={"gray.800"} alignItems="center"borderBottom={"1px solid white"} h="2em"> 
@@ -63,25 +70,39 @@ export default function Panel(){
                                     Sigla
                                 </chakra.li>
                                 <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
-                                {interestBuy === true ? "Compra" : "Venda"}
+                                Compra
                                 </chakra.li>
-                                <chakra.li minW={{base:"32%", lg:"18.66%"}} onClick={() => setInterestBuy(prev => !prev)} textAlign={"center"} >
-                                    {interestBuy === true ? "Alvo/Compra" : "Alvo/Venda"}
+                                <chakra.li minW={{base:"32%", lg:"18.66%"}}  textAlign={"center"} >
+                                    Venda
                                 </chakra.li>
                                 <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"}  display={{base: "none","2xl": "flex"}}>
-                                    Diária
+                                    T-Compra
                                 </chakra.li>
                                 <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"}display={{base: "none","2xl": "flex"}} >
-                                    Quinzenal
+                                    T-Venda
                                 </chakra.li>
                             </chakra.ul>
                                 {loading ? (
-                                    <Flex w="100%" h="100%" alignItems={"center"} justifyContent={"center"}>
+                                    <Flex w="100%" h="100%" alignItems={"center"} justifyContent={"center"} p="50px">
                                         <Spinner />
                                     </Flex>
-                                ) : interests && interests.length > 0 ? (interests.map((interest: any, index) => <InterestTracking ask={interest.ask} bid={interest.bid} status={interestBuy === true ? "buy" : "sell"} w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)) : <Text textAlign={"center"} p="20px">Ainda nao estamos trackeando nada, <chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={() => {setTypeModal("add"); onOpen() }}>clique aqui para rastrear uma conversao!</chakra.a></Text>}
+                                ) : interests && interests.length > 0 ? (interests.map((interest: any, index) => <InterestTracking favorite={interest.favorite} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)) : <Text textAlign={"center"} p="20px">Ainda nao estamos trackeando nada, <chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={() => {setTypeModal("add"); onOpen() }}>clique aqui para rastrear uma conversao!</chakra.a></Text>}
                             </chakra.ul>
+
                    </Flex>
+                   <Flex justifyContent={"center"}>
+                   <Flex justifyContent={"center"} border="1px solid white" mt="1em" w="50%" flexDir={"column"}>
+                   <Text bg={theme.colors.brand.primary} textColor={"black"} fontWeight={"bold"} w="100%" textAlign="center" mb="3px">Legendas:</Text>
+                    <chakra.ul listStyleType={"none"} textAlign={"center"} display={"flex"} flexDir={"column"} gap="5px">
+                        <chakra.li borderBottom={"1px solid white" } pb="3px" >Sigla - Sigla da conversão</chakra.li>
+                        <chakra.li borderBottom={"1px solid white" } pb="3px">Compra - Valor de compra da conversão</chakra.li>
+                        <chakra.li borderBottom={"1px solid white" } pb="3px">Venda - Valor de venda da conversão</chakra.li>
+                        <chakra.li borderBottom={"1px solid white" } pb="3px">T-Compra - Valor de compra trackeado</chakra.li>
+                        <chakra.li borderBottom={"1px solid white" } pb="3px">T-Venda - Valor de venda trackeado</chakra.li>
+                    </chakra.ul>
+                   </Flex>
+                   </Flex>
+
                    </Flex>
                    </Flex>
 

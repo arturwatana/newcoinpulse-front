@@ -113,7 +113,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                         </Flex>
                     </Flex>
                 ) : (
-                    <Flex alignItems="end" justifyContent={"center"} gap="15px">
+                    <Flex alignItems="end" justifyContent={"center"} gap="15px" mt={{base:"3px", lg:"0"}}>
                         {/* <Menu>
                         <MenuButton   mr="4em" >
                             <Icon as={IoIosNotifications} h="100%" w={{base: "0", md:"200%"}}  textColor={notificationIsOpen ? "orange.500" : "white"} onClick={() => setNotificationIsOpen((prev) => !prev)}/>
@@ -126,11 +126,11 @@ export default function NavBar({logged, userProps}: NavBarProps){
                 </MenuList>
                         </Menu> */}
                     <Menu >
-                        <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}}  minW={{base: "0",md:"15em"}}  border="1px solid white"   rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>
-                            <Flex alignItems={"center"} justifyContent={"space-between"} gap="10px">
+                        <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}}   minW={{base: "0",md:"15em"}}  border="1px solid white"   rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>
+                            <Flex alignItems={"center"} justifyContent={"space-between"} gap="10px" >
                                 <Flex flexDir="column" gap="5px" textAlign={"start"}>
                                 <Text display={{base:"none", md:"flex"}}>Olá, {userProps?.fullName.split(" ")[0]}</Text>
-                                <Text display={{base:"flex", md:"none"}}>{userProps?.fullName.split(" ")[0].split("")[0]}</Text>
+                                <Text display={{base:"flex", md:"none"}}>{userProps?.fullName.split(" ")[0].split("")[0].toUpperCase()}</Text>
                                 <Text fontSize={"13px"} display={{base:"none", md:"flex"}}>{userProps?.email}</Text>
                                 </Flex>
                             <Icon display={{base:"none", md:"flex"}} as={BiDownArrowAlt} fontSize={"32px"} />

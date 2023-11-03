@@ -1,16 +1,11 @@
 import { theme } from "@/app/providers/Providers";
-import { Button, FormControl, FormLabel, chakra, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure, Icon, Flex } from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, chakra, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure, Icon, Flex, Text } from "@chakra-ui/react";
 import {useRef} from "react"
-import {HiOutlineSwitchHorizontal} from "react-icons/hi"
-import PrimaryOptions from "../PrimaryOption";
-import SecondaryOptions from "../OptionCurrency";
-import { useState, useEffect } from "react"
-import { nameIsPossibleSearch, switchIsPossible } from "@/utils/query/FormattedPossibleSearches";
+import { useEffect } from "react"
 import { toast } from "react-toastify"
 import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
 import { formatCoin } from "@/utils/formatCoin";
-import {MdDeleteForever} from "react-icons/md"
 import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
 
 interface InterestModal{
@@ -77,6 +72,7 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
             <ModalHeader>Editar Interesse</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
+              <Text mb="15px" textColor={"gray.700"} fontWeight={"semibold"} _hover={{textColor:"gray.500"}} cursor={"pointer"} onClick={() => {setModalProps({from: modalProps.code, to: modalProps.codein, favorite: modalProps.favorite});setTypeModal("favorite"); onOpen()}}>{modalProps.favorite ? "Desfavoritar Interesse" : "Favoritar Interesse"}</Text>
               <FormControl>
                 <FormLabel>Conversão:</FormLabel>
                 <Flex alignItems={"center"} justifyContent={"center"} gap="5px" w="40%">

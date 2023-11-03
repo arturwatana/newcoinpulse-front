@@ -50,7 +50,6 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
   });
   const [deletedSearchId, setDeleteSearchId] = useState<string>("")
   const [elementsToShow, setElementsToShow] = useState(elements)
-  const [interestBuy, setInterestBuy] = useState<boolean>(false)
 
   useEffect(() => {
     setElementsToShow(elements)
@@ -110,12 +109,12 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
           if (index >= firstElement && index + 1 <= lastElement) {
             if(typePaginate === "search"){
               return (
-                <Search height="100%" width={{base: "80%", xl: "30%","2xl": "25%"}} currency={element} key={ `element${index}`}/>
+                <Search height="100%" width={{base: "80%", xl: "30%","2xl": "30%"}} currency={element} key={ `element${index}`}/>
                 );
 
             }
             return (
-              <InterestTracking ask={element.ask} bid={element.bid}  status={interestBuy === true ? "buy" : "sell"} key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
+              <InterestTracking paginate favorite={element.favorite} ask={element.ask} bid={element.bid}  key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
             )
           
           }
@@ -126,12 +125,12 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
       if (index >= firstElement && index + 1 <= lastElement) {
         if(typePaginate === "search"){
           return (
-            <Search  height="100%" width={{base: "80%", lg:"30%", xl: "30%","2xl": "25%"}}currency={element} key={ `element${index}`}/>
+            <Search  height="100%" width={{base: "80%", lg:"30%", xl: "30%","2xl": "30%"}}currency={element} key={ `element${index}`}/>
             );
 
         }
         return (
-          <InterestTracking ask={element.ask} bid={element.bid}  status={interestBuy === true ? "buy" : "sell"}  key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
+          <InterestTracking paginate favorite={element.favorite} ask={element.ask} bid={element.bid}   key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
         )
       }
     });
@@ -139,25 +138,28 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
 
   return (
     <Flex  flexDir="column" h="100%" minH="38em" w="full" gap={5} justifyContent={"space-between"} >
-          <Flex justifyContent={{base:typePaginate === "search" ? "center" : "start","2xl": "start"}}  flexDir={{base: "column", lg: typePaginate === "search" ? "row" : "column"}} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={5} px={{base:typePaginate === "interest" ? "0px" : "10px", "2xl": typePaginate === "interest" ? "0px" : "100px"}} pt={typePaginate === "interest" ? "0px" : "20px"} pl={{base:"0px", "2xl": typePaginate === "interest" ? "0px" : "120px"}} >
+          <Flex justifyContent={{base:typePaginate === "search" ? "center" : "start","2xl": "start"}}  flexDir={{base: "column", lg: typePaginate === "search" ? "row" : "column"}} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={typePaginate === "interest" ? "0" : 5} px={{base:typePaginate === "interest" ? "0px" : "10px", "2xl": typePaginate === "interest" ? "0px" : "20px"}} pt={typePaginate === "interest" ? "0px" : "20px"} pl={{base:"0px", "2xl": typePaginate === "interest" ? "0px" : "120px"}} >
               {typePaginate === "interest" ? ( 
                 <chakra.ul bg={theme.colors.brand.primary} w="100%" rounded="6px 6px 0 0" textColor={"gray.800"} fontWeight={"bold"} listStyleType={"none"} display={"flex"} justifyContent={"space-evenly"}  alignItems="center"borderBottom={"1px solid white"} h="2em"> 
-                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
+                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
                         Sigla
                     </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
+                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
                         Alta
                     </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
+                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"}  >
                         Baixa
                     </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"16.66%"}} onClick={() => setInterestBuy(prev => !prev)} textAlign={"center"} >
-                    {interestBuy === true ? "Compra" : "Venda"}
+                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
+                    Compra
                     </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
+                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"32%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
+                    Venda
+                    </chakra.li>
+                    <chakra.li minW={{base:"32%", lg:"10%", "xl": "10%"}} maxW={{base:"32%", lg:"10%", "xl": "10%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
                         Diária
                     </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center" } display={{base: "none","2xl": "block"}} >
+                    <chakra.li minW={{base:"32%", lg:"10%", "xl": "10%"}} maxW={{base:"32%", lg:"10%", "xl": "10%"}} textAlign={"center" } display={{base: "none","2xl": "block"}} >
                         Quinzenal
                     </chakra.li>
                 </chakra.ul>

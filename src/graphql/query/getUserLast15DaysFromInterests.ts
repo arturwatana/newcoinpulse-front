@@ -7,6 +7,7 @@ getUserLast15DaysFromInterests {
     code,
     codein
     name,
+    favorite
     high,
     targetValue{
       buy

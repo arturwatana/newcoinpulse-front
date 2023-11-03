@@ -12,7 +12,7 @@ import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
 import { formatCoin } from "@/utils/formatCoin";
 import {MdDeleteForever} from "react-icons/md"
 import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
-import { DELETE_INTEREST } from "@/graphql/mutations/deleteInterest";
+import { DELETE_INTEREST } from "@/graphql/mutations/deleteInterest.mutation";
 
 interface InterestModal{
     isOpen: boolean
@@ -77,7 +77,7 @@ export default function DeleteInterestModal({onClose,isOpen, modalProps}: Intere
               </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} justifyContent={"space-between"}>
-                <Button isLoading={loading ? true : false} bg={"red.400"} type="submit" _hover={{backgroundColor: "red.500"}} onClick={() => {setTypeModal("delete"); onOpen()}} mr={3}>
+                <Button isLoading={loading ? true : false} bg={"red.400"} type="submit" _hover={{backgroundColor: "red.500"}}  mr={3}>
                 Excluir
             </Button>
               <Button onClick={onClose}>Cancelar</Button>

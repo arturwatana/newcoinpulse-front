@@ -1,17 +1,15 @@
-import { theme } from "@/app/providers/Providers";
-import { Button, FormControl, FormLabel, chakra, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure, Icon, Flex } from "@chakra-ui/react";
-import {useRef} from "react"
-import {HiOutlineSwitchHorizontal} from "react-icons/hi"
-import PrimaryOptions from "../PrimaryOption";
-import SecondaryOptions from "../OptionCurrency";
-import { useState, useEffect } from "react"
-import { nameIsPossibleSearch, switchIsPossible } from "@/utils/query/FormattedPossibleSearches";
-import { toast } from "react-toastify"
+import { Button, FormControl, FormLabel, chakra, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure, Icon, Flex, Text } from "@chakra-ui/react";
+import {useRef, useState, useEffect } from "react"
 import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
-import { formatCoin } from "@/utils/formatCoin";
-import {MdDeleteForever} from "react-icons/md"
 import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
+import { theme } from "@/app/providers/Providers";
+import { toast } from "react-toastify"
+
+interface TargetValueProps {
+    buy: number
+    sell: number
+}
 
 interface InterestModal{
     isOpen: boolean
@@ -25,7 +23,6 @@ export default function InterestBySearchModal({onClose,isOpen, modalProps}: Inte
     const finalRef = useRef(null)
     const [updateInterest, {data, loading, error }] = useMutation(CREATE_INTEREST)
     const { onOpen, setTypeModal, setModalProps, setUpdateScreen } = useModalContext()
-    
 
   const handleSubmit = (e:any) => {
       e.preventDefault()
@@ -85,11 +82,11 @@ export default function InterestBySearchModal({onClose,isOpen, modalProps}: Inte
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Valor trackeado para Compra: </FormLabel>
-                <Input  w="60%" step="0.001" type="number" name="targetValueBuy"/>
+                <Input  w="60%" step="0.001" type="number" name="targetValueBuy" />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Valor trackeado para Venda: </FormLabel>
-                <Input  w="60%" step="0.001" type="number" name="targetValueSell"/>
+                <Input  w="60%" step="0.001" type="number" name="targetValueSell" />
               </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} >

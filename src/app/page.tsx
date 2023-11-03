@@ -59,11 +59,11 @@ export default function Home() {
       </chakra.section>
       <chakra.section minH="100vh" h="100%" w={{lg:"95%","2xl": "80%"}} pb="50px" pt="30px" display={"flex"} flexDir={"row"} alignItems={"center"} justifyContent={"center"} textColor={"white"}>
             <Flex  w="80%" h="50%" alignItems={"center"} flexDir={["column", "column", "column",  "row"]} gap={{base:"70px", lg:"0"}}  justifyContent={"space-around"}>
-              <Flex flexDir={"column"} border="2px solid white" rounded="10px" w={{lg:"40%","2xl": "40%"}} gap="10px" minH="250px" h="100%" py="20px"  backdropFilter='auto' backdropBlur='20px' alignItems={"center"} justifyContent={"space-evenly"} shadow={"2px 2px 3px #f0f0f0"} >
+              <Flex flexDir={"column"} border="2px solid white" rounded="10px" w={{lg:"40%","2xl": "40%"}} gap="10px" px={{base:"15px", lg:"15px"}}  minH={{base:"300px", lg: "450px",xl:"350px"}} h="100%" py="20px"  backdropFilter='auto' backdropBlur='20px' alignItems={"center"} justifyContent={"space-evenly"} shadow={"2px 2px 3px #f0f0f0"} >
                 <Heading fontSize={"29.12px"} w='100%'textAlign={"center"}>Interesses Personalizados:</Heading>
                 <Text fontSize={{base:"18px"}} w="80%" textAlign={"center"}>Com o CoinPulse, você tem o poder de escolher o que importa. Adicione suas moedas e criptomoedas favoritas à sua lista de interesses. Dessa forma, você pode ver as conversões que mais lhe interessam e até mesmo definir valores-alvo para receber notificações quando elas atingirem esses valores.</Text>
               </Flex>
-              <Flex flexDir={"column"} border="2px solid white"  gap="10px"  w={{lg:"40%","2xl": "40%"}}  py="20px" minH="250px"   rounded="10px" backdropFilter='auto' backdropBlur='20px' alignItems={"center"} justifyContent={"space-evenly"} shadow={"2px 2px 3px #f0f0f0"} >
+              <Flex flexDir={"column"} border="2px solid white"  gap="10px"  w={{lg:"40%","2xl": "40%"}}  py="20px" minH={{base:"300px", lg: "450px",xl:"350px"}} px={{base:"15px", lg:"15px"}}   rounded="10px" backdropFilter='auto' backdropBlur='20px' alignItems={"center"} justifyContent={"space-evenly"} shadow={"2px 2px 3px #f0f0f0"} >
                 <Heading fontSize={"29.12px"} w='100%' textAlign={"center"}>Notificações em Tempo Real:</Heading>
                 <Text fontSize={{base:"18px"}}  w="80%" textAlign={"center"}>Fique por dentro das mudanças do mercado com as notificações do CoinPulse. Quando suas moedas atingirem os valores que você definiu, você receberá notificações instantâneas. É a maneira mais simples de acompanhar seus investimentos e se manter informado.</Text>
               </Flex>
