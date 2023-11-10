@@ -5,6 +5,7 @@ import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
 import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
 import { theme } from "@/app/providers/Providers";
 import { toast } from "react-toastify"
+import { formatCoin } from "@/utils/formatCoin";
 
 interface TargetValueProps {
     buy: number
@@ -22,7 +23,16 @@ export default function InterestBySearchModal({onClose,isOpen, modalProps}: Inte
     const initialRef = useRef(null)
     const finalRef = useRef(null)
     const [updateInterest, {data, loading, error }] = useMutation(CREATE_INTEREST)
+    const [userValue, setUserValue] = useState<number>(0)
     const { onOpen, setTypeModal, setModalProps, setUpdateScreen } = useModalContext()
+    function calcValues(){
+      if(modalProps.userValue){
+          return +modalProps.userValue  * +modalProps.low
+      }
+      else {
+          return 1 * +modalProps.low
+      }
+  }
 
   const handleSubmit = (e:any) => {
       e.preventDefault()
@@ -80,14 +90,18 @@ export default function InterestBySearchModal({onClose,isOpen, modalProps}: Inte
                 <Input placeholder={`${modalProps.from}/${modalProps.to}`} isDisabled type="number" name="" value="USD/BRL"/>
                 </Flex>
               </FormControl>
+                <Flex>
               <FormControl mt={4}>
-                <FormLabel>Valor trackeado para Compra: </FormLabel>
-                <Input  w="60%" step="0.001" type="number" name="targetValueBuy" />
+                <FormLabel>T-Compra: </FormLabel>
+                <Input  w="90%" step="0.001" type="number" name="targetValueBuy" />
               </FormControl>
               <FormControl mt={4}>
-                <FormLabel>Valor trackeado para Venda: </FormLabel>
-                <Input  w="60%" step="0.001" type="number" name="targetValueSell" />
+                <FormLabel>T-Venda: </FormLabel>
+                <Input  w="90%" step="0.001" type="number" name="targetValueSell" />
               </FormControl>
+                </Flex>
+
+
             </ModalBody>
             <ModalFooter display={"flex"} >
               <Button isLoading={loading ? true : false} bg={theme.colors.brand.primary} type="submit" _hover={{backgroundColor: "#fdcd5e"}} mr={3}>

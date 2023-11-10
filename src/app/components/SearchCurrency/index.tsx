@@ -105,7 +105,7 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
                         </chakra.form>
                    </FormControl>
                    {result ? (
-                 <Search height={resultH} width={searchW} currency={result}/>
+                 <Search height={resultH} width={searchW} currency={result} />
                    ) : null}
                    </Flex>
     )

@@ -61,7 +61,6 @@ export default function RootLayout({
             <AuthProvider >
               <ModalProvider>
                 <NavBar logged={logged} userProps={userData} setUserProps={setUserData}/>
-                <SideMenu/>
               {children}
               </ModalProvider>
             </AuthProvider>

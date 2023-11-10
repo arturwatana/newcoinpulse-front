@@ -4,110 +4,33 @@ import { theme } from "../providers/Providers"
 import { luckyOfDay } from "@/utils/luckyOfDay"
 import {useEffect, useState} from "react"
 import SearchCurrency from "../components/SearchCurrency"
-import { GET_USERLAST15DAYSINTERESTS } from "@/graphql/query/getUserLast15DaysFromInterests"
-import { useQuery } from "@apollo/client"
-import InterestTracking from "../components/InterestTracking"
-import { toast } from "react-toastify"
 import { useModalContext } from "../providers/ModalProvider"
-import { onError } from "@apollo/client/link/error"
-import {BsArrowDownRight} from "react-icons/bs"
+import TableInterests from "../components/TableInterests"
+import {IoIosInformationCircleOutline} from "react-icons/io"
 
 export default function Panel(){
-    const {data, loading, error, refetch } = useQuery(GET_USERLAST15DAYSINTERESTS)
-    const [interests, setInterests] = useState([])
     const { onOpen, setTypeModal, updateScreen } = useModalContext()
-    
-    useEffect(() => {
-        if(error){
-
-            toast.error(error.message)
-            return
-        }
-        if(data){
-            const firstElements = data.getUserLast15DaysFromInterests.filter((int: any) => {
-                if(int.favorite === true){
-                    return int
-                }
-                return 
-            }).slice(0,5)
-            setInterests(firstElements)
-        }
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-      }, [data, error]);
-      useEffect(() => {
-        if(updateScreen.interests){
-            refetch()
-        }
-          // eslint-disable-next-line react-hooks/exhaustive-deps
-      },[updateScreen, refetch])
-
-      
 
     return (
-        <chakra.section   maxW="100vw" w="100%"  display={"flex"}  minH="100vh" h="100%" className="main"   justifyContent={"center"} alignItems={"center"} py="150px" >
-            <Flex  w={{base:"100%", "2xl":"80%" }}  minH="60%" justifyContent={{base:"center", "2xl":"end"}}    h={{base:"100%","2xl":"60vh"}} >
-                <Flex  w={{base:"100%","2xl":"80%"}} alignItems={{base:"center","2xl":"start"}}  pl={{base: "0","2xl":"0" }}gap={{base:"40px", "2xl": "0"}}  textColor={"white"} flexDir={{base: "column","2xl":"row"}} justifyContent={"space-between"}    > 
-                <Flex   w={{base:"90%", "2xl": "100%"}} alignItems={"center"} justifyContent={"center"}>
-                   <SearchCurrency searchW={{base:"100%", md:"80%", lg:"60%", "2xl":"70%"}} logged w="100%"  name="Consultar conversao" resultH="30%"/>
-                </Flex>
-                   <Flex justifyContent={"start"} gap="80px" flexDir={"column"} h="80%" w={{base: "90%","2xl":"70%"}}  py='10px' alignItems={"center" }   >
-                   <Flex flexDir={"column"} minW={{base:"50%","2xl":"650px"}}  justifyContent={"start"} alignItems={"center" } border="1px solid white" rounded='lg'  py='10px' gap="10px" bgColor={"rgba(50,50,50,0.8)"} backdropFilter='auto' backdropBlur='8px'>
-                    <Heading fontSize={"29.12px"}>Sorte do dia</Heading>
-                    <Text w="70%" textAlign={"center"} fontSize={"18px"}>{luckyOfDay}</Text>
-                   </Flex>
-                   
-                   <Flex flexDir={"column"}    h="100%" w="100%" gap="15px" bgColor={"rgba(50,50,50,0.6)"} backdropFilter='auto' backdropBlur='2px' >
-                <Flex justifyContent={"center"} alignItems={"center"} >
-                </Flex>
-                        <Heading w="100%"textAlign={"center"}>Interesses favoritados</Heading>
-                    <Flex w="100%" justifyContent={"center"} display={{base:"flex", "2xl":"none"}} >
-                <Button w="70%"   bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
+    <chakra.section  display={"flex"} pt="120px"  h="100%"   justifyContent={"center"}  >
+                <Flex   maxW='1920px' w={{base:"100%","2xl":"90%"}}  alignItems={{base:"center","2xl":"center"}}  gap={{base:"80px", "2xl": "0"}}  textColor={"white"} flexDir={{base: "column","2xl":"row"}} justifyContent={"space-between"}    > 
+                    <Flex  h="100%"  minH={{base:"200px", xl:"700px"}} alignItems={"start"} justifyContent={"center"} w={{base: "90%", lg:"40%"}} backdropFilter='auto' backdropBlur='8px'>
+                        <SearchCurrency searchW={{base:"100%", md:"80%", lg:"60%", "2xl":"70%"}} logged w="100%"  name="Consultar conversao" resultH="30%"/>
                     </Flex>
-                   <Flex border="1px solid white" rounded="lg" w="100%" flexDir={"column"} justifyContent={"start"} alignItems={"center" }  gap="20px">
-                        <chakra.ul w="100%" listStyleType={"none"} display={"flex"} flexDir={"column"} >
-                            <chakra.ul bg={theme.colors.brand.primary} rounded="6px 6px 0 0"  fontWeight={"bold"} listStyleType={"none"} display={"flex"} justifyContent={"space-evenly"} textColor={"gray.800"} alignItems="center"borderBottom={"1px solid white"} h="2em"> 
-                                <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
-                                    Sigla
-                                </chakra.li>
-                                <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"} >
-                                Compra
-                                </chakra.li>
-                                <chakra.li minW={{base:"32%", lg:"18.66%"}}  textAlign={"center"} >
-                                    Venda
-                                </chakra.li>
-                                <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"}  display={{base: "none","2xl": "flex"}}>
-                                    T-Compra
-                                </chakra.li>
-                                <chakra.li minW={{base:"32%", lg:"16.66%"}} textAlign={"center"}display={{base: "none","2xl": "flex"}} >
-                                    T-Venda
-                                </chakra.li>
-                            </chakra.ul>
-                                {loading ? (
-                                    <Flex w="100%" h="100%" alignItems={"center"} justifyContent={"center"} p="50px">
-                                        <Spinner />
-                                    </Flex>
-                                ) : interests && interests.length > 0 ? (interests.map((interest: any, index) => <InterestTracking favorite={interest.favorite} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)) : <Text textAlign={"center"} p="20px">Ainda nao estamos trackeando nada, <chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={() => {setTypeModal("add"); onOpen() }}>clique aqui para rastrear uma conversao!</chakra.a></Text>}
-                            </chakra.ul>
-
-                   </Flex>
-                   <Flex justifyContent={"center"}>
-                   <Flex justifyContent={"center"} border="1px solid white" mt="1em" w="50%" flexDir={"column"}>
-                   <Text bg={theme.colors.brand.primary} textColor={"black"} fontWeight={"bold"} w="100%" textAlign="center" mb="3px">Legendas:</Text>
-                    <chakra.ul listStyleType={"none"} textAlign={"center"} display={"flex"} flexDir={"column"} gap="5px">
-                        <chakra.li borderBottom={"1px solid white" } pb="3px" >Sigla - Sigla da conversão</chakra.li>
-                        <chakra.li borderBottom={"1px solid white" } pb="3px">Compra - Valor de compra da conversão</chakra.li>
-                        <chakra.li borderBottom={"1px solid white" } pb="3px">Venda - Valor de venda da conversão</chakra.li>
-                        <chakra.li borderBottom={"1px solid white" } pb="3px">T-Compra - Valor de compra trackeado</chakra.li>
-                        <chakra.li borderBottom={"1px solid white" } pb="3px">T-Venda - Valor de venda trackeado</chakra.li>
-                    </chakra.ul>
-                   </Flex>
-                   </Flex>
-
-                   </Flex>
-                   </Flex>
-
+                        <Flex justifyContent={"start"} minH="600px" gap="80px" flexDir={"column"} h="80%" w={{base: "100%","2xl":"70%"}}  py='10px' alignItems={"center" }   >
+                            <Flex flexDir={"column"}  backdropFilter='auto' backdropBlur='8px'  h="100%" w="100%" gap="15px" >
+                                <Heading w="100%"textAlign={"center"}>Interesses favoritados</Heading>
+                                <Flex w="95%" justifyContent={"end"} mb="10px" textColor={"white"} alignItems={"center"} gap="10px">
+                                    <Icon fontSize={28} onClick={() => {setTypeModal("subtitles"); onOpen()}} as={IoIosInformationCircleOutline} />
+                                </Flex>
+                            <Flex w="100%" justifyContent={"center"} display={{base:"flex", "2xl":"none"}} >
+                        </Flex>
+                    <Flex justifyContent={{base:"end", md: "center"}} w="100%" >
+                            <TableInterests/>
+                    </Flex>
                 </Flex>
             </Flex>
-        </chakra.section>
-    )
+        </Flex>
+    </chakra.section>
+)
 }

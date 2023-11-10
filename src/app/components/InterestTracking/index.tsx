@@ -1,6 +1,6 @@
 
 
-import { chakra, Text } from "@chakra-ui/react"
+import { chakra, Td, Text, Th, Tr } from "@chakra-ui/react"
 import { formatCoin } from "@/utils/formatCoin";
 import { useModalContext } from "@/app/providers/ModalProvider";
 interface InterestTrackProps {
@@ -21,6 +21,7 @@ interface InterestTrackProps {
     favorite: boolean
     h: string
     paginate?: boolean
+    index: number
 }
 
 
@@ -37,7 +38,7 @@ export interface LastDaysQuery{
   }
 
 
-export default function InterestTracking({code,high,lastDays,low,name,varBid,bid,favorite , paginate,  ask, codein, targetValue, h,w}: InterestTrackProps){
+export default function InterestTracking({code,high,index,lastDays,low,name,varBid,bid,favorite , paginate,  ask, codein, targetValue, h,w}: InterestTrackProps){
     const { onOpen, setTypeModal, setModalProps } = useModalContext()
     const fortnightVariation = lastDays.reduce((acc, next) => {
        return  acc + parseFloat(next.pctChange)
@@ -54,21 +55,22 @@ export default function InterestTracking({code,high,lastDays,low,name,varBid,bid
         codein,
         targetValue
     }
+    function isEven(number: number){
+        return number % 2 === 0
+    }
+
+    function hover(){
+
+    }
 
     return (
-                            <chakra.li bgColor={"rgba(48,48,48,0.6)"} borderBottom={"1px solid white"}  rounded="0 0 6px 6px"   backdropFilter='auto' backdropBlur='8px' display={"flex"} w={w} py="8px" onClick={() => {setTypeModal("edit"); setModalProps(modalProps); onOpen()}} justifyContent={"space-evenly"} alignItems={"center"}  _hover={{backgroundColor: "#646464"}} cursor={"pointer"} h={h}>
-                                <Text minW={{base:"15%", lg:"10%"}} maxW={{base:"15%", lg:"10%"}} wordBreak={"break-word"}  textAlign={"center"}>{`${code} / ${codein}`}</Text>
-                                <Text minW={{base:"15%", lg:"10%"}} maxW={{base:"15%", lg:"10%"}} wordBreak={"break-word"}  textAlign={"center"}>{formatCoin(+bid, code)}</Text>
-                                <Text minW={{base:"15%", lg:"10%"}} maxW={{base:"15%", lg:"10%"}} textAlign={"center"}>{formatCoin(+ask, code)}</Text>
-                                <Text minW={{base:"15%", lg:"10%"}} maxW={{base:"15%", lg:"10%"}} textAlign={"center"}>{formatCoin(+targetValue.buy, code)}</Text>
-                                <Text minW={{base:"15%", lg:"10%"}} maxW={{base:"15%", lg:"10%"}} textAlign={"center"}>{formatCoin(+targetValue.sell, code)}</Text>
-                                {paginate ? (
-                                    <>
-                                     <Text minW={{base:"32%", lg:"10%"}} maxW={{base:"32%", lg:"10%"}} display={{base: "none","2xl": "block"}} textAlign={"center"}>{dailyVariation >= 0 ? "+" : ""}{dailyVariation.toFixed(2)}%</Text>
-                                <Text minW={{base:"32%", lg:"10%"}}maxW={{base:"32%", lg:"10%"}} display={{base: "none","2xl": "block"}}  textAlign={"center"}>{averageFornightPctChange >= 0 ? "+" : ""}{averageFornightPctChange.toFixed(2)}%</Text>
-                                    </>
-                                ): null}
+                            <Tr  bg={isEven(index) ? "rgba(48,48,48,1)" : "rgba(34, 33, 33, 1)"}   rounded="0 0 6px 6px"  backdropFilter='auto' backdropBlur='8px'  py="8px" onClick={() => {setTypeModal("edit"); setModalProps(modalProps); onOpen()}}   _hover={{backgroundColor: "#646464"}} cursor={"pointer"} h={h}>
+                                <Td  position={"sticky"} left="0" bg={isEven(index) ? "rgba(48,48,48,1)" : "rgba(34, 33, 33, 1)"} >{`${code} / ${codein}`} </Td>
+                                <Td >{formatCoin(+bid, code)}</Td>
+                                <Td>{formatCoin(+ask, code)}</Td>
+                                <Td >{formatCoin(+targetValue.buy, code)}</Td>
+                                <Td>{formatCoin(+targetValue.sell, code)}</Td>
                                
-                            </chakra.li>
+                            </Tr>
     )
 }

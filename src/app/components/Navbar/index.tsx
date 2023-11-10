@@ -14,6 +14,13 @@ import { useQuery } from '@apollo/client';
 import {IoIosNotifications} from "react-icons/io"
 import Pusher from "pusher-js";
 import { NotificationProps } from "../Notification"
+import {BiLogOut} from "react-icons/bi"
+import {CiViewList} from "react-icons/ci"
+import {AiOutlineSearch} from "react-icons/ai"
+import {GrWifi} from "react-icons/gr"
+import {VscAdd} from "react-icons/vsc"
+import {BiLogIn} from "react-icons/bi"
+import {VscSignIn} from "react-icons/vsc"
 
 interface NavBarProps{
     logged?: boolean
@@ -89,8 +96,8 @@ export default function NavBar({logged, userProps}: NavBarProps){
     }
 
     return (
-        <Flex w={{base:"100%", "2xl":"100%"}} h="10%" position={"fixed"} alignItems={"center"} justifyContent={"center"} bgColor={"rgba(48,48,48,0.8)"} backdropFilter='auto' backdropBlur='8px' zIndex={"20"}>
-            <Flex w={{base:"95%", lg:"80%"}} justifyContent={"space-between"} alignItems={"center"}>
+        <Flex w={{base:"100%", "2xl":"100%"}} h="10%" position={"fixed"}  justifyContent={"center"} bgColor={"rgba(48,48,48,0.8)"} backdropFilter='auto' backdropBlur='8px' zIndex={"20"}>
+            <Flex w={{base: "100%", "2xl": "90%"}}  maxW="1920px" justifyContent={"space-between"} alignItems={"center"}>
                 <Heading textColor={"white"} as="a" href={logged ? "/panel" : '/'}>CoinPulse</Heading>
                 {!logged ? (
                     <Flex >
@@ -100,16 +107,16 @@ export default function NavBar({logged, userProps}: NavBarProps){
                                 <Icon textColor={"white"} fontSize={"32px"} as={RxHamburgerMenu}></Icon>
                             </MenuButton>
                         <MenuList   bg={'#303030'} textColor={"white"}  >
-                            <MenuItem as="a" href={"/account/login"} bg={"#303030"} _hover={{backgroundColor: "#646464"}} >Login</MenuItem>
-                            <MenuItem as="a" href={"/account/register"} bg={"#303030"} _hover={{backgroundColor: "#646464"}}>Registrar</MenuItem>
+                            <MenuItem as="a" href={"/account/login"} bg={"#303030"} _hover={{backgroundColor: "#646464"}} > <Icon as={BiLogIn} mr="10px"/>Login</MenuItem>
+                            <MenuItem as="a" href={"/account/register"} bg={"#303030"} _hover={{backgroundColor: "#646464"}}><Icon as={VscSignIn} mr="10px"/>Registrar</MenuItem>
                         </MenuList>
                         </Menu>
                         </Flex>
                         <Flex display={{base:"none", lg:"flex"}} gap={"20px"}>
                             <Button bg={"gray.300"} _hover={{backgroundColor: "gray.100"}} as={"a"} href="/account/register" >
-                                Registrar
+                            <Icon as={VscSignIn} mr="10px"/> Registrar
                             </Button>
-                            <Button bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} as={"a"} href="/account/login">Login</Button>
+                            <Button bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} as={"a"} href="/account/login"><Icon as={BiLogIn} mr="10px"/>Login</Button>
                         </Flex>
                     </Flex>
                 ) : (
@@ -133,19 +140,19 @@ export default function NavBar({logged, userProps}: NavBarProps){
                                 <Text display={{base:"flex", md:"none"}}>{userProps?.fullName.split(" ")[0].split("")[0].toUpperCase()}</Text>
                                 <Text fontSize={"13px"} display={{base:"none", md:"flex"}}>{userProps?.email}</Text>
                                 </Flex>
-                            <Icon display={{base:"none", md:"flex"}} as={BiDownArrowAlt} fontSize={"32px"} />
+                                <Icon display={{base:"none", md:"flex"}} as={BiDownArrowAlt} fontSize={"32px"} />
                             </Flex>
                         </MenuButton>
                         <MenuList ml="10px"  textColor={"black"} >
                         <MenuGroup title='Acesso rapido'>
-                            <MenuItem  onClick={() => {setTypeModal("add"); onOpen() }} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}>+ Adicionar interesse</MenuItem>
-                            <MenuItem as="a" href={"/panel/interests"} >Acompanhar interesses</MenuItem>
+                            <MenuItem  onClick={() => {setTypeModal("add"); onOpen() }} bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}><Icon as={VscAdd} mr="10px"/> Adicionar interesse</MenuItem>
+                            <MenuItem as="a" href={"/panel/interests"} ><Icon as={GrWifi} mr="10px" />Acompanhar interesses</MenuItem>
                               </MenuGroup>
                               <MenuDivider />
                               <MenuGroup title='Minha conta'>
-                            <MenuItem as="a" href={"/panel"} >Painel</MenuItem>
-                            <MenuItem as="a" href={"/panel/searches"} >Minhas pesquisas</MenuItem>
-                            <MenuItem as="p" onClick={logoutUser} >Logout</MenuItem>
+                            <MenuItem as="a" href={"/panel"} ><Icon as={CiViewList} mr="10px"/>Painel</MenuItem>
+                            <MenuItem as="a" href={"/panel/searches"} ><Icon as={AiOutlineSearch} mr="10px"/>Minhas pesquisas</MenuItem>
+                            <MenuItem as="p" onClick={logoutUser} ><Icon as={BiLogOut} mr="10px"/>Logout</MenuItem>
                               </MenuGroup>
                         </MenuList>
                     </Menu>

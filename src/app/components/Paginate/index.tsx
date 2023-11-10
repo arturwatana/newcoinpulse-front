@@ -3,9 +3,8 @@ import Search from "../Search";
 import { useEffect, useState } from "react";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import { BiArrowToLeft, BiArrowToRight } from "react-icons/bi";
-import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Select, Box, HStack } from "@chakra-ui/react"
+import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Select, Box, HStack, TableContainer, Tr, Th, Table, Thead, Tbody } from "@chakra-ui/react"
 import InterestTracking from "../InterestTracking";
-import { theme } from "@/app/providers/Providers";
 
 type PaginateProps = {
   elements: any[];
@@ -71,6 +70,30 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
   }, [qtdPerPage])
 
   useEffect(() => {
+    if(filterByName != "Todas"){
+      const filteredElements = elementsToShow.filter(element => {
+        const filterElementName = `${element.from}/${element.to}`
+        if(filterElementName === filterByName){
+          return element
+        }
+        return 
+        })
+        setPaginateProps({
+            page:1,
+            qtdPerPage: qtdPerPage,
+            totalPages: Math.ceil(filteredElements.length / qtdPerPage) == 0 ? 1 : Math.ceil(filteredElements.length / qtdPerPage)
+          });
+      } else {
+        setPaginateProps({
+          page: 1,
+          qtdPerPage: qtdPerPage,
+          totalPages: Math.ceil(elements.length / qtdPerPage) == 0 ? 1 : Math.ceil(elements.length / qtdPerPage)
+        });
+      }
+          // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filterByName])
+
+  useEffect(() => {
       if(deletedSearchId.length > 1){
        const newElements = elementsToShow.filter(element => {
           if(element.id === deletedSearchId){
@@ -91,6 +114,68 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
     return numberOfPages;
   }
 
+  function renderFilteredInterests(elementsToShow: any[]){
+    const lastElement = paginateProps.page * paginateProps.qtdPerPage;
+    const firstElement =
+      paginateProps.page * paginateProps.qtdPerPage - qtdPerPage;
+      const interestsToShow: any[] = []
+
+      if(filterByName != "Todas"){
+        const filteredElements = elementsToShow.filter(element => {
+          const filterElementName = typePaginate === "interest" ?  `${element.code}/${element.codein}` : `${element.from}/${element.to}`
+          if(filterElementName === filterByName){
+            return element
+          }
+          return
+          })
+          const paginateElements = filteredElements.map((element, index) => {
+            if (index >= firstElement && index + 1 <= lastElement) {
+              return element
+            }}
+            )
+        interestsToShow.push(paginateElements)
+        return (
+          <TableContainer w="100%" rounded="10px 10px 0 0">
+          <Table>
+            <Thead bg={"#F2A900"} >
+              <Tr textColor={"white"} >
+                <Th position={"sticky"} bg={"#F2A900"}  left="0">Sigla</Th>
+                <Th>Compra</Th>
+                <Th>Venda</Th>
+                <Th>T-Compra</Th>
+                <Th>T-Venda</Th>
+              </Tr>
+            </Thead>
+              <Tbody>
+               {interestsToShow.map((interest: any, index) => <InterestTracking  favorite={interest.favorite} index={index} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)}
+             </Tbody> 
+          </Table>
+        </TableContainer>
+        )
+        } 
+        interestsToShow.push(elementsToShow)
+        console.log(interestsToShow)
+        
+        
+        return (
+          <TableContainer w="100%" rounded="10px 10px 0 0">
+          <Table>
+            <Thead bg={"#F2A900"} >
+              <Tr textColor={"white"} >
+                <Th position={"sticky"} bg={"#F2A900"}  left="0">Sigla</Th>
+                <Th>Compra</Th>
+                <Th>Venda</Th>
+                <Th>T-Compra</Th>
+                <Th>T-Venda</Th>
+              </Tr>
+            </Thead>
+              <Tbody>
+               {interestsToShow.map((interest: any, index) => <InterestTracking  favorite={interest.favorite} index={index} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)}
+             </Tbody> 
+          </Table>
+        </TableContainer>
+        )
+      }
 
   function renderFilteredCurrencies(elementsToShow: any[]) {
     const lastElement = paginateProps.page * paginateProps.qtdPerPage;
@@ -99,24 +184,20 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
 
       if(filterByName != "Todas"){
         const filteredElements = elementsToShow.filter(element => {
-          const filterElementName = typePaginate === "interest" ?  `${element.code}/${element.codein}` : `${element.from}/${element.to}`
+          const filterElementName = `${element.from}/${element.to}`
           if(filterElementName === filterByName){
             return element
           }
           return 
           })
+        
         return filteredElements.map((element, index) => {
           if (index >= firstElement && index + 1 <= lastElement) {
             if(typePaginate === "search"){
               return (
                 <Search height="100%" width={{base: "80%", xl: "30%","2xl": "30%"}} currency={element} key={ `element${index}`}/>
                 );
-
             }
-            return (
-              <InterestTracking paginate favorite={element.favorite} ask={element.ask} bid={element.bid}  key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
-            )
-          
           }
         });
       }
@@ -125,13 +206,10 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
       if (index >= firstElement && index + 1 <= lastElement) {
         if(typePaginate === "search"){
           return (
-            <Search  height="100%" width={{base: "80%", lg:"30%", xl: "30%","2xl": "30%"}}currency={element} key={ `element${index}`}/>
+            <Search  height="100%" width={{base: "80%", lg:"30%", xl: "30%","2xl": "30%"}} currency={element} key={ `element${index}`}/>
             );
 
         }
-        return (
-          <InterestTracking paginate favorite={element.favorite} ask={element.ask} bid={element.bid}   key={`track${index}`} h="100%" w="100%" code={element.code} codein={element.codein} high={element.high} lastDays={element.lastDays} low={element.low}  name={element.name} targetValue={element.targetValue} varBid={element.varBid}/>
-        )
       }
     });
   }
@@ -140,31 +218,9 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
     <Flex  flexDir="column" h="100%" minH="38em" w="full" gap={5} justifyContent={"space-between"} >
           <Flex justifyContent={{base:typePaginate === "search" ? "center" : "start","2xl": "start"}}  flexDir={{base: "column", lg: typePaginate === "search" ? "row" : "column"}} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={typePaginate === "interest" ? "0" : 5} px={{base:typePaginate === "interest" ? "0px" : "10px", "2xl": typePaginate === "interest" ? "0px" : "20px"}} pt={typePaginate === "interest" ? "0px" : "20px"} pl={{base:"0px", "2xl": typePaginate === "interest" ? "0px" : "120px"}} >
               {typePaginate === "interest" ? ( 
-                <chakra.ul bg={theme.colors.brand.primary} w="100%" rounded="6px 6px 0 0" textColor={"gray.800"} fontWeight={"bold"} listStyleType={"none"} display={"flex"} justifyContent={"space-evenly"}  alignItems="center"borderBottom={"1px solid white"} h="2em"> 
-                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
-                        Sigla
-                    </chakra.li>
-                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
-                        Alta
-                    </chakra.li>
-                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"}  >
-                        Baixa
-                    </chakra.li>
-                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"15%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
-                    Compra
-                    </chakra.li>
-                    <chakra.li minW={{base:"15%", lg:"10%", "xl": "10%"}} maxW={{base:"32%", lg:"10%", "xl": "10%"}} textAlign={"center"} >
-                    Venda
-                    </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"10%", "xl": "10%"}} maxW={{base:"32%", lg:"10%", "xl": "10%"}} textAlign={"center"} display={{base: "none","2xl": "block"}} >
-                        Diária
-                    </chakra.li>
-                    <chakra.li minW={{base:"32%", lg:"10%", "xl": "10%"}} maxW={{base:"32%", lg:"10%", "xl": "10%"}} textAlign={"center" } display={{base: "none","2xl": "block"}} >
-                        Quinzenal
-                    </chakra.li>
-                </chakra.ul>
-              ) : null}
-              {renderFilteredCurrencies(elementsToShow)}
+                 renderFilteredInterests(elementsToShow)
+              ) : renderFilteredCurrencies(elementsToShow)}
+              
              </Flex>
          <Flex justify="space-around" color="white" >
         <HStack spacing={2}>
