@@ -73,6 +73,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
   
     useEffect(() => {
       pusher();
+// eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     useEffect(() => {
         if(error){
@@ -128,7 +129,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                         <MenuList   textColor={"black"} w={{base:"30%", sm:"50%", md:"90%", lg:"100%"}} py="0" rounded="10px " >
                             <Heading textAlign={"center"} fontWeight={"semibold"} fontSize={22} bg={theme.colors.brand.primary} rounded="10px 10px 0 0">Notificacoes</Heading>
                         {notifications && notifications.length > 0 ? (
-                            notifications.map((notify, index) => <MenuItem  _hover={{backgroundColor: "#646464"}} w={"100%"} py="15px" rounded={index === notifications.length -1 ? "0 0 10px 10px" : ""} border="1px solid black">{notify.description}</MenuItem>)
+                            notifications.map((notify, index) => <MenuItem key={`notification${index}`} _hover={{backgroundColor: "#646464"}} w={"100%"} py="15px" rounded={index === notifications.length -1 ? "0 0 10px 10px" : ""} border="1px solid black">{notify.description}</MenuItem>)
                         ): <MenuItem  _hover={{backgroundColor: "#646464"}} >Sem notificacoes para hoje</MenuItem>}
                         </MenuList>
                     </Menu>
