@@ -9,14 +9,13 @@ import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
 
 
-export default function Register({props}: any){ 
-
-    const [addUser, {data, loading, error }] = useMutation(CREATE_USER)
-    const router = useRouter()
+export default function Register(){ 
+  const [addUser, {data, loading, error }] = useMutation(CREATE_USER)
+  const router = useRouter()
   const [userEmail, setUserEmail] = useState<string>("")
   const [email, setEmail] = useState<string>("")
     
-    const handleSubmit = (e:any) => {
+  const handleSubmit = (e:any) => {
         e.preventDefault()
         addUser({
             variables: {
@@ -56,7 +55,7 @@ export default function Register({props}: any){
                 <Flex flexDir={"column"} w="100%" textAlign={"center"} gap="5px">
                     <Flex flexDir={"column"}>
                    <FormLabel w="100%" textAlign={"center"} >Nome:</FormLabel>
-                  <Input name="name"  id="name" type='text' placeholder="Seu nome super massa!" />
+                  <Input name="name"  id="name" type='text' placeholder="Nome Completo" />
                     </Flex>
                     <Flex flexDir={"column"}>
                    <FormLabel  w="100%" textAlign={"center"} >Email:</FormLabel>

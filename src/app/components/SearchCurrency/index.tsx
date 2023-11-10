@@ -94,7 +94,7 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
                                 <Select value={primaryValue} name="from" onChange={(e )=> setPrimaryValue(e.target.value)}>
                                     <PrimaryOptions/>
                                 </Select>
-                                <Icon as={HiOutlineSwitchHorizontal} cursor={"pointer"} fontSize={"20px"} onClick={() => switchValues(primaryValue, secondaryValue)}/>
+                                <Icon as={HiOutlineSwitchHorizontal}  fontSize={"20px"}/>
                                 <Select name="to" value={secondaryValue != "" ? secondaryValue : "AED"}  onChange={(e) => {
                                     setSecondaryValue(e.target.value)
                                 }}>

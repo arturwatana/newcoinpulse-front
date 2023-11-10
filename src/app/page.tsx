@@ -31,9 +31,9 @@ export default function Home() {
     <chakra.main className="main" position={"relative"}  display={"flex"} flexDir={"column"} alignItems={"center"} gap="20px" pb={{base:"50px", xl:"0"}} >
       <NavBar />
       <chakra.section h={{base: "100%", xl: "100vh"}} maxW="1920px"  pt={{base: "6em", xl: "0"}} gap={{base: "80px", xl: "0"}} px={{base: "10px", xl: "0"}} w={{base: "95%", xl:"100%", "2xl":"90%"}} alignItems={"center"} display={"flex"} flexDir={{base:"column", xl:"row"}}justifyContent={{base:"center", xl:"space-between"}}>
-        <Flex w={{base: "100%",  xl:"80%", "2xl": "50%"}}    flexDir={"column"} justifyContent={"center"} alignItems={{base:"center", xl:"start"}} h="100%"  gap={["35px", "35px", "35px", "15px"]}>
-          <Flex flexDir={"column"} textColor={"white"} w={{base:"100%", xl:"90%","2xl":"80%"}} gap="15px">
-            <Flex flexDir={"column"} gap="5px">
+        <Flex   w={{base: "100%",  xl:"80%", "2xl": "50%"}} flexDir={"column"} justifyContent={"center"} alignItems={{base:"center", xl:"start"}} h="100%"  gap={["35px", "35px", "35px", "15px"]}>
+          <Flex  flexDir={"column"} textColor={"white"} w={{base:"100%", xl:"90%","2xl":"80%"}} gap="15px">
+            <Flex  flexDir={"column"} gap="5px">
             <Heading w={{base:"100%"}} fontSize={{base:"35px",md: "35px",  xl:"47.12px"}} >Bem-vindo(a) ao CoinPulse</Heading>
             <Text fontSize={{base:"18px"}}>Acompanhe e receba alertas de conversões</Text>
             </Flex>
@@ -42,7 +42,7 @@ export default function Home() {
           </Flex>
           <FormControl textColor={"white"}  flexDir={{base:"column", xl:"row"}} display={"flex"} alignItems={"center"} justifyContent={{base:"center", xl:"start"}} gap="15px">
             <Flex flexDir={"column"} justifyContent={"center"} alignItems={"center"} h="100%" w={{base:"80%", xl:"50%"}} fontSize={{base:"18px"}} >
-              <Flex w="100%" flexDir={"column"}>
+              <Flex w="100%" flexDir={"column"} >
                    <FormLabel w="" fontSize={{base:"18px"}} textAlign={"center"}  >Digite seu email:</FormLabel>
                   <Input type='email' fontSize={{base:"18px"}}  placeholder="coinpulse@joinus.com" onChange={((e) => setUserEmail(e.target.value))} />
               </Flex>

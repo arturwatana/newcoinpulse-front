@@ -9,12 +9,13 @@ import { useModalContext } from "@/app/providers/ModalProvider"
 import { theme } from "@/app/providers/Providers"
 import InterestTracking from "@/app/components/InterestTracking"
 import {IoIosInformationCircleOutline} from "react-icons/io"
+import { IInterest } from "@/app/modules/Interest/model/IInterest.interface"
 
 export default function Tracking(){
     const [qtdPerPage, setQtdPerPage] = useState<number>(12)
     const [filter, setFilter] = useState<string>("Todas")
     const {data, loading, error, refetch } = useQuery(GET_USERLAST15DAYSINTERESTS)
-    const [interests, setInterests] = useState([])
+    const [interests, setInterests] = useState<IInterest[]>([])
     const { updateScreen,onOpen,setTypeModal} = useModalContext()
 
     function renderCategories(){
@@ -29,16 +30,23 @@ export default function Tracking(){
             return
         }
         if(data){
-            setInterests(data.getUserLast15DaysFromInterests)
+            const userInterestsSortedByName: IInterest[] = [...data.getUserLast15DaysFromInterests].sort((prev: any, next: any) => {
+                if (prev.code < next.code) {
+                  return -1;
+                }
+                if (prev.code > next.code) {
+                  return 1;
+                }
+                return 0;
+              })
+            setInterests(userInterestsSortedByName)
         }
-          // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [data, error]);
 
       useEffect(() => {
         if(updateScreen.interests){
             refetch()
         }
-          // eslint-disable-next-line react-hooks/exhaustive-deps
       },[updateScreen])
 
     return (

@@ -79,6 +79,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
         return 
         })
         setPaginateProps({
+            ...paginateProps,
             page:1,
             qtdPerPage: qtdPerPage,
             totalPages: Math.ceil(filteredElements.length / qtdPerPage) == 0 ? 1 : Math.ceil(filteredElements.length / qtdPerPage)

@@ -6,11 +6,12 @@ import { Flex, Spinner, Table, TableCaption, TableContainer, Tbody, Td, Text, Tf
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import InterestTracking from "../InterestTracking";
+import { IInterest } from "@/app/modules/Interest/model/IInterest.interface";
 
 
 export default function TableInterests(){
   const {data, loading, error, refetch } = useQuery(GET_USERLAST15DAYSINTERESTS)
-  const [interests, setInterests] = useState([])
+  const [interests, setInterests] = useState<IInterest[]>([])
   const { onOpen, setTypeModal, updateScreen } = useModalContext()
   const [interestIn, setInterestIn] = useState<string>("Compra")
   
@@ -25,6 +26,14 @@ export default function TableInterests(){
                   return int
               }
               return 
+          }).sort((prev: any, next: any) => {
+            if (prev.code < next.code) {
+              return -1;
+            }
+            if (prev.code > next.code) {
+              return 1;
+            }
+            return 0;
           }).slice(0,5)
           setInterests(firstElements)
       }

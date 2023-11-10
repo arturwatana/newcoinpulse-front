@@ -35,57 +35,57 @@ interface NavBarProps{
 
 export default function NavBar({logged, userProps}: NavBarProps){
     const { onOpen, setTypeModal } = useModalContext()
-    // const {data, loading, error } = useQuery(GET_USER)
+    const {data, loading, error } = useQuery(GET_USER)
     const [notifications, setNotifications] = useState<NotificationProps[]>([]);
     const [prevNotifications, setPrevNotifications] = useState<NotificationProps[]>([]);
     const [notificationIsOpen, setNotificationIsOpen] = useState<boolean>(false);
     
 
-    // async function pusher() {
-    //   const pusher = new Pusher("7f0e3a323f03b1a35797", { cluster: 'us2' });
-    //   pusher.connection.bind("connected", () => {
-    //     const channel = pusher.subscribe("notifications");
-    //     channel.bind("new_notifications", async (notifications: NotificationProps[]) => {
-    //       const userNotifications: NotificationProps[] = [];
-    //       if(error){
-    //           console.log(error)
-    //           return
-    //       }
-    //       if(data && !loading){
-    //           console.log(notifications)
-    //       }
-    //       notifications.forEach(notify => {
-    //         if (notify.userId === data.getUserByToken.id) {
-    //           const notifyAlreadyInArray = userNotifications.find(notification => {
-    //             return notification.name === notify.name;
-    //           });
-    //           if (!notifyAlreadyInArray) {
-    //             userNotifications.push(notify);
-    //           }
-    //         }
-    //       });
-    //       if(userNotifications.length != notifications.length){
-    //           setNotifications(userNotifications);
-    //       }
-    //     });
-    //   });
-    // }
+    async function pusher() {
+      const pusher = new Pusher("7f0e3a323f03b1a35797", { cluster: 'us2' });
+      pusher.connection.bind("connected", () => {
+        const channel = pusher.subscribe("notifications");
+        channel.bind("new_notifications", async (notifications: NotificationProps[]) => {
+          const userNotifications: NotificationProps[] = [];
+          if(error){
+              console.log(error)
+              return
+          }
+          if(data && !loading){
+              console.log(notifications)
+          }
+          notifications.forEach(notify => {
+            if (notify.userId === data.getUserByToken.id) {
+              const notifyAlreadyInArray = userNotifications.find(notification => {
+                return notification.name === notify.name;
+              });
+              if (!notifyAlreadyInArray) {
+                userNotifications.push(notify);
+              }
+            }
+          });
+          if(userNotifications.length != notifications.length){
+              setNotifications(userNotifications);
+          }
+        });
+      });
+    }
   
-    // useEffect(() => {
-    //   pusher();
-    // }, []);
-    // useEffect(() => {
-    //     if(error){
-    //         toast.error(error.message)
-    //         return
-    //     }
-    // }, [error]);
+    useEffect(() => {
+      pusher();
+    }, []);
+    useEffect(() => {
+        if(error){
+            toast.error(error.message)
+            return
+        }
+    }, [error]);
 
-    // useEffect(()=> {
-    //     if(prevNotifications.length != notifications.length){
-    //         toast("Oba, voce tem uma nova notificacao!")
-    //     }
-    // }, [notifications]) 
+    useEffect(()=> {
+        if(prevNotifications.length != notifications.length){
+            toast("Oba, voce tem uma nova notificacao!")
+        }
+    }, [notifications]) 
 
 
 
@@ -120,18 +120,18 @@ export default function NavBar({logged, userProps}: NavBarProps){
                         </Flex>
                     </Flex>
                 ) : (
-                    <Flex alignItems="end" justifyContent={"center"} gap="15px" mt={{base:"3px", lg:"0"}}>
-                        {/* <Menu>
-                        <MenuButton   mr="4em" >
-                            <Icon as={IoIosNotifications} h="100%" w={{base: "0", md:"200%"}}  textColor={notificationIsOpen ? "orange.500" : "white"} onClick={() => setNotificationIsOpen((prev) => !prev)}/>
+                    <Flex  alignItems="center" justifyContent={"center"} gap="15px" mt={{base:"3px", lg:"0"}}>
+                    <Menu  >
+                        <MenuButton   mr={{base:"2em", lg:"4em"}} >
+                            <Icon as={IoIosNotifications}  transform={"scale(2)"}  textColor={notificationIsOpen ? "orange.500" : "white"} onClick={() => setNotificationIsOpen((prev) => !prev)}/>
                         </MenuButton>
-                        <MenuList left="55%"  textColor={"black"} >
+                        <MenuList   textColor={"black"} w={{base:"30%", sm:"50%", md:"90%", lg:"100%"}} py="0" rounded="10px " >
+                            <Heading textAlign={"center"} fontWeight={"semibold"} fontSize={22} bg={theme.colors.brand.primary} rounded="10px 10px 0 0">Notificacoes</Heading>
                         {notifications && notifications.length > 0 ? (
-                            notifications.map(notify => <MenuItem  _hover={{backgroundColor: "#646464"}} >{notify.description}</MenuItem>)
+                            notifications.map((notify, index) => <MenuItem  _hover={{backgroundColor: "#646464"}} w={"100%"} py="15px" rounded={index === notifications.length -1 ? "0 0 10px 10px" : ""} border="1px solid black">{notify.description}</MenuItem>)
                         ): <MenuItem  _hover={{backgroundColor: "#646464"}} >Sem notificacoes para hoje</MenuItem>}
-                        
-                </MenuList>
-                        </Menu> */}
+                        </MenuList>
+                    </Menu>
                     <Menu >
                         <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}}   minW={{base: "0",md:"15em"}}  border="1px solid white"   rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>
                             <Flex alignItems={"center"} justifyContent={"space-between"} gap="10px" >
