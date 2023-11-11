@@ -31,7 +31,7 @@ export default function Register(){
 
     useEffect(() => {
         if(error){
-            toast(error.message)
+            toast.error(error.message)
             return
         }
         if(data){

@@ -4,38 +4,37 @@ import {theme} from "../../providers/Providers"
 import { useMutation } from "@apollo/client"
 import { useRouter } from "next/navigation"
 import { toast } from "react-toastify"
-import { useEffect } from "react"
 import { LOGIN_USER } from "@/graphql/mutations/login.mutation"
 
 export default function Login(){
-    const [addUser, {data, loading, error }] = useMutation(LOGIN_USER)
+    const [loginUser, { loading }] = useMutation(LOGIN_USER)
     const router = useRouter()
-    
-    const handleSubmit = (e:any) => {
-        e.preventDefault()
-        addUser({
-            variables: {
-                data: {
-                    email: e.target.email.value,
-                    password: e.target.password.value
+        const handleSubmit = async (e: any) => {
+            e.preventDefault()
+            try{
+               await loginUser({
+                    variables: {
+                        data: {
+                            email: e.target.email.value,
+                            password: e.target.password.value
+                        }
+                    
+                }}).then((res) => {
+                toast.success("Usuario logado com sucesso")
+                localStorage.setItem("coinpulse_user_token", res.data.login.token)
+                router.push("/panel")
+                })
+            }
+            catch(err: any){
+                if(err.message === "Failed to fetch"){
+                    toast.error("Ops, tente novamente mais tarde")
+                    return
                 }
-            
-        }})
-    }
-
-    useEffect(() => {
-        if(error){
-            toast(error.message)
-            return
+                toast.error(err.message)
+            }
         }
-        if(data){
-            toast.success("Usuario logado com sucesso")
-            localStorage.setItem("coinpulse_user_token", data.login.token)
-            router.push("/panel")
-        }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, error])
-
+    
+    
     return (
         <Flex h="100vh" w="100vw" position={"absolute"}>
         <FormControl  border="2px solid white" textColor={"white"} h={{base:"40%", xl:"60%"}} top={{base:"20%",lg: "10%",xl:"10%" }}left={{base:"8%",md:"30%",lg: "30%",xl:"35%"}} justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px"  w={{base:"85%", md:"50%",lg:"40%", xl:"25%"}} py="300px" px={"20px"}>

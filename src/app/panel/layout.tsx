@@ -30,7 +30,6 @@ export default function RootLayout({
   const {data, loading, error } = useQuery(GET_USER)
   const router = useRouter()
 
-  
   useEffect(() => {
     if(error){
       router.push("/account/login")

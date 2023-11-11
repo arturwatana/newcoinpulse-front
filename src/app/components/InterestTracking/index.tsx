@@ -66,10 +66,10 @@ export default function InterestTracking({code,high,index,lastDays,low,name,varB
     return (
                             <Tr  bg={isEven(index) ? "rgba(48,48,48,1)" : "rgba(34, 33, 33, 1)"}   rounded="0 0 6px 6px"  backdropFilter='auto' backdropBlur='8px'  py="8px" onClick={() => {setTypeModal("edit"); setModalProps(modalProps); onOpen()}}   _hover={{backgroundColor: "#646464"}} cursor={"pointer"} h={h}>
                                 <Td  position={"sticky"} left="0" bg={isEven(index) ? "rgba(48,48,48,1)" : "rgba(34, 33, 33, 1)"} >{`${code} / ${codein}`} </Td>
-                                <Td >{formatCoin(+bid, code)}</Td>
-                                <Td>{formatCoin(+ask, code)}</Td>
-                                <Td >{formatCoin(+targetValue.buy, code)}</Td>
-                                <Td>{formatCoin(+targetValue.sell, code)}</Td>
+                                <Td >{formatCoin(+bid, codein)}</Td>
+                                <Td>{formatCoin(+ask, codein)}</Td>
+                                <Td >{formatCoin(+targetValue.buy, codein)}</Td>
+                                <Td>{formatCoin(+targetValue.sell, codein)}</Td>
                                
                             </Tr>
     )

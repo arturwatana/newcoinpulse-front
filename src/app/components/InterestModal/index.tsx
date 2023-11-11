@@ -102,7 +102,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
               <FormControl>
                 <FormLabel>Selecionar conversão:</FormLabel>
                 <Flex alignItems={"center"} justifyContent={"center"} gap="5px">
-                <Select name="from" onChange={(e) => setPrimaryValue(e.target.value)}>
+                <Select name="from" defaultValue={"USD"} onChange={(e) => setPrimaryValue(e.target.value)}>
                 <PrimaryOptions/>
                   </Select>
                   <Icon as={HiOutlineSwitchHorizontal} cursor={"pointer"} fontSize={"20px"} onClick={() => switchValues(primaryValue, secondaryValue)}/>
