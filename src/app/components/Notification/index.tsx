@@ -28,7 +28,6 @@ export default function Notification() {
       const channel = pusher.subscribe("notifications");
       channel.bind("new_notifications", async (notificationsPusher: NotificationProps[]) => {
         const userNotifications: NotificationProps[] = [];
-        console.log(notificationsPusher)
         if(notificationsPusher.length === 0){
           return
         }
@@ -45,7 +44,7 @@ export default function Notification() {
           return
         }
 
-        toast(`Voce tem ${userNotifications.length} novas notificacoes`)
+        toast(`Voce tem ${userNotifications.length} ${userNotifications.length > 1 ? "novas notificacoes" : "nova notificacao"}`)
         setNotifications(prev => [...userNotifications, ...prev])
       });
     });
@@ -57,7 +56,6 @@ export default function Notification() {
   }, []);
   useEffect(() => {
     if(data){
-      console.log(data.getUserNotifications.notifications)
       setNotifications(data.getUserNotifications.notifications)
     }
   }, [data]);
@@ -70,8 +68,8 @@ export default function Notification() {
         <MenuButton>
           <Icon as={IoIosNotifications} transform={"scale(2)"} textColor={notificationIsOpen ? "orange.500" : "white"} onClick={() => setNotificationIsOpen((prev) => !prev)} />
         </MenuButton>
-        <MenuList mt="10px"  w={{base:"50%", sm: "75%", lg: "100%"}} py="0" rounded="10px" h="400px"  overflowY={"scroll"}>
-          <Heading textAlign={"center"} fontWeight={"semibold"} fontSize={22} bg={theme.colors.brand.primary} rounded="8px 8px 0 0" py='5px' border="1px solid black" textColor={"gray.600"}>Notificações</Heading>
+        <MenuList mt="10px"  w={{base:"50%", sm: "75%", lg: "100%"}} py="0" rounded="10px" h="100%" maxH="500px" position="relative"   overflowY={"scroll"}>
+          <Heading textAlign={"center"} fontWeight={"semibold"} position={"sticky"} fontSize={22} bg={theme.colors.brand.primary} rounded="8px 8px 0 0" py='5px' border="1px solid black" textColor={"gray.600"}>Notificações</Heading>
           <MenuGroup as="ul" >
             {notifications && notifications.length > 0 ? (
               notifications.map((notify, index) => (
