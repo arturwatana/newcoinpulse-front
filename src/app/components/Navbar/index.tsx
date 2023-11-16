@@ -43,7 +43,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
 
     return (
         <Flex w={{base:"100%", "2xl":"100%"}} h="10%" position={"fixed"}  justifyContent={"center"} bgColor={"rgba(48,48,48,0.8)"} backdropFilter='auto' backdropBlur='8px' zIndex={"20"}>
-            <Flex w={{base: "100%", "2xl": "90%"}}  maxW="1920px" justifyContent={"space-between"} alignItems={"center"}>
+            <Flex w={{base: "95%", "2xl": "90%"}}  maxW="1920px" justifyContent={"space-between"} alignItems={"center"}>
                 <Heading textColor={"white"} as="a" href={logged ? "/panel" : '/'}>CoinPulse</Heading>
                 {!logged ? (
                     <Flex >
