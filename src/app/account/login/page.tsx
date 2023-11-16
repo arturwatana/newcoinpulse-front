@@ -1,5 +1,5 @@
 "use client"
-import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Image } from "@chakra-ui/react"
+import {Flex, chakra, Heading, FormControl, FormLabel, FormHelperText, Input, Button} from "@chakra-ui/react"
 import {theme} from "../../providers/Providers"
 import { useMutation } from "@apollo/client"
 import { useRouter } from "next/navigation"
@@ -9,6 +9,7 @@ import { LOGIN_USER } from "@/graphql/mutations/login.mutation"
 export default function Login(){
     const [loginUser, { loading }] = useMutation(LOGIN_USER)
     const router = useRouter()
+
         const handleSubmit = async (e: any) => {
             e.preventDefault()
             try{
@@ -33,8 +34,7 @@ export default function Login(){
                 toast.error(err.message)
             }
         }
-    
-    
+
     return (
         <Flex h="100vh" w="100vw" position={"absolute"}>
         <FormControl  border="2px solid white" textColor={"white"} h={{base:"40%", xl:"60%"}} top={{base:"20%",lg: "10%",xl:"10%" }}left={{base:"8%",md:"30%",lg: "30%",xl:"35%"}} justifyContent={"center"} bgColor={"rgba(50,50,50,0.95)"} backdropFilter='auto' backdropBlur='8px' flexDir={"column"} rounded={"10px"} display={"flex"} alignItems={"center"} gap="15px"  w={{base:"85%", md:"50%",lg:"40%", xl:"25%"}} py="300px" px={"20px"}>

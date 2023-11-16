@@ -1,6 +1,5 @@
 
 import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
-import {onError} from "@apollo/client/link/error"
 import { setContext } from "@apollo/client/link/context";
 
 const apolloServerURL = "https://currency-graphql.onrender.com/graphql"

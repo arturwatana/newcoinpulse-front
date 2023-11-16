@@ -20,8 +20,6 @@ interface SearchProps {
 export default function Search({height,width, currency, userValue}: SearchProps){
     const { onOpen, setTypeModal, setModalProps } = useModalContext()
 
-
-
     return (
     <Flex border="1px solid white" boxShadow={"md"} justifyContent={"space-between"} position={"relative"} bgGradient={"linear-gradient(#4040402d,#22212190)"} backdropFilter='auto' backdropBlur='8px'  onClick={() => {setTypeModal("addBySearch"); setModalProps(currency); onOpen()}} flexDir={"column"} p="10px" h={height} w={width } minH='230px' rounded={"10px"}  textColor={"white"} gap="5px" shadow={"2px 2px 3px #f0f0f0"} fontWeight={"bold"}>
         <Text>Conversao: <chakra.span fontWeight={"normal"}>{`${currency.from}/${currency.to}`}</chakra.span> </Text>

@@ -69,7 +69,7 @@ export default function TableInterests(){
                   { interests && interests.length > 0 ? (interests.map((interest: any, index) => <InterestTracking  favorite={interest.favorite} index={index} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>))
                    : 
                    <Tr>
-                     <Td textAlign={"center"}  p="20px">Você ainda nao tem nenhum interesse favoritado,<chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={() => {setTypeModal("add"); onOpen() }}> clique aqui para ver seus interesses!</chakra.a></Td>
+                     <Td textAlign={"center"} w="50%" p="20px">Você ainda nao tem nenhum interesse favoritado,<chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={() => {setTypeModal("add"); onOpen() }}> clique aqui para ver seus interesses!</chakra.a></Td>
                    </Tr>}
             </Tbody>
           </Table>

@@ -54,24 +54,16 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
         toast.error("Ops, faltaram algumas informacoes")
         return
       }
-      createInterest({
-          variables: {
-              data: {
-                  from: e.target.from.value,
-                  to: e.target.to.value,    
-                  buy: e.target.interestIn.value === "Compra" ? +e.target.targetValue.value : 0,
-                  sell: e.target.interestIn.value === "Venda" ? +e.target.targetValue.value : 0,
-              }
-      }})
-  }
-
-
-  useEffect(() => {
-      if(error){
-          toast.error(error.message)
-          return
-      }
-      if(data){
+      try{
+        createInterest({
+            variables: {
+                data: {
+                    from: e.target.from.value,
+                    to: e.target.to.value,    
+                    buy: e.target.interestIn.value === "Compra" ? +e.target.targetValue.value : 0,
+                    sell: e.target.interestIn.value === "Venda" ? +e.target.targetValue.value : 0,
+                }
+        }})
         setUpdateScreen((prev: UpdateScreenProps) => {
           return {
             ...prev,
@@ -80,9 +72,11 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
         })
           toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} salvo com sucesso!`)
           onClose()
-        }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error])
+      } catch(err: any){
+        toast.error(err.message)
+      }
+  }
+
 
     
     return (
