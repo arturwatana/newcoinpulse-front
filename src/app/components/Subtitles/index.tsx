@@ -15,9 +15,17 @@ export default function SubtitlesModal({onClose,isOpen,onOpen}: SubtitlesModal){
           <ModalContent>
             <ModalHeader>Legendas</ModalHeader>
             <ModalCloseButton />
-            <ModalBody>
+            <ModalBody display="flex" flexDir="column" gap="25px">
+              <Flex flexDir="column">
                 <Text borderBottom={"1px solid white" } py="10px"><chakra.span fontWeight={"bold"}>T-Compra -</chakra.span>  Valor de compra trackeado</Text>
-                <Text  ><chakra.span fontWeight={"bold"}>T-Venda - </chakra.span>Valor de venda trackeado</Text>
+                <Text  ><chakra.span fontWeight={"bold"}>T-Venda - </chakra.span>Valor de venda trackeado </Text>
+              </Flex>
+              <hr/>
+              <Flex flexDir="column" gap="10px">
+                <Text fontWeight={"semibold"}>Adicione valores T-Compra e T-Venda em seus interesses e receba notificacoes quando: </Text>
+                <Text>O valor de compra da moeda atingir o máximo estipulado para compra.</Text>
+                <Text>O valor de venda da moeda atingir o minimo estipulado para compra.</Text>
+              </Flex>
             </ModalBody>
   
             <ModalFooter>

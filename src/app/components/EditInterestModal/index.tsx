@@ -72,7 +72,7 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
             <ModalHeader>Editar Interesse</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
-              <Text mb="15px" textColor={"gray.700"} fontWeight={"semibold"} _hover={{textColor:"gray.500"}} cursor={"pointer"} onClick={() => {setModalProps({from: modalProps.code, to: modalProps.codein, favorite: modalProps.favorite});setTypeModal("favorite"); onOpen()}}>{modalProps.favorite ? "Desfavoritar Interesse" : "Favoritar Interesse"}</Text>
+              <Text mb="15px" textColor={modalProps.favorite ? "red.400" : "green.400"} fontWeight={"semibold"} _hover={{textColor: modalProps.favorite ? "red.300" : "green.300"}} cursor={"pointer"} onClick={() => {setModalProps({from: modalProps.code, to: modalProps.codein, favorite: modalProps.favorite});setTypeModal("favorite"); onOpen()}}>{modalProps.favorite ? "Desfavoritar Interesse" : "Favoritar Interesse"}</Text>
               <FormControl>
                 <FormLabel>Conversão:</FormLabel>
                 <Flex alignItems={"center"} justifyContent={"center"} gap="5px" w="40%">
