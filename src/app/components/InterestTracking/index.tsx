@@ -1,22 +1,22 @@
 
 
-import { chakra, Td, Text, Th, Tr } from "@chakra-ui/react"
-import { formatCoin } from "@/utils/formatCoin";
+import {  Td,  Tr } from "@chakra-ui/react"
 import { useModalContext } from "@/app/providers/ModalProvider";
+
 interface InterestTrackProps {
-    code: string
-    codein: string
-    name: string
-    high: string
-    low: string
-    varBid: string
+    symbol: string
+    from: string
+    to: string
+    highPrice: string
+    lastPrice: string
+    lowPrice: string
+    priceChangePercent: string
     targetValue: {
         buy: number
         sell: number
     }
-    bid: string
-    ask: string
-    lastDays: LastDaysQuery[]
+    bidPrice: string
+    askPrice: string
     w: string
     favorite: boolean
     h: string
@@ -38,34 +38,31 @@ export interface LastDaysQuery{
   }
 
 
-export default function InterestTracking({code,high,index,lastDays,low,name,varBid,bid,favorite , paginate,  ask, codein, targetValue, h,w}: InterestTrackProps){
+export default function InterestTracking({highPrice,index,askPrice, lowPrice,priceChangePercent, from, to, lastPrice, bidPrice,favorite, targetValue, h,w}: InterestTrackProps){
     const { onOpen, setTypeModal, setModalProps } = useModalContext()
-    const fortnightVariation = lastDays.reduce((acc, next) => {
-       return  acc + parseFloat(next.pctChange)
-    }, 0)
-    const averageFornightPctChange = fortnightVariation / lastDays.length;
-    const dailyVariation = ((+high - +low) / +low) * 100
+
     const modalProps = {
-        code,
-        high,
-        averageFornightPctChange,
-        fortnightVariation,
+        from,
+        to,
+        highPrice,
         favorite,
-        low,
-        codein,
+        lowPrice,
         targetValue
     }
+
     function isEven(number: number){
         return number % 2 === 0
     }
 
     return (
                             <Tr  bg={isEven(index) ? "rgba(48,48,48,1)" : "rgba(34, 33, 33, 1)"}   rounded="0 0 6px 6px"  backdropFilter='auto' backdropBlur='8px'  py="8px" onClick={() => {setTypeModal("edit"); setModalProps(modalProps); onOpen()}}   _hover={{backgroundColor: "#646464"}} cursor={"pointer"} h={h}>
-                                <Td  position={{base:"sticky", lg: "static"}} left="0" bg={{base: isEven(index) ? "rgba(48,48,48,1)" : "rgba(34, 33, 33, 1)", lg: "none"}} >{`${code} / ${codein}`} </Td>
-                                <Td >{formatCoin(+bid, codein)}</Td>
-                                <Td>{formatCoin(+ask, codein)}</Td>
-                                <Td >{formatCoin(+targetValue.buy, codein)}</Td>
-                                <Td>{formatCoin(+targetValue.sell, codein)}</Td>
+                                <Td  position={{base:"sticky", lg: "static"}} left="0" bg={{base: isEven(index) ? "rgba(48,48,48,1)" : "rgba(34, 33, 33, 1)", lg: "none"}} >{`${from} / ${to}`} </Td>
+                                <Td >{`${+lastPrice >= 1 ? parseFloat(lastPrice).toFixed(2) : lastPrice} ${to}`}</Td>
+                                <Td >{`${+bidPrice >= 1 ? parseFloat(bidPrice).toFixed(2) : bidPrice} ${to}`}</Td>
+                                <Td>{`${+askPrice >= 1 ? parseFloat(askPrice).toFixed(2) : askPrice} ${to}`}</Td>
+                                <Td >{`${+targetValue.buy >= 1 ? targetValue.buy.toFixed(2) : targetValue.buy} ${to}`}</Td>
+                                <Td >{`${+targetValue.sell >= 1 ? targetValue.sell.toFixed(2) : targetValue.sell} ${to}`}</Td>
+                                <Td textColor={+priceChangePercent * 100 / 100 > 0 ? "green.300" : "red.300"}>{`${+priceChangePercent * 100 / 100 > 0 ? "+" : ""}${((+priceChangePercent * 100) / 100).toFixed(2)}%`}</Td>
                             </Tr>
     )
 }

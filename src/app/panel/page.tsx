@@ -23,8 +23,6 @@ export default function Panel(){
                                 <Flex w="95%" justifyContent={"end"} mb="10px" textColor={"white"} alignItems={"center"} gap="10px">
                                     <Icon fontSize={28} onClick={() => {setTypeModal("subtitles"); onOpen()}} as={IoIosInformationCircleOutline} />
                                 </Flex>
-                            <Flex w="100%" justifyContent={"center"} display={{base:"flex", "2xl":"none"}} >
-                        </Flex>
                     <Flex justifyContent={{base:"end", md: "center"}} w="100%" >
                             <TableInterests/>
                     </Flex>

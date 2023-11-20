@@ -31,8 +31,8 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
       updateInterest({
           variables: {
               data: {
-                  from: modalProps.code,
-                  to: modalProps.codein,    
+                  from: modalProps.from,
+                  to: modalProps.to,    
                   buy: +e.target.targetValueBuy.value,
                   sell: +e.target.targetValueSell.value
               }
@@ -72,11 +72,11 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
             <ModalHeader>Editar Interesse</ModalHeader>
             <ModalCloseButton />
             <ModalBody pb={6}>
-              <Text mb="15px" textColor={modalProps.favorite ? "red.400" : "green.400"} fontWeight={"semibold"} _hover={{textColor: modalProps.favorite ? "red.300" : "green.300"}} cursor={"pointer"} onClick={() => {setModalProps({from: modalProps.code, to: modalProps.codein, favorite: modalProps.favorite});setTypeModal("favorite"); onOpen()}}>{modalProps.favorite ? "Desfavoritar Interesse" : "Favoritar Interesse"}</Text>
+              <Text mb="15px" textColor={modalProps.favorite ? "red.400" : "green.400"} fontWeight={"semibold"} _hover={{textColor: modalProps.favorite ? "red.300" : "green.300"}} cursor={"pointer"} onClick={() => {setModalProps({from: modalProps.from, to: modalProps.to, favorite: modalProps.favorite});setTypeModal("favorite"); onOpen()}}>{modalProps.favorite ? "Desfavoritar Interesse" : "Favoritar Interesse"}</Text>
               <FormControl>
                 <FormLabel>Conversão:</FormLabel>
                 <Flex alignItems={"center"} justifyContent={"center"} gap="5px" w="40%">
-                <Input placeholder={`${modalProps.code}/${modalProps.codein}`} isDisabled type="number" name="" value="USD/BRL"/>
+                <Input placeholder={`${modalProps.from}/${modalProps.to}`} isDisabled type="number" name="" value="USD/BRL"/>
                 </Flex>
               </FormControl>
               <FormControl mt={4}>
@@ -89,7 +89,7 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
               </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} justifyContent={"space-between"}>
-            <Button bg={"red.400"} type="submit" _hover={{backgroundColor: "red.500"}} onClick={() => {setModalProps(`${modalProps.code}-${modalProps.codein}`);setTypeModal("delete"); onOpen()}} mr={3}>
+            <Button bg={"red.400"} type="submit" _hover={{backgroundColor: "red.500"}} onClick={() => {setModalProps(`${modalProps.from}-${modalProps.to}`);setTypeModal("delete"); onOpen()}} mr={3}>
                 Excluir
             </Button>
                 <Flex>

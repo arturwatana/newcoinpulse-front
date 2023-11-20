@@ -6,13 +6,12 @@ export interface ICurrency {
     from: string;
     code: string
     to: string
-    name: string;
+    varPrice: string
     high: string;
-    buy: string
-    sell: string
     low: string;
     create_date: string;
-    userId: string;
-    queryDate: Date;
-    timestamp: Date
+    userId?: string;
+    buy: string
+    sell: string
+    lastPrice: string
 }

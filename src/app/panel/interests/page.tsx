@@ -1,5 +1,5 @@
 "use client"
-import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Image, Select, Spinner, TableContainer, Table, Thead, Tr, Th, Tbody } from "@chakra-ui/react"
+import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Image, Select, Spinner, TableContainer, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react"
 import { useEffect, useState } from "react"
 import Paginate from "@/app/components/Paginate"
 import { useQuery } from "@apollo/client"
@@ -72,14 +72,20 @@ export default function Tracking(){
                             <Thead bg={"#F2A900"} >
                             <Tr textColor={"white"} >
                                 <Th position={"sticky"} bg={"#F2A900"}  left="0">Sigla</Th>
+                                <Th>Atual</Th>
                                 <Th>Compra</Th>
                                 <Th>Venda</Th>
                                 <Th>T-Compra</Th>
                                 <Th>T-Venda</Th>
+                                <Th>% Diária</Th>
                             </Tr>
                             </Thead>
                             <Tbody>
-                            {interests.map((interest: any, index) => <InterestTracking  favorite={interest.favorite} index={index} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)}
+                            {interests.length > 0 ? interests.map((interest: any, index) => <InterestTracking  bidPrice={interest.bidPrice} from={interest.from} to={interest.to} lastPrice={interest.lastPrice} symbol={interest.symbol} favorite={interest.favorite} index={index} askPrice={interest.askPrice}  w="100%" h="100%" key={`track${index}`}  highPrice={interest.highPrice}  lowPrice={interest.lowPrice}  targetValue={interest.targetValue} priceChangePercent={interest.priceChangePercent}/>)
+                                  :           
+                                <Tr>
+                                    <Td colSpan={7} textAlign={"center"}  p="20px">Você ainda nao tem nenhum interesse, adicione um interesse para comecar!</Td>
+                                </Tr>}
                             </Tbody> 
                         </Table>
                     </TableContainer>       

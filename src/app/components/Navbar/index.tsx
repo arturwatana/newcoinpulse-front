@@ -34,7 +34,7 @@ interface NavBarProps{
 export default function NavBar({logged, userProps}: NavBarProps){
     const { onOpen, setTypeModal } = useModalContext()
     const router = useRouter()
-
+    
 
     function logoutUser(){
         localStorage.removeItem("coinpulse_user_token")

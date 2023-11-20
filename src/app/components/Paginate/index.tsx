@@ -51,7 +51,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
   const [elementsToShow, setElementsToShow] = useState(elements)
 
   useEffect(() => {
-    setElementsToShow(elements)
+    setElementsToShow([...elements].reverse())
     setPaginateProps({
       ...paginateProps,
       page: 1,
@@ -115,69 +115,6 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
     return numberOfPages;
   }
 
-  function renderFilteredInterests(elementsToShow: any[]){
-    const lastElement = paginateProps.page * paginateProps.qtdPerPage;
-    const firstElement =
-      paginateProps.page * paginateProps.qtdPerPage - qtdPerPage;
-      const interestsToShow: any[] = []
-
-      if(filterByName != "Todas"){
-        const filteredElements = elementsToShow.filter(element => {
-          const filterElementName = typePaginate === "interest" ?  `${element.code}/${element.codein}` : `${element.from}/${element.to}`
-          if(filterElementName === filterByName){
-            return element
-          }
-          return
-          })
-          const paginateElements = filteredElements.map((element, index) => {
-            if (index >= firstElement && index + 1 <= lastElement) {
-              return element
-            }}
-            )
-        interestsToShow.push(paginateElements)
-        return (
-          <TableContainer w="100%" rounded="10px 10px 0 0">
-          <Table>
-            <Thead bg={"#F2A900"} >
-              <Tr textColor={"white"} >
-                <Th position={"sticky"} bg={"#F2A900"}  left="0">Sigla</Th>
-                <Th>Compra</Th>
-                <Th>Venda</Th>
-                <Th>T-Compra</Th>
-                <Th>T-Venda</Th>
-              </Tr>
-            </Thead>
-              <Tbody>
-               {interestsToShow.map((interest: any, index) => <InterestTracking  favorite={interest.favorite} index={index} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)}
-             </Tbody> 
-          </Table>
-        </TableContainer>
-        )
-        } 
-        interestsToShow.push(elementsToShow)
-        console.log(interestsToShow)
-        
-        
-        return (
-          <TableContainer w="100%" rounded="10px 10px 0 0">
-          <Table>
-            <Thead bg={"#F2A900"} >
-              <Tr textColor={"white"} >
-                <Th position={"sticky"} bg={"#F2A900"}  left="0">Sigla</Th>
-                <Th>Compra</Th>
-                <Th>Venda</Th>
-                <Th>T-Compra</Th>
-                <Th>T-Venda</Th>
-              </Tr>
-            </Thead>
-              <Tbody>
-               {interestsToShow.map((interest: any, index) => <InterestTracking  favorite={interest.favorite} index={index} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>)}
-             </Tbody> 
-          </Table>
-        </TableContainer>
-        )
-      }
-
   function renderFilteredCurrencies(elementsToShow: any[]) {
     const lastElement = paginateProps.page * paginateProps.qtdPerPage;
     const firstElement =
@@ -196,7 +133,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
           if (index >= firstElement && index + 1 <= lastElement) {
             if(typePaginate === "search"){
               return (
-                <Search height="100%" width={{base: "80%", xl: "30%","2xl": "30%"}} currency={element} key={ `element${index}`}/>
+                <Search height="100%" width={{base: "80%", lg: "80%","2xl": "40%"}} currency={element} key={ `element${index}`}/>
                 );
             }
           }
@@ -207,7 +144,7 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
       if (index >= firstElement && index + 1 <= lastElement) {
         if(typePaginate === "search"){
           return (
-            <Search  height="100%" width={{base: "80%", lg:"30%", xl: "30%","2xl": "30%"}} currency={element} key={ `element${index}`}/>
+            <Search  height="100%" width={{base: "80%", lg:"80%", "2xl": "40%"}} currency={element} key={ `element${index}`}/>
             );
 
         }
@@ -217,11 +154,8 @@ export default function Paginate({ elements, filterByName, categories, qtdPerPag
 
   return (
     <Flex  flexDir="column" h="100%" minH="38em" w="full" gap={5} justifyContent={"space-between"} >
-          <Flex justifyContent={{base:typePaginate === "search" ? "center" : "start","2xl": "start"}}  flexDir={{base: "column", lg: typePaginate === "search" ? "row" : "column"}} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={typePaginate === "interest" ? "0" : 5} px={{base:typePaginate === "interest" ? "0px" : "10px", "2xl": typePaginate === "interest" ? "0px" : "20px"}} pt={typePaginate === "interest" ? "0px" : "20px"} pl={{base:"0px", "2xl": typePaginate === "interest" ? "0px" : "120px"}} >
-              {typePaginate === "interest" ? ( 
-                 renderFilteredInterests(elementsToShow)
-              ) : renderFilteredCurrencies(elementsToShow)}
-              
+          <Flex justifyContent={{base:typePaginate === "search" ? "center" : "start","2xl": "center"}}  flexDir={{base: "column", lg: typePaginate === "search" ? "row" : "column"}} flexWrap={typePaginate === "search" ? "wrap" : "nowrap"} alignItems={typePaginate === "interest" ? "start" : "center"} gap={typePaginate === "interest" ? "0" : 5} px={{base:typePaginate === "interest" ? "0px" : "10px", "2xl": typePaginate === "interest" ? "0px" : "10px"}} pt={typePaginate === "interest" ? "0px" : "20px"}  >
+             {renderFilteredCurrencies(elementsToShow)}
              </Flex>
          <Flex justify="space-around" color="white" >
         <HStack spacing={2}>

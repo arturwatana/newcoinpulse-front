@@ -1,17 +1,15 @@
-import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Select, Box, useDisclosure } from "@chakra-ui/react"
+import {Flex, chakra, Heading, FormControl,Button, Icon, Select } from "@chakra-ui/react"
 import { useState, useEffect } from "react"
 import PrimaryOptions from "../PrimaryOption"
 import SecondaryOptions from "../OptionCurrency"
 import { theme } from "@/app/providers/Providers"
 import Search from "../Search"
-import {HiOutlineSwitchHorizontal} from "react-icons/hi"
-import { nameIsPossibleSearch, switchIsPossible } from "@/utils/query/FormattedPossibleSearches"
 import { toast } from "react-toastify"
 import { GET_CURRENCY, GET_FREE_CURRENCY } from "@/graphql/mutations/getCurrency.mutation"
 import { useMutation } from "@apollo/client"
 import { ICurrency } from "@/app/modules/Currency/model/ICurrency.interface"
 import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider"
-
+import { FaArrowRightLong } from "react-icons/fa6";
 
 interface FormProps {
     name: string
@@ -28,31 +26,12 @@ interface FormProps {
 }
 
 export default function SearchCurrency({name, w, resultH,logged, searchW}: FormProps){
-    const [primaryValue, setPrimaryValue] = useState<string>("BRL")
-    const [secondaryValue, setSecondaryValue] = useState<string>("")
+    const [primaryValue, setPrimaryValue] = useState<string>("1INCH")
+    const [secondaryValue, setSecondaryValue] = useState<string>("BTC")
     const [switchSearches, setSwitchSearches ] = useState<boolean>(false)
     const [getCurrency, {data, loading, error }] = useMutation(logged ? GET_CURRENCY : GET_FREE_CURRENCY)
     const [result, setResult] = useState<ICurrency>()
     const { setUpdateScreen } = useModalContext()
-
-    function switchValues(primary: string, second: string){
-        const isPossible = nameIsPossibleSearch(second)
-        if(!isPossible){
-            toast.error(`Ops, essa conversao de ${primary} para ${second} ainda nao é possivel. `)
-            return
-        }
-        const isPossibleSwitch = switchIsPossible(primary, second)
-        if(!isPossibleSwitch){
-            toast.error(`Ops, essa conversao de ${primary} para ${second} ainda nao é possivel. `)
-            return
-        }
-        const prevPrimary = primary
-        const prevSecondary = second
-        setSwitchSearches(true)
-        setSecondaryValue(prevPrimary)
-        setPrimaryValue(prevSecondary)
-
-    }
 
     const handleSubmit = (e:any) => {
         e.preventDefault()
@@ -94,8 +73,8 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
                                 <Select value={primaryValue} name="from" onChange={(e )=> setPrimaryValue(e.target.value)}>
                                     <PrimaryOptions/>
                                 </Select>
-                                <Icon as={HiOutlineSwitchHorizontal}  fontSize={"20px"}/>
-                                <Select name="to" value={secondaryValue != "" ? secondaryValue : "AED"}  onChange={(e) => {
+                                <Icon as={FaArrowRightLong}  fontSize={"20px"}/>
+                                <Select name="to" value={secondaryValue || "BTC"}   onChange={(e) => {
                                     setSecondaryValue(e.target.value)
                                 }}>
                                     <SecondaryOptions switchSearches={switchSearches} setSwitchSearches={setSwitchSearches} name={primaryValue} setSecondaryValue={setSecondaryValue}/>
@@ -105,7 +84,7 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
                         </chakra.form>
                    </FormControl>
                    {result ? (
-                 <Search height={resultH} width={searchW} currency={result} />
+                    <Search height={resultH} width={searchW} currency={result} />
                    ) : null}
                    </Flex>
     )

@@ -1,17 +1,14 @@
 import { theme } from "@/app/providers/Providers";
 import { Button, FormControl, FormLabel, chakra, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure, Icon, Flex } from "@chakra-ui/react";
 import {useRef} from "react"
-import {HiOutlineSwitchHorizontal} from "react-icons/hi"
 import PrimaryOptions from "../PrimaryOption";
 import SecondaryOptions from "../OptionCurrency";
 import { useState, useEffect } from "react"
-import { nameIsPossibleSearch, switchIsPossible } from "@/utils/query/FormattedPossibleSearches";
 import { toast } from "react-toastify"
 import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
-import { formatCoin } from "@/utils/formatCoin";
 import { UpdateScreenProps, useModalContext } from "@/app/providers/ModalProvider";
-import { onError } from "@apollo/client/link/error";
+import { FaArrowRightLong } from "react-icons/fa6";
 
 interface InterestModal{
     isOpen: boolean
@@ -22,31 +19,12 @@ interface InterestModal{
 export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
     const initialRef = useRef(null)
     const finalRef = useRef(null)
-    const [primaryValue, setPrimaryValue] = useState<string>("USD")
+    const [primaryValue, setPrimaryValue] = useState<string>("1INCH")
     const [interestIn, setInterestIn] = useState<string>("Compra")
-    const [secondaryValue, setSecondaryValue] = useState<string>("")
+    const [secondaryValue, setSecondaryValue] = useState<string>("BTC")
     const [switchSearches, setSwitchSearches ] = useState<boolean>(false)
     const [createInterest, {data, loading, error }] = useMutation(CREATE_INTEREST)
     const { setTypeModal, setUpdateScreen } = useModalContext()
-
-    function switchValues(primary: string, second: string){
-      const isPossible = nameIsPossibleSearch(second)
-      if(!isPossible){
-          toast.error(`Ops, essa conversao de ${primary} para ${second} ainda nao é possivel. `)
-          return
-      }
-      const isPossibleSwitch = switchIsPossible(primary, second)
-      if(!isPossibleSwitch){
-          toast.error(`Ops, essa conversao de ${primary} para ${second} ainda nao é possivel. `)
-          return
-      }
-      const prevPrimary = primary
-      const prevSecondary = second
-      setSwitchSearches(true)
-      setSecondaryValue(prevPrimary)
-      setPrimaryValue(prevSecondary)
-
-  }
 
   const handleSubmit = (e:any) => {
       e.preventDefault()
@@ -54,7 +32,6 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
         toast.error("Ops, faltaram algumas informacoes")
         return
       }
-      try{
         createInterest({
             variables: {
                 data: {
@@ -64,19 +41,23 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
                     sell: e.target.interestIn.value === "Venda" ? +e.target.targetValue.value : 0,
                 }
         }})
-        setUpdateScreen((prev: UpdateScreenProps) => {
-          return {
-            ...prev,
-            interests: true
-          }
-        })
-          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} salvo com sucesso!`)
-          onClose()
-      } catch(err: any){
-        toast.error(err.message)
-      }
   }
 
+  useEffect(() => {
+    if(error){
+      toast.error(error.message)
+    }
+    if(data && !error){
+      setUpdateScreen((prev: UpdateScreenProps) => {
+        return {
+          ...prev,
+          interests: true
+        }
+      })
+        toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} salvo com sucesso!`)
+        onClose()
+    }
+  }, [data, error])
 
     
     return (
@@ -99,7 +80,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
                 <Select name="from" defaultValue={"USD"} onChange={(e) => setPrimaryValue(e.target.value)}>
                 <PrimaryOptions/>
                   </Select>
-                  <Icon as={HiOutlineSwitchHorizontal} cursor={"pointer"} fontSize={"20px"} onClick={() => switchValues(primaryValue, secondaryValue)}/>
+                  <Icon as={FaArrowRightLong} cursor={"pointer"} fontSize={"20px"}/>
                   <Select name="to">
                   <SecondaryOptions switchSearches={switchSearches} setSwitchSearches={setSwitchSearches} name={primaryValue} setSecondaryValue={setSecondaryValue}/>
                   </Select>
@@ -108,7 +89,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
               <Flex justifyContent={"center"} alignItems={{base:"start",lg:"center"}} flexDir={{base:"column",lg:"row"}} mt={4} gap="20px">
               <FormControl  >
                 <FormLabel>Valor trackeado: </FormLabel>
-                <Input w={{base:"60%",lg:"100%"}} placeholder='5.36' step="0.001" type="number" name="targetValue"/>
+                <Input w={{base:"60%",lg:"100%"}} placeholder='Valor para rastrear' step="0.001" type="number" name="targetValue"/>
               </FormControl>
               <FormControl  h="100%">
                 <FormLabel>Para: </FormLabel>

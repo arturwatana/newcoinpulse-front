@@ -36,7 +36,7 @@ export default function Searches(){
             return
         }
         if(data){
-            setSearches(data.searches)
+                setSearches(data.searches)
         }
           // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [data, error]);

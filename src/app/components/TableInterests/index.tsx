@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import InterestTracking from "../InterestTracking";
 import { IInterest } from "@/app/modules/Interest/model/IInterest.interface";
+import { useRouter } from "next/navigation"
 
 
 export default function TableInterests(){
@@ -14,7 +15,7 @@ export default function TableInterests(){
   const [interests, setInterests] = useState<IInterest[]>([])
   const { onOpen, setTypeModal, updateScreen } = useModalContext()
   const [interestIn, setInterestIn] = useState<string>("Compra")
-  
+  const router = useRouter()
   useEffect(() => {
       if(error){
           toast.error(error.message)
@@ -59,17 +60,19 @@ export default function TableInterests(){
             <Thead bg={"#F2A900"} >
               <Tr textColor={"white"} >
                 <Th position={"sticky"} bg={"#F2A900"}  left="0">Sigla</Th>
+                <Th>Atual</Th>
                 <Th>Compra</Th>
                 <Th>Venda</Th>
                 <Th>T-Compra</Th>
                 <Th>T-Venda</Th>
+                <Th>Diária</Th>
               </Tr>
             </Thead>
             <Tbody>
-                  { interests && interests.length > 0 ? (interests.map((interest: any, index) => <InterestTracking  favorite={interest.favorite} index={index} ask={interest.ask} bid={interest.bid}  w="100%" h="100%" key={`track${index}`} code={interest.code} codein={interest.codein} high={interest.high} lastDays={interest.lastDays} low={interest.low}  name={interest.name} targetValue={interest.targetValue} varBid={interest.varBid}/>))
+                  { interests && interests.length > 0 ? (interests.map((interest: any, index) => <InterestTracking lastPrice={interest.lastPrice} symbol={interest.symbol}  favorite={interest.favorite} index={index} askPrice={interest.askPrice} bidPrice={interest.bidPrice}  w="100%" h="100%" key={`track${index}`} to={interest.to} from={interest.from} highPrice={interest.highPrice} lowPrice={interest.lowPrice}  targetValue={interest.targetValue} priceChangePercent={interest.priceChangePercent}/>))
                    : 
-                   <Tr>
-                     <Td textAlign={"center"} w="50%" p="20px">Você ainda nao tem nenhum interesse favoritado,<chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={() => {setTypeModal("add"); onOpen() }}> clique aqui para ver seus interesses!</chakra.a></Td>
+                   <Tr   >
+                     <Td colSpan={7} textAlign={"center"}  p="20px">Você ainda nao tem nenhum interesse favoritado,<chakra.a cursor={"pointer"} textDecor={"Highlight"} onClick={()=> router.push("/panel/interests")}> clique aqui para ver seus interesses!</chakra.a></Td>
                    </Tr>}
             </Tbody>
           </Table>
