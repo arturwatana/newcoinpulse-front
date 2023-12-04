@@ -40,24 +40,19 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
                     buy: e.target.interestIn.value === "Compra" ? +e.target.targetValue.value : 0,
                     sell: e.target.interestIn.value === "Venda" ? +e.target.targetValue.value : 0,
                 }
-        }})
+        }}).then(res => {
+          setUpdateScreen((prev: UpdateScreenProps) => {
+            return {
+              ...prev,
+              interests: true
+            }
+          })
+            toast.success(`Interesse de ${res.data.createInterest.from} para ${res.data.createInterest.to} salvo com sucesso!`)
+            onClose()
+        }).catch(err => {
+          return
+        })
   }
-
-  useEffect(() => {
-    if(error){
-      toast.error(error.message)
-    }
-    if(data && !error){
-      setUpdateScreen((prev: UpdateScreenProps) => {
-        return {
-          ...prev,
-          interests: true
-        }
-      })
-        toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} salvo com sucesso!`)
-        onClose()
-    }
-  }, [data, error])
 
     
     return (
@@ -89,7 +84,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
               <Flex justifyContent={"center"} alignItems={{base:"start",lg:"center"}} flexDir={{base:"column",lg:"row"}} mt={4} gap="20px">
               <FormControl  >
                 <FormLabel>Valor trackeado: </FormLabel>
-                <Input w={{base:"60%",lg:"100%"}} placeholder='Valor para rastrear' step="0.001" type="number" name="targetValue"/>
+                <Input w={{base:"60%",lg:"100%"}} placeholder='Valor para rastrear' step="0.0000000001" type="number" name="targetValue"/>
               </FormControl>
               <FormControl  h="100%">
                 <FormLabel>Para: </FormLabel>

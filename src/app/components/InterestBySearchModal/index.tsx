@@ -48,16 +48,7 @@ export default function InterestBySearchModal({onClose,isOpen, modalProps}: Inte
                   buy: +e.target.targetValueBuy.value,
                   sell: +e.target.targetValueSell.value
               }
-      }})
-  }
-
-
-  useEffect(() => {
-      if(error){
-          toast.error(error.message)
-          return
-      }
-      if(data){
+      }}).then(res => {
         setUpdateScreen((prev: UpdateScreenProps) => {
           return {
             ...prev,
@@ -66,9 +57,10 @@ export default function InterestBySearchModal({onClose,isOpen, modalProps}: Inte
         })
           toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} salvo com sucesso!`)
           onClose()
-        }
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error])
+      }).catch(err => {
+        return
+      })
+  }
 
     return (
         <>
@@ -93,11 +85,11 @@ export default function InterestBySearchModal({onClose,isOpen, modalProps}: Inte
                 <Flex>
               <FormControl mt={4}>
                 <FormLabel>T-Compra: </FormLabel>
-                <Input  w="90%" step="0.001" type="number" name="targetValueBuy" />
+                <Input  w="90%" step="0.0000000001" type="number" name="targetValueBuy" />
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>T-Venda: </FormLabel>
-                <Input  w="90%" step="0.001" type="number" name="targetValueSell" />
+                <Input  w="90%" step="0.0000000001" type="number" name="targetValueSell" />
               </FormControl>
                 </Flex>
 

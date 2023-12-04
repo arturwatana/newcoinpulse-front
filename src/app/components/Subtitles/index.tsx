@@ -29,7 +29,7 @@ export default function SubtitlesModal({onClose,isOpen,onOpen}: SubtitlesModal){
                   </ListItem>
                 </List>
               <hr/>
-                  <Text fontWeight={"semibold"}>Dica: <chakra.span fontWeight={"normal"}>Clique em um interesse e adicione em seus favoritos e acompanhe diretamente pelo painel!</chakra.span></Text>
+                  <Text fontWeight={"semibold"}>Dica: <chakra.span fontWeight={"normal"}>Clique em um interesse e adicione em seus favoritos para acompanhar diretamente pelo painel!</chakra.span></Text>
             </ModalBody>
             <ModalFooter>
               <Button bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} mr={3} onClick={onClose}>

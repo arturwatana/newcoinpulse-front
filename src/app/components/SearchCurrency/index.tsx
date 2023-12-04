@@ -41,29 +41,20 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
                     from: e.target.from.value,
                     to: e.target.to.value,    
                 }
-        }})
+            }}).then(res => {
+                setUpdateScreen((prev: UpdateScreenProps) => {
+                    return {
+                    ...prev,
+                    searches: true
+                    }
+                })
+                toast.success("Conversao consultada com sucesso")
+                setResult(logged ? res.data.createCurrency : res.data.createFreeCurrency)
+            }).catch(err => {
+                return
+            })
     }
 
-
-    useEffect(() => {
-        if(error){
-            toast(error.message)
-            return
-        }
-        if(data){
-            setUpdateScreen((prev: UpdateScreenProps) => {
-                return {
-                  ...prev,
-                  searches: true
-                }
-              })
-            toast.success("Conversao consultada com sucesso")
-            setResult(logged ? data.createCurrency : data.createFreeCurrency)
-        }
-                  // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, error])
-
-    
     return (
         <Flex w={w} flexDir={"column"}  justifyContent={"start"} alignItems={"center"} gap="50px" px={{base:"0px", lg:"0px"}}>
                     <FormControl  w={{base:"100%", lg:"100%", xl:"70%"}} textColor={"white"} flexDir={"column"} display={"flex"} justifyContent={"center"} gap="15px" alignItems={"center" }  >

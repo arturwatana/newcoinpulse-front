@@ -34,16 +34,7 @@ export default function DeleteInterestModal({onClose,isOpen, modalProps}: Intere
               data: {
                   interestName: modalProps
               }
-      }})
-  }
-
-
-  useEffect(() => {
-      if(error){
-          toast.error(error.message)
-          return
-      }
-      if(data){
+      }}).then(res => {
         setUpdateScreen((prev: UpdateScreenProps) => {
           return {
             ...prev,
@@ -53,10 +44,10 @@ export default function DeleteInterestModal({onClose,isOpen, modalProps}: Intere
         })
         toast.success(`Interesse ${modalProps} excluido com sucesso!`)
         onClose()
-      }
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error])
-
+      }).catch(err => {
+        return
+      })
+  }
     
     return (
         <>

@@ -36,16 +36,7 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
                   buy: +e.target.targetValueBuy.value,
                   sell: +e.target.targetValueSell.value
               }
-      }})
-  }
-
-
-  useEffect(() => {
-      if(error){
-          toast.error(error.message)
-          return
-      }
-      if(data){
+      }}).then(res => {
         setUpdateScreen((prev: UpdateScreenProps) => {
           return {
             ...prev,
@@ -54,9 +45,10 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
         })
           toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} atualizado com sucesso!`)
           onClose()
-        }
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error])
+      }).catch(err => {
+        return
+      })
+  }
 
     return (
         <>
@@ -81,15 +73,15 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Valor trackeado para Compra: </FormLabel>
-                <Input placeholder={formatCoin(+modalProps.targetValue.buy, modalProps.code)} w="60%" step="0.001" type="number" name="targetValueBuy"/>
+                <Input placeholder={formatCoin(+modalProps.targetValue.buy, modalProps.code)} w="60%" step="0.0000000001" type="number" name="targetValueBuy"/>
               </FormControl>
               <FormControl mt={4}>
                 <FormLabel>Valor trackeado para Venda: </FormLabel>
-                <Input placeholder={formatCoin(+modalProps.targetValue.sell, modalProps.code)}  w="60%" step="0.001" type="number" name="targetValueSell"/>
+                <Input placeholder={formatCoin(+modalProps.targetValue.sell, modalProps.code)}  w="60%" step="0.0000000001" type="number" name="targetValueSell"/>
               </FormControl>
             </ModalBody>
             <ModalFooter display={"flex"} justifyContent={"space-between"}>
-            <Button bg={"red.400"} type="submit" _hover={{backgroundColor: "red.500"}} onClick={() => {setModalProps(`${modalProps.from}-${modalProps.to}`);setTypeModal("delete"); onOpen()}} mr={3}>
+            <Button bg={"red.400"}  _hover={{backgroundColor: "red.500"}} onClick={() => {setModalProps(`${modalProps.from}-${modalProps.to}`);setTypeModal("delete"); onOpen()}} mr={3}>
                 Excluir
             </Button>
                 <Flex>

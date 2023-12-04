@@ -20,7 +20,7 @@ export default function Panel(){
                         <Flex justifyContent={"start"} minH="600px" gap="80px" flexDir={"column"} h="80%" w={{base: "100%","2xl":"70%"}}  py='10px' alignItems={"center" }   >
                             <Flex flexDir={"column"}    h="100%" w="100%" gap="15px" >
                                 <Heading w="100%"textAlign={"center"}>Interesses favoritados</Heading>
-                                <Flex w="95%" justifyContent={"end"} mb="10px" textColor={"white"} alignItems={"center"} gap="10px">
+                                <Flex w={{base:"95%", xl: "97%" ,"2xl":"100%"}} justifyContent={"end"} mb="10px" textColor={"white"} alignItems={"center"} gap="10px">
                                     <Icon fontSize={28} onClick={() => {setTypeModal("subtitles"); onOpen()}} as={IoIosInformationCircleOutline} />
                                 </Flex>
                     <Flex justifyContent={{base:"end", md: "center"}} w="100%" >

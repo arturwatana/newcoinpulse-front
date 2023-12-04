@@ -12,7 +12,6 @@ export default function Login(){
 
         const handleSubmit = async (e: any) => {
             e.preventDefault()
-            try{
                await loginUser({
                     variables: {
                         data: {
@@ -24,15 +23,9 @@ export default function Login(){
                 toast.success("Usuario logado com sucesso")
                 localStorage.setItem("coinpulse_user_token", res.data.login.token)
                 router.push("/panel")
-                })
-            }
-            catch(err: any){
-                if(err.message === "Failed to fetch"){
-                    toast.error("Ops, tente novamente mais tarde")
+                }).catch(err => {
                     return
-                }
-                toast.error(err.message)
-            }
+                })
         }
 
     return (

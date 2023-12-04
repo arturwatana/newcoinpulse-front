@@ -27,16 +27,7 @@ export default function ConfirmFavoriteInterestModal({onClose,isOpen, modalProps
                   to: modalProps.to,
                   favorite: !modalProps.favorite
               }
-      }})
-  }
-
-
-  useEffect(() => {
-      if(error){
-          toast.error(error.message)
-          return
-      }
-      if(data){
+      }}).then(res => {
         setUpdateScreen((prev: UpdateScreenProps) => {
           return {
             ...prev,
@@ -46,9 +37,10 @@ export default function ConfirmFavoriteInterestModal({onClose,isOpen, modalProps
         })
         toast.success(`Interesse ${modalProps.from}/${modalProps.to} ${modalProps.favorite ? "desfavoritado" : "favoritado"}  com sucesso!`)
         onClose()
-      }
-       // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data, error])
+      }).catch(err => {
+        return
+      })
+  }
 
     return (
         <>

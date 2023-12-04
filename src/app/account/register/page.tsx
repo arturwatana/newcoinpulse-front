@@ -17,29 +17,25 @@ export default function Register(){
     
   const handleSubmit = (e:any) => {
         e.preventDefault()
-        addUser({
-            variables: {
-                data: {
-                    fullName: e.target.name.value,
-                    email: e.target.email.value,    
-                    password: e.target.password.value
-                }
-            
-        }})
+            addUser({
+                variables: {
+                    data: {
+                        fullName: e.target.name.value,
+                        email: e.target.email.value,    
+                        password: e.target.password.value
+                    }
+                
+            }}).then(data => {
+                toast.success("Usuario cadastrado com sucesso")
+                router.push("/account/login")
+            }).catch(err => {
+                return
+            })
+
     }
 
 
-    useEffect(() => {
-        if(error){
-            toast.error(error.message)
-            return
-        }
-        if(data){
-            toast.success("Usuario cadastrado com sucesso")
-            router.push("/account/login")
-        }
-         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, error])
+
     useEffect(() => {
         const email = localStorage.getItem("coinpulse_entry_user_email")
         if(email){

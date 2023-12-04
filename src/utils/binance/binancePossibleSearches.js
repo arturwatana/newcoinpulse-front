@@ -20,6 +20,9 @@ const onlyZRX = binanceData.filter(search => {
 })
 
 const primaryOptions = binanceData.map(search => {
+    if(search.from.includes("DOWN") || search.from.includes("UP")){
+        return 
+    }
     return search.from
 })
 export const primaryOptionsWithoutDuplicates = []
