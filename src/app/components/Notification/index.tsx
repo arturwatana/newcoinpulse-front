@@ -92,7 +92,7 @@ export default function Notification() {
               <Icon as={IoIosNotifications } transform={"scale(2)"}   /> 
             }
         </MenuButton>
-        <MenuList mt="10px" left={{ lg:"0%", xl: "30%"}}  w={{base:"45%", sm: "70%", lg: "70%"}} py="0" rounded="10px" h="100%" maxH="500px" position="relative" className="scrollBar"   overflowY={notifications.length > 3 ? "scroll" : "hidden"}>
+        <MenuList mt="10px" left={{ lg:"0%", xl: notifications.length === 0 ? "0%" : "30%"}}  w={{base:"45%", sm: "70%", lg: "70%"}} py="0" rounded="10px" h="100%" maxH="500px" position="relative" className="scrollBar"   overflowY={notifications.length > 3 ? "scroll" : "hidden"}>
           <Heading textAlign={"center"} fontWeight={"semibold"} position={"sticky"} fontSize={22} bg={theme.colors.brand.primary} rounded="8px 0px 0 0" py='5px' border="1px solid black" textColor={"gray.600"}>Notificações</Heading>
           <MenuGroup as="ul" w="100%" display="flex" justifyContent={"center"} alignItems={"center"} >
             {notifications && notifications.length > 0 ? (
