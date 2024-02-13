@@ -66,7 +66,7 @@ export default function NavBar({logged, userProps}: NavBarProps){
                         </Flex>
                     </Flex>
                 ) : (
-                    <Flex  alignItems={{base:"center",md:"end"}} justifyContent={"center"} gap="15px" mt={{base:"3px", lg:"0"}} >
+                    <Flex  alignItems={{base:"center",md:"end"}} justifyContent={"center"} gap="15px" mt="3px" >
                     <Notification/>
                     <Menu >
                         <MenuButton display={"flex"} p={{base:"15px 22px 15px 22px",md:'15px'}}   minW={{base: "0",md:"15em"}}  border="1px solid white"   rounded={{base:"full",md:"1.0em"}} textColor={"white"} _hover={{backgroundColor: "#646464"}}>

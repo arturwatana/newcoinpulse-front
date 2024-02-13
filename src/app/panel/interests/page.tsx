@@ -53,11 +53,11 @@ export default function Tracking(){
         <chakra.section overflowX={"auto"} w="100vw" h="100%" minH="100vh" py="150px" display={"flex"} flexDir={"column"} justifyContent={"start"} alignItems={"center"} textColor={"white"}>
                 <Flex  w={{base:"100%", "2xl": "80%"}} minH="60%"  justifyContent={"center"} flexDir={{base:"column", "2xl":"row"}} mr={{base:"0", "2xl":"2em"}} alignItems={"center"} >
                 <Flex w={{base:"100%", "2xl": "80%"}}   textColor={"white"} flexDir={"column"} justifyContent={{base:"center","2xl":"start"}} alignItems={"center"} py="20px" gap="20px"> 
-                    <Heading w='full' textAlign={"center"}>Interesses trackeados</Heading>
+                    <Heading w='full' textAlign={"center"}>Interesses rastreados</Heading>
                 <Button    bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} onClick={() => {setTypeModal("add"); onOpen() }}>Adicionar interesse</Button>
                 <Flex  flexDir={"column"} w="100%" alignItems={{base:"end",md:"center"}} gap="15px" minW="100%">
                 <Flex w="95%" justifyContent={"end"} mb="10px" textColor={"white"} alignItems={"center"} gap="10px">
-                                    <Icon fontSize={28} onClick={() => {setTypeModal("subtitles"); onOpen()}} as={IoIosInformationCircleOutline} />
+                                    <Icon fontSize={28} cursor="pointer" onClick={() => {setTypeModal("subtitles"); onOpen()}} as={IoIosInformationCircleOutline} />
                     </Flex>
                     <Flex border="1px solid white"  h="100%" w="95%"  bgColor={"rgba(48,48,48,0.6)"}  backdropFilter='auto' backdropBlur='8px' rounded="lg"   wrap={"wrap"}>
                    {loading ? (

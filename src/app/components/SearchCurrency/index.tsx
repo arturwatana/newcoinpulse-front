@@ -48,7 +48,8 @@ export default function SearchCurrency({name, w, resultH,logged, searchW}: FormP
                     searches: true
                     }
                 })
-                toast.success("Conversao consultada com sucesso")
+                toast.success("Conversão consultada com sucesso")
+                console.log(res.data.createFreeCurrency)
                 setResult(logged ? res.data.createCurrency : res.data.createFreeCurrency)
             }).catch(err => {
                 return

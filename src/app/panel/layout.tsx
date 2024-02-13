@@ -1,6 +1,5 @@
 "use client"
-import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Image, Spinner } from "@chakra-ui/react"
-import BackPageBtn from '../components/BackPageBtn'
+import {Flex, Spinner } from "@chakra-ui/react"
 import NavBar from "../components/Navbar"
 import { useEffect, useState } from "react"
 import { useQuery } from "@apollo/client"
@@ -8,8 +7,7 @@ import { GET_USER } from "@/graphql/query/getUser.query"
 import { toast } from "react-toastify"
 import { useRouter } from "next/navigation"
 import { AuthProvider } from "../providers/AuthContext"
-import { ModalProvider, useModalContext } from "../providers/ModalProvider"
-import SideMenu from "../components/SideMenu"
+import { ModalProvider } from "../providers/ModalProvider"
 
 export interface IUserData {
   email: string

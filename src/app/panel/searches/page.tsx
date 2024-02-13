@@ -1,5 +1,5 @@
  "use client"
-import {Flex, chakra, Heading, FormControl,Text,  FormLabel, FormHelperText, Input,Button, Icon, Image, Select, Spinner } from "@chakra-ui/react"
+import {Flex, chakra, Heading, Text, Select, Spinner } from "@chakra-ui/react"
 import { useState, useEffect } from "react"
 import Paginate from "@/app/components/Paginate"
 import { GET_USERSEARCHES } from "@/graphql/query/getUserSearches.query"
@@ -54,14 +54,14 @@ export default function Searches(){
         <chakra.section overflowX={"auto"} w="100vw" h="100%" minH="100vh" py="150px" display={"flex"} flexDir={"column"} justifyContent={"start"} alignItems={"center"} textColor={"white"}>
                 <Flex  w={{base:"90%", "2xl": "90%"}} minH="60%"  flexDir={"column"}  justifyContent={"center"} mr={{base:"0", "2xl":"2em"}} alignItems={"center"} >
                     <Flex justifyContent={"center"}  w={{base:"100%","2xl":"78%"}}>
-                <SearchCurrency logged name="Consultar conversao" searchW={{base:"100%", md:"80%", lg:"50%", "2xl":"30%"}} w={"100%"} resultH="100%"/>
+                <SearchCurrency logged name="Consultar conversão" searchW={{base:"100%", md:"80%", lg:"50%", "2xl":"30%"}} w={"100%"} resultH="100%"/>
                     </Flex>
                 <Flex w={{base:"100%", "2xl": "80%"}}  textColor={"white"} flexDir={"column"} justifyContent={{base:"center","2xl":"start"}} alignItems={"center"} py="20px" gap="20px"> 
                     <Heading w='full' textAlign={"center"}>Ultimas pesquisas</Heading>
                 <Flex  flexDir={"column"} alignItems={"end"} gap="15px" minW="100%">
                 <Flex w={{base:"100%", "2xl":"54%"}} justifyContent={"space-between"}  alignItems={"center"} >
                     <Flex h="100%" flexDir={"column"} gap="5px">
-                        <Text w={{base:"55%", "2xl": "100%"}}>Filtrar por conversao</Text>
+                        <Text w={{base:"55%", "2xl": "100%"}}>Filtrar por conversão</Text>
                         <Select textAlign={"center"} w={{base:"70%","2xl":"100%"}} onChange={(e) => setFilter(e.target.value)}>
                         <chakra.option value="Todas" textColor="black" >Todas</chakra.option>
                         {renderCategories()}

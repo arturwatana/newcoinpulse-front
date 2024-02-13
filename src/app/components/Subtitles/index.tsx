@@ -17,8 +17,8 @@ export default function SubtitlesModal({onClose,isOpen,onOpen}: SubtitlesModal){
             <ModalCloseButton />
             <ModalBody display="flex" flexDir="column" gap="25px">
               <Flex flexDir="column">
-                <Text borderBottom={"1px solid white" } py="10px"><chakra.span fontWeight={"bold"}>T-Compra -</chakra.span>  Valor de compra trackeado</Text>
-                <Text  ><chakra.span fontWeight={"bold"}>T-Venda - </chakra.span>Valor de venda trackeado </Text>
+                <Text borderBottom={"1px solid white" } py="10px"><chakra.span fontWeight={"bold"}>T-Compra -</chakra.span>  Valor de compra rastreado</Text>
+                <Text  ><chakra.span fontWeight={"bold"}>T-Venda - </chakra.span>Valor de venda rastreado </Text>
               </Flex>
               <hr/>
                 <List display="flex" flexDir="column" gap="10px">

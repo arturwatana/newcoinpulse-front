@@ -64,8 +64,6 @@ export const ModalProvider = ({ children }: {children: React.ReactNode}) => {
             case "subtitles": return <SubtitlesModal isOpen={isOpen} onClose={onClose} onOpen={onOpen}/>
         }
      }  
-
-     
      
     return (
         <ModalContext.Provider value={contextValues}>

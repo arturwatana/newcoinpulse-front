@@ -8,7 +8,7 @@ const apolloServerURL = "https://currency-graphql.onrender.com/graphql"
 const localURL = "http://localhost:4000/graphql"
 
 const httpLink = createHttpLink({
-  uri: apolloServerURL,
+  uri: localURL,
 });
 
 

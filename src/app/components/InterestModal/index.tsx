@@ -47,8 +47,8 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
               interests: true
             }
           })
-            toast.success(`Interesse de ${res.data.createInterest.from} para ${res.data.createInterest.to} salvo com sucesso!`)
-            onClose()
+          onClose()
+          toast.success(`Interesse de ${res.data.createInterest.from} para ${res.data.createInterest.to} salvo com sucesso!`)
         }).catch(err => {
           return
         })
@@ -83,7 +83,7 @@ export default function InterestModal({onClose,isOpen,onOpen}: InterestModal){
               </FormControl>
               <Flex justifyContent={"center"} alignItems={{base:"start",lg:"center"}} flexDir={{base:"column",lg:"row"}} mt={4} gap="20px">
               <FormControl  >
-                <FormLabel>Valor trackeado: </FormLabel>
+                <FormLabel>Valor rastreado: </FormLabel>
                 <Input w={{base:"60%",lg:"100%"}} placeholder='Valor para rastrear' step="0.0000000001" type="number" name="targetValue"/>
               </FormControl>
               <FormControl  h="100%">

@@ -40,11 +40,11 @@ export default function Notification() {
     pusher.connection.bind("connected", () => {
       const channel = pusher.subscribe("notifications");
       channel.bind("new_notifications", async (notificationsPusher: NotificationProps[]) => {
+        console.log(notificationsPusher)
         const userNotifications: NotificationProps[] = [];
         if(notificationsPusher.length === 0){
           return
         }
-        if(notifications.length != 0){
           for (const notifyPusher of notificationsPusher) {
             const notifyAlreadyExists = notifications.find(notify => notifyPusher.name === notify.name && notifyPusher.type === notify.type)
             if (!notifyAlreadyExists) {
@@ -54,16 +54,17 @@ export default function Notification() {
               })
             }
           }
+          console.log("notificacoes")
+          console.log(userNotifications)
           if(userNotifications.length === 0){
             return
           }
-          toast(`Voce tem ${userNotifications.length} ${userNotifications.length > 1 ?  "notificacoes" : "notificacao"}`)
+          toast(`Você tem ${userNotifications.length} ${userNotifications.length > 1 ?  "notificações" : "notificação"}`)
           setNewNotification(true)
           setNotifications(prevNotifications => [
             ...userNotifications.reverse(),
             ...prevNotifications,
           ]);
-        }
       });
     });
   }

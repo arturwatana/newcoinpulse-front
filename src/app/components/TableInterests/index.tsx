@@ -56,7 +56,7 @@ export default function TableInterests(){
           ) : 
           <TableContainer  rounded={{base:"15px 0 0 0", md: "15px" }}overflowX={"auto"} w={{base:"95%", "2xl": "100%"}} >
           <Table  textColor={"white"}  backdropFilter='auto' backdropBlur='8px' >
-            <TableCaption textColor="gray.200">Seus interesses são atualizados a cada 30 min</TableCaption>
+            <TableCaption textColor="gray.200">Seus interesses são atualizados a cada 5 minutos</TableCaption>
             <Thead bg={"#F2A900"} >
               <Tr textColor={"white"} >
                 <Th position={"sticky"} bg={"#F2A900"}  left="0">Sigla</Th>

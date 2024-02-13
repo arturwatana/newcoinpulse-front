@@ -45,7 +45,7 @@ export default function Home() {
         <Flex   w={{base: "100%",  xl:"80%", "2xl": "50%"}} flexDir={"column"} justifyContent={"center"} alignItems={{base:"center", xl:"start"}} h="100%"  gap={["35px", "35px", "35px", "15px"]}>
           <Flex  flexDir={"column"} textColor={"white"} w={{base:"100%", xl:"90%","2xl":"80%"}} gap="15px">
             <Flex  flexDir={"column"} gap="5px">
-            <Heading w={{base:"100%"}} fontSize={{base:"35px",md: "35px",  xl:"47.12px"}} >Bem-vindo(a) ao CoinPulse</Heading>
+            <Heading w={{base:"100%"}} fontSize={{base:"35px",md: "35px",  xl:"45.12px"}} >Bem-vindo(a) ao CoinPulse</Heading>
             <Text fontSize={{base:"18px"}}>Acompanhe e receba alertas de conversões</Text>
             </Flex>
             <Text fontSize={{base:"18px"}} >O CoinPulse é o seu aplicativo de confiança para consultar conversões de moedas FIAT e as principais cryptos em tempo real e definir alertas personalizados. Mantenha-se informado e receba notificações quando as conversões atingirem os valores que você deseja.</Text>
@@ -59,7 +59,9 @@ export default function Home() {
               </Flex>
             <FormHelperText w="100%" textAlign={"center"} textColor={"white"} fontSize={{base:"18px"}} >Nunca compartilharemos seu email.</FormHelperText>
             </Flex>
-            <Button w={{base:"50%", xl:"15%"}} isDisabled={!isEmailValid ? true : false}   bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}} fontSize={{base:"18px"}} onClick={sendEmail}>Registrar</Button>
+            <Flex  w={{base:"50%", xl:"15%"}} backdropFilter='auto' backdropBlur='20px'>
+            <Button w="100%" isDisabled={!isEmailValid ? true : false}   bg={theme.colors.brand.primary} _hover={{backgroundColor: "#fdcd5e"}}  fontSize={{base:"18px"}} onClick={sendEmail}>Registrar</Button>
+            </Flex>
           </FormControl>
         </Flex>
         <Flex  w={{base:"100%", xl:"40%"}}    justifyContent={"center"} alignItems={{base:"center", xl:"end"}} flexDir={"column"} >

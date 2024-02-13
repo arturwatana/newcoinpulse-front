@@ -1,7 +1,6 @@
 import { theme } from "@/app/providers/Providers";
 import { Button, FormControl, FormLabel, chakra, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Select, useDisclosure, Icon, Flex, Text } from "@chakra-ui/react";
 import {useRef} from "react"
-import { useEffect } from "react"
 import { toast } from "react-toastify"
 import { useMutation } from "@apollo/client";
 import { CREATE_INTEREST } from "@/graphql/mutations/createInterest.mutation";
@@ -43,12 +42,14 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
             interests: true
           }
         })
-          toast.success(`Interesse de ${data.createInterest.from} para ${data.createInterest.to} atualizado com sucesso!`)
-          onClose()
+        onClose()
+        toast.success(`Interesse atualizado com sucesso!`)
       }).catch(err => {
         return
       })
   }
+
+
 
     return (
         <>
@@ -72,11 +73,11 @@ export default function EditInterestModal({onClose,isOpen, modalProps}: Interest
                 </Flex>
               </FormControl>
               <FormControl mt={4}>
-                <FormLabel>Valor trackeado para Compra: </FormLabel>
+                <FormLabel>Valor rastreado para Compra: </FormLabel>
                 <Input placeholder={formatCoin(+modalProps.targetValue.buy, modalProps.code)} w="60%" step="0.0000000001" type="number" name="targetValueBuy"/>
               </FormControl>
               <FormControl mt={4}>
-                <FormLabel>Valor trackeado para Venda: </FormLabel>
+                <FormLabel>Valor rastreado para Venda: </FormLabel>
                 <Input placeholder={formatCoin(+modalProps.targetValue.sell, modalProps.code)}  w="60%" step="0.0000000001" type="number" name="targetValueSell"/>
               </FormControl>
             </ModalBody>
